@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { menuItems } from "../static/pre-api-helpers/menu-items";
 import Drawer from "@material-ui/core/Drawer";
 import logo from "../static/images/Logo.svg";
+import { flexbox } from "@material-ui/system";
+
 import {
     AppBar,
     Toolbar,
@@ -15,20 +18,7 @@ import {
     Box,
     ListItemIcon
 } from "@material-ui/core";
-
-import {
-    Home,
-    Menu,
-    DesktopWindowsSharp,
-    VpnKeySharp,
-    LocationOnSharp,
-    ContactsSharp,
-    BusinessSharp,
-    AppsSharp,
-    BackupSharp,
-    DoneAllSharp,
-    PrintSharp
-} from "@material-ui/icons";
+import { Home, Menu } from "@material-ui/icons";
 
 //Colors
 const themeColors = {
@@ -38,21 +28,8 @@ const themeColors = {
 
 // CSS Styles
 const useStyles = makeStyles(theme => ({
-    appBarPadding: {
-        height: theme.spacing(10)
-    },
-
-    appBarTitle: {
-        color: "white",
-        flex: 1
-    },
-
-    appBarIcon: {
-        color: "white"
-    },
-
     appBar: {
-        height: theme.spacing(10)
+        height: theme.spacing(9)
     },
 
     menuSliderContainer: {
@@ -62,55 +39,19 @@ const useStyles = makeStyles(theme => ({
     },
 
     avatar: {
-        display: "block",
-        margin: "0rem auto",
-        width: theme.spacing(20),
-        height: theme.spacing(10)
+        margin: "auto",
+        width: theme.spacing(28),
+        height: theme.spacing(8)
+    },
+
+    avatarBox: {
+        height: theme.spacing(9)
     },
 
     listItem: {
         color: "Black"
     }
 }));
-
-const menuItems = [
-    {
-        listIcon: <VpnKeySharp htmlColor="Black" />,
-        listText: "Credentials"
-    },
-    {
-        listIcon: <DesktopWindowsSharp htmlColor="Black" />,
-        listText: "Assets"
-    },
-    {
-        listIcon: <LocationOnSharp htmlColor="Black" />,
-        listText: "Locations"
-    },
-    {
-        listIcon: <ContactsSharp htmlColor="Black" />,
-        listText: "Contacts"
-    },
-    {
-        listIcon: <BusinessSharp htmlColor="Black" />,
-        listText: "Site Summaries"
-    },
-    {
-        listIcon: <AppsSharp htmlColor="Black" />,
-        listText: "Applications"
-    },
-    {
-        listIcon: <BackupSharp htmlColor="Black" />,
-        listText: "Backups"
-    },
-    {
-        listIcon: <DoneAllSharp htmlColor="Black" />,
-        listText: "Checklists"
-    },
-    {
-        listIcon: <PrintSharp htmlColor="Black" />,
-        listText: "Printers"
-    }
-];
 
 export const NavBar = () => {
     const classes = useStyles();
@@ -122,20 +63,23 @@ export const NavBar = () => {
         console.log(drawerOpen);
     };
 
-    const sideList = () => (
-        <Box
-            className={classes.menuSliderContainer}
-            component="div"
-            onClick={toggleSlider}
-        >
-            <Box style={{ background: "#c4c4c4", height: "1.5em" }}></Box>
-            <Avatar
-                className={classes.avatar}
-                variant="square"
-                src={logo}
-                alt="logo"
-            />
-            <Divider />
+    const NavBar = () => (
+        <Box className={classes.menuSliderContainer} onClick={toggleSlider}>
+            <Box style={{ background: "#c4c4c4", height: "1rem" }}></Box>
+            <Box
+                display="flex"
+                flexDirection="column"
+                justifyContent="space-between"
+                className={classes.avatarBox}
+            >
+                <Avatar
+                    className={classes.avatar}
+                    variant="square"
+                    src={logo}
+                    alt="logo"
+                />
+                <Divider />
+            </Box>
             <List>
                 {menuItems.map((listItem, key) => (
                     <ListItem className={classes.listItem} button key={key}>
@@ -149,43 +93,34 @@ export const NavBar = () => {
 
     return (
         <>
-            <Box component="nav">
+            <Box>
                 <Box
                     style={{
                         background: themeColors.primary6,
-                        height: "1.5em"
+                        height: "1rem"
                     }}
                 ></Box>
                 <AppBar
-                    className={classes.appBar}
                     position="static"
                     style={{ background: themeColors.primary5 }}
                 >
-                    <Toolbar>
-                        <Box className={classes.appBarPadding}></Box>
-                        <Box ml={-1} mr={1}>
-                            <IconButton
-                                style={{ margin: "0rem" }}
-                                onClick={toggleSlider}
+                    <Toolbar className={classes.appBar}>
+                        <IconButton edge="start" onClick={toggleSlider}>
+                            <Menu style={{ color: "white" }} />
+                        </IconButton>
+                        <Box pl={1} flexGrow={1}>
+                            <Typography
+                                className={classes.appBarTitle}
+                                variant="h5"
                             >
-                                <Menu className={classes.appBarIcon} />
-                            </IconButton>
+                                Some Company
+                            </Typography>
                         </Box>
-                        <Box style={{flex: 1}} mb={0.1}>
-                        <Typography
-                            className={classes.appBarTitle}
-                            variant="h5"
-                        >
-                            Some Company
-                        </Typography>
-                        </Box>
-                        <Box mr={-1}>
-                            <IconButton>
-                                <Home className={classes.appBarIcon} />
-                            </IconButton>
-                        </Box>
+                        <IconButton edge="end">
+                            <Home style={{ color: "white" }} />
+                        </IconButton>
                         <Drawer open={drawerOpen} onClose={toggleSlider}>
-                            {sideList()}
+                            {NavBar()}
                         </Drawer>
                     </Toolbar>
                 </AppBar>
