@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { menuItems } from "../static/pre-api-helpers/menu-items";
 import Drawer from "@material-ui/core/Drawer";
 import logo from "../static/images/Logo.svg";
+import {drawerWidth, themeColors} from '../App'
 
 import {
     AppBar,
@@ -20,13 +21,6 @@ import {
 } from "@material-ui/core";
 import { Home, Menu } from "@material-ui/icons";
 
-//Colors
-const themeColors = {
-    primary6: "#546e7a",
-    primary5: "#263238"
-};
-
-const drawerWidth = 250;
 
 // CSS Styles
 const useStyles = makeStyles(theme => ({
@@ -84,7 +78,7 @@ export const NavBar = () => {
 
     const NavBar = () => (
         <Box className={classes.menuSliderContainer}>
-            <Box style={{ background: "#c4c4c4", height: "1rem" }}></Box>
+            <Box style={{ background: "#c4c4c4", height: "1rem", width: drawerWidth}}></Box>
             <Box
                 display="flex"
                 flexDirection="column"

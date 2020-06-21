@@ -4,11 +4,9 @@ import { PrimaryCard } from './PrimaryCard'
 
 export const Home = () => {
     return (
-        <div>
+        <div style={{height: "100vh", background: "#BBC7CD"}} >
             <NavBar />
-            <body>
-                <PrimaryCard />
-            </body>
+            <PrimaryCard />
         </div>
     );
 };
