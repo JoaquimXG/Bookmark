@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { menuItems } from "../static/pre-api-helpers/menu-items";
 import Drawer from "@material-ui/core/Drawer";
 import logo from "../static/images/Logo.svg";
-import { flexbox } from "@material-ui/system";
 
 import {
     AppBar,
@@ -16,7 +15,8 @@ import {
     List,
     Typography,
     Box,
-    ListItemIcon
+    ListItemIcon,
+    Hidden
 } from "@material-ui/core";
 import { Home, Menu } from "@material-ui/icons";
 
@@ -26,51 +26,70 @@ const themeColors = {
     primary5: "#263238"
 };
 
+const drawerWidth = 250;
+
 // CSS Styles
 const useStyles = makeStyles(theme => ({
     appBar: {
-        height: theme.spacing(9)
+        [theme.breakpoints.up("sm")]: {
+            width: `calc(100% - ${drawerWidth}px)`,
+            marginLeft: drawerWidth
+        }
+    },
+
+    toolbar: {
+        height: "56px"
     },
 
     menuSliderContainer: {
-        width: 250,
-        height: "30rem",
+        width: drawerWidth,
         background: "#ffffff"
+    },
+
+    menuButton: {
+        color: "white",
+        marginRight: theme.spacing(1),
+        [theme.breakpoints.up('sm')]: {
+            display: 'none'
+        }
+
     },
 
     avatar: {
         margin: "auto",
-        width: theme.spacing(28),
-        height: theme.spacing(8)
-    },
-
-    avatarBox: {
-        height: theme.spacing(9)
+        width: theme.spacing(18),
+        height: theme.spacing(7.9)
     },
 
     listItem: {
         color: "Black"
+    },
+
+    drawer: {
+        [theme.breakpoints.up("sm")]: {
+            flexShrink: 0
+        }
     }
 }));
 
 export const NavBar = () => {
     const classes = useStyles();
 
-    const [drawerOpen, setDrawerOpen] = useState(false);
+    const [mobileOpen, setMobileOpen] = useState(false);
 
     const toggleSlider = () => {
-        setDrawerOpen(!drawerOpen);
-        console.log(drawerOpen);
+        setMobileOpen(!mobileOpen);
+        console.log(mobileOpen);
     };
 
     const NavBar = () => (
-        <Box className={classes.menuSliderContainer} onClick={toggleSlider}>
+        <Box className={classes.menuSliderContainer}>
             <Box style={{ background: "#c4c4c4", height: "1rem" }}></Box>
             <Box
                 display="flex"
                 flexDirection="column"
                 justifyContent="space-between"
-                className={classes.avatarBox}
+                className={classes.toolbar}
             >
                 <Avatar
                     className={classes.avatar}
@@ -101,12 +120,13 @@ export const NavBar = () => {
                     }}
                 ></Box>
                 <AppBar
+                    className={classes.appBar}
                     position="static"
                     style={{ background: themeColors.primary5 }}
                 >
-                    <Toolbar className={classes.appBar}>
+                    <Toolbar className={classes.toolbar}>
                         <IconButton edge="start" onClick={toggleSlider}>
-                            <Menu style={{ color: "white" }} />
+                            <Menu className={classes.menuButton}/>
                         </IconButton>
                         <Box pl={1} flexGrow={1}>
                             <Typography
@@ -119,9 +139,28 @@ export const NavBar = () => {
                         <IconButton edge="end">
                             <Home style={{ color: "white" }} />
                         </IconButton>
-                        <Drawer open={drawerOpen} onClose={toggleSlider}>
-                            {NavBar()}
-                        </Drawer>
+
+                        <nav className={classes.drawer}>
+                            <Hidden smUp implementation="css">
+                                <Drawer
+                                    open={mobileOpen}
+                                    onClose={toggleSlider}
+                                    variant="temporary"
+                                    ModalProps={{ keepMounted: true }}
+                                >
+                                    {NavBar()}
+                                </Drawer>
+                            </Hidden>
+                            <Hidden xsDown implementation="css">
+                                <Drawer
+                                    open
+                                    onClose={toggleSlider}
+                                    variant="permanent"
+                                >
+                                    {NavBar()}
+                                </Drawer>
+                            </Hidden>
+                        </nav>
                     </Toolbar>
                 </AppBar>
             </Box>
