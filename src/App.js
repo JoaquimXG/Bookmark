@@ -1,6 +1,6 @@
 import React from "react";
-import { Home } from "./components";
 import {CssBaseline} from "@material-ui/core";
+import CompanyInfo from "./components/CompanyInfo";
 
 //Colors
 export const themeColors = {
@@ -19,7 +19,7 @@ function App() {
     return (
         <>
             <CssBaseline>
-                <Home />
+                <CompanyInfo />
             </CssBaseline>
         </>
     );
