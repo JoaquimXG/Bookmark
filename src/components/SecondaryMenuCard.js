@@ -2,7 +2,9 @@ import React from "react";
 import { Box, makeStyles, Paper, Divider, useTheme } from "@material-ui/core";
 import { themeColors } from "../App";
 import SecondaryCardButtonRow from "./SecondaryCardButtonRow";
-import ActivityFeed from "./ActivityFeed";
+import SecondaryCardData from "./SecondaryCardData";
+import {NotificationImportantSharp, AttachFileSharp, VpnKeySharp} from '@material-ui/icons';
+import activityFeedData from "../static/pre-api-helpers/activityFeed";
 
 const margin = 25;
 
@@ -23,7 +25,7 @@ const useStyle = makeStyles(theme => ({
 
     secondaryCardList: {
         padding: theme.spacing(3)
-    }
+    },
 }));
 
 export default props => {
@@ -37,8 +39,27 @@ export default props => {
                 <SecondaryCardButtonRow />
                 <Divider />
                 <Box className={classes.secondaryCardList}>
-                    <ActivityFeed />
-                    <Divider style={{marginTop: theme.spacing(4), marginLeft: -(theme.spacing(3)), marginRight: -(theme.spacing(3))}}/>
+                    <SecondaryCardData
+                        title="Activity Feed"
+                        caption={(type, time) => `${type} - ${time}`}
+                        body={(author, item) => `${author} updated: ${item}`}
+                        icon={<NotificationImportantSharp style={{color: themeColors.error, marginRight: theme.spacing(1)}}/>}
+                        data={activityFeedData}
+                    />
+                    <SecondaryCardData
+                        title="Top Attachments"
+                        caption={(time) => `Last Viewed: ${time}`}
+                        body={(author, item) => `${author}: ${item}`}
+                        icon={<AttachFileSharp style={{marginRight: theme.spacing(1)}}/>}
+                        data={null}
+                    />
+                    <SecondaryCardData
+                        title="Top Credentials"
+                        caption={(time) => `Last Viewed: ${time}`}
+                        body={(author, item) => `${author}: ${item}`}
+                        icon={<VpnKeySharp style={{marginRight: theme.spacing(1)}}/>}
+                        data={null}
+                    />
                 </Box>
             </Paper>
         </Box>
