@@ -7,33 +7,31 @@ import {
     Divider,
     Button,
     Grid,
-    useTheme
+    useTheme,
 } from "@material-ui/core";
 import { drawerWidth, themeColors } from "../App";
 
-import CreateIcon from "@material-ui/icons/Create";
+import {CreateSharp, PictureAsPdfSharp} from '@material-ui/icons'
 import MinorCard from "./MinorCard";
 import { companyCardData } from "../static/pre-api-helpers/minorCardData";
 
 const margin = 25;
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        display: "flex"
-    },
-
     main: {
         [theme.breakpoints.up("sm")]: {
             marginLeft: drawerWidth + margin
         },
-        margin: margin
+        margin: margin,
+        display: "flex"
     },
 
     header: {
         display: "flex",
         alignItems: "center",
+        justifyItems: "space-between",
         height: 65,
-        padding: theme.spacing(3)
+        padding: theme.spacing(3)+2
     },
 
     dataCard: {
@@ -49,7 +47,7 @@ const useStyles = makeStyles(theme => ({
 
 export const PrimaryCard = () => {
     const classes = useStyles();
-    const theme = useTheme()
+    const theme = useTheme();
 
     return (
         <Box className={classes.main}>
@@ -60,8 +58,22 @@ export const PrimaryCard = () => {
                     </Typography>
                     <Button
                         variant="contained"
-                        startIcon={<CreateIcon />}
+                        startIcon={<PictureAsPdfSharp/>}
+                        size="small"
                         style={{
+                            margin: theme.spacing(1),
+                            color: "white",
+                            background: themeColors.primary5
+                        }}
+                    >
+                        Runbook
+                    </Button>
+                    <Button
+                        variant="contained"
+                        startIcon={<CreateSharp/>}
+                        size="small"
+                        style={{
+                            margin: theme.spacing(1),
                             color: "white",
                             background: themeColors.secondary5
                         }}

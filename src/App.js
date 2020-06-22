@@ -8,8 +8,11 @@ export const themeColors = {
     primary5: "#263238",
     primary3: "#90A4AE",
 
-    secondary5: "#0D24A8"
+    secondary5: "#0D24A8",
 
+    success: "#27AE60",
+
+    error: "#FF0C3E"
 };
 
 //Navigation drawer width
