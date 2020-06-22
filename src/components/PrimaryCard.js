@@ -6,11 +6,14 @@ import {
     Typography,
     Divider,
     Button,
-    Grid
+    Grid,
+    useTheme
 } from "@material-ui/core";
 import { drawerWidth, themeColors } from "../App";
 
-import CreateIcon from '@material-ui/icons/Create';
+import CreateIcon from "@material-ui/icons/Create";
+import MinorCard from "./MinorCard";
+import { companyCardData } from "../static/pre-api-helpers/minorCardData";
 
 const margin = 25;
 
@@ -30,23 +33,31 @@ const useStyles = makeStyles(theme => ({
         display: "flex",
         alignItems: "center",
         height: 65,
-        padding: 30
+        padding: theme.spacing(3)
     },
 
     dataCard: {
         padding: theme.spacing(2)
+    },
 
-    }
+    primarCardGrid: {
+        padding: theme.spacing(3),
+        flexGrow: 1
+    },
+
 }));
 
 export const PrimaryCard = () => {
     const classes = useStyles();
+    const theme = useTheme()
 
     return (
         <Box className={classes.main}>
             <Paper style={{ minHeight: 720 }} elevation={8}>
                 <header className={classes.header}>
-                    <Typography style={{flexGrow:1}} variant="h6">Important Items</Typography>
+                    <Typography style={{ flexGrow: 1 }} variant="h5">
+                        Important Items
+                    </Typography>
                     <Button
                         variant="contained"
                         startIcon={<CreateIcon />}
@@ -59,12 +70,14 @@ export const PrimaryCard = () => {
                     </Button>
                 </header>
                 <Divider />
-                <Grid container justify="space-around" spacing={3}>
-                    <Grid item xs={12}>
-                    <Paper className={classes.dataCard}>
-                        hello
-                    </Paper>
-                    </Grid>
+                <Grid container justify="space-between" className={classes.primarCardGrid} spacing={3}>
+                    {companyCardData.cards.map((value, index) => {
+                        return (
+                            <Grid key={index} item xs={value.columns.xs ? value.columns.xs : true }>
+                                <MinorCard elevation={2} style={{flexGrow: 1}}title={value.title} content={value.content}>Hello</MinorCard>
+                            </Grid>
+                        );
+                    })}
                 </Grid>
             </Paper>
         </Box>
