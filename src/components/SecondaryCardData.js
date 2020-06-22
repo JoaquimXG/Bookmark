@@ -6,8 +6,6 @@ import {
     Divider,
     useTheme
 } from "@material-ui/core";
-import { NotificationImportantSharp } from "@material-ui/icons";
-import { themeColors } from "../App";
 
 const useStyle = makeStyles(theme => ({
     main: {

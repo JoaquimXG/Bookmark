@@ -55,7 +55,7 @@ export default props => {
                     </Typography>
                     {props.buttons.map((value, index) => {
                         return (
-                            <Button
+                            <Button key={index}
                                 variant="contained"
                                 startIcon={<value.icon />}
                                 size="small"
