@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { menuItems } from "../static/pre-api-helpers/menu-items";
 import Drawer from "@material-ui/core/Drawer";
 import logo from "../static/images/Logo.svg";
-import {drawerWidth, themeColors} from '../App'
+import { drawerWidth, themeColors } from "../App";
 
 import {
     AppBar,
@@ -17,10 +17,10 @@ import {
     Typography,
     Box,
     ListItemIcon,
-    Hidden
+    Hidden,
+    useTheme
 } from "@material-ui/core";
 import { Home, Menu } from "@material-ui/icons";
-
 
 // CSS Styles
 const useStyles = makeStyles(theme => ({
@@ -43,10 +43,9 @@ const useStyles = makeStyles(theme => ({
     menuButton: {
         color: "white",
         marginRight: theme.spacing(1),
-        [theme.breakpoints.up('sm')]: {
-            display: 'none'
+        [theme.breakpoints.up("sm")]: {
+            display: "none"
         }
-
     },
 
     avatar: {
@@ -68,17 +67,23 @@ const useStyles = makeStyles(theme => ({
 
 export const NavBar = () => {
     const classes = useStyles();
+    const theme = useTheme();
 
     const [mobileOpen, setMobileOpen] = useState(false);
 
     const toggleSlider = () => {
         setMobileOpen(!mobileOpen);
-        console.log(mobileOpen);
     };
 
     const NavBar = () => (
         <Box className={classes.menuSliderContainer}>
-            <Box style={{ background: "#c4c4c4", height: "1rem", width: drawerWidth}}></Box>
+            <Box
+                style={{
+                    background: "#c4c4c4",
+                    height: "1rem",
+                    width: drawerWidth
+                }}
+            ></Box>
             <Box
                 display="flex"
                 flexDirection="column"
@@ -95,7 +100,23 @@ export const NavBar = () => {
             </Box>
             <List>
                 {menuItems.map((listItem, key) => (
-                    <ListItem className={classes.listItem} button key={key}>
+                    <ListItem
+                        selected={listItem.selected ? listItem.selected : false}
+                        className={classes.listItem}
+                        button
+                        key={key}
+                    >
+                        {listItem.selected ? (
+                            <div
+                                style={{
+                                    position: "absolute",
+                                    right: 0,
+                                    height: "100%",
+                                    background: themeColors.secondary5,
+                                    width: theme.spacing(1)
+                                }}
+                            ></div>
+                        ) : null}
                         <ListItemIcon>{listItem.listIcon}</ListItemIcon>
                         <ListItemText primary={listItem.listText} />
                     </ListItem>
@@ -120,7 +141,7 @@ export const NavBar = () => {
                 >
                     <Toolbar className={classes.toolbar}>
                         <IconButton edge="start" onClick={toggleSlider}>
-                            <Menu className={classes.menuButton}/>
+                            <Menu className={classes.menuButton} />
                         </IconButton>
                         <Box pl={1} flexGrow={1}>
                             <Typography

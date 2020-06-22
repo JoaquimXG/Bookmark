@@ -15,7 +15,8 @@ import {
 export const menuItems = [
     {
         listIcon: <VpnKeySharp htmlColor="Black" />,
-        listText: "Credentials"
+        listText: "Credentials",
+        selected: true
     },
     {
         listIcon: <DesktopWindowsSharp htmlColor="Black" />,
