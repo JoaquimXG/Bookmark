@@ -1,11 +1,6 @@
 import React from "react";
-import {
-    makeStyles,
-    Button,
-} from "@material-ui/core";
+import { makeStyles, Button } from "@material-ui/core";
 import { themeColors } from "../App";
-import { CreateSharp, AddSharp, FileCopySharp } from "@material-ui/icons/";
-
 
 const useStyle = makeStyles(theme => ({
     buttonRow: {
@@ -14,7 +9,7 @@ const useStyle = makeStyles(theme => ({
         alignItems: "center",
         height: 65,
         padding: theme.spacing(3)
-    },
+    }
 }));
 
 export default props => {
@@ -23,39 +18,22 @@ export default props => {
 
     return (
         <div className={classes.buttonRow}>
-            <Button
-                variant="contained"
-                startIcon={<CreateSharp />}
-                size="small"
-                style={{
-                    color: "white",
-                    background: themeColors.secondary5
-                }}
-            >
-                Edit
-            </Button>
-            <Button
-                variant="contained"
-                startIcon={<FileCopySharp />}
-                size="small"
-                style={{
-                    color: "white",
-                    background: themeColors.primary5
-                }}
-            >
-                Merge
-            </Button>
-            <Button
-                variant="contained"
-                startIcon={<AddSharp />}
-                size="small"
-                style={{
-                    color: "white",
-                    background: themeColors.success
-                }}
-            >
-                New
-            </Button>
+            {props.buttons.map((value, index) => {
+                return (
+                    <Button
+                        key={index}
+                        variant="contained"
+                        startIcon={<value.icon />}
+                        size="small"
+                        style={{
+                            color: "white",
+                            background: value.color
+                        }}
+                    >
+                        {value.text}   
+                    </Button>
+                );
+            })}
         </div>
     );
 };

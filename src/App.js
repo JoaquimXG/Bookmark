@@ -1,6 +1,7 @@
 import React from "react";
 import {CssBaseline} from "@material-ui/core";
 import CompanyInfo from "./components/CompanyInfo";
+import {NavBar} from "./components/NavBar";
 
 //Colors
 export const themeColors = {
@@ -22,6 +23,7 @@ function App() {
     return (
         <>
             <CssBaseline>
+                <NavBar />
                 <CompanyInfo />
             </CssBaseline>
         </>
