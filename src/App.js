@@ -1,7 +1,8 @@
 import React from "react";
 import {CssBaseline} from "@material-ui/core";
 import CompanyInfo from "./components/CompanyInfo";
-import {NavBar} from "./components/NavBar";
+import NavBar from "./components/NavBar";
+import {BrowserRouter as Router, Switch, Route, useRouteMatch, useLocation} from "react-router-dom";
 
 //Colors
 export const themeColors = {
@@ -19,12 +20,18 @@ export const themeColors = {
 //Navigation drawer width
 export const drawerWidth = 250;
 
+
 function App() {
+
     return (
         <>
             <CssBaseline>
-                <NavBar />
-                <CompanyInfo />
+                <Router>
+                    <NavBar/>
+                    <Switch>
+                        <Route exact path="/" component={CompanyInfo} />
+                    </Switch>
+                </Router>
             </CssBaseline>
         </>
     );

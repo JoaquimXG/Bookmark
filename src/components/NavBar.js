@@ -21,6 +21,7 @@ import {
     useTheme
 } from "@material-ui/core";
 import { Home, Menu } from "@material-ui/icons";
+import { Link, useRouteMatch, useLocation } from "react-router-dom";
 
 // CSS Styles
 const useStyles = makeStyles(theme => ({
@@ -65,17 +66,19 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export const NavBar = () => {
+export default props => {
     const classes = useStyles();
     const theme = useTheme();
+    let path = useLocation().pathname;
 
     const [mobileOpen, setMobileOpen] = useState(false);
+    const [page, setPage] = useState(null);
 
     const toggleSlider = () => {
         setMobileOpen(!mobileOpen);
     };
 
-    const NavBar = () => (
+    const NavBar = props => (
         <Box className={classes.menuSliderContainer}>
             <Box
                 style={{
@@ -84,43 +87,50 @@ export const NavBar = () => {
                     width: drawerWidth
                 }}
             ></Box>
-            <Box
-                display="flex"
-                flexDirection="column"
-                justifyContent="space-between"
-                className={classes.toolbar}
-            >
-                <Avatar
-                    className={classes.avatar}
-                    variant="square"
-                    src={logo}
-                    alt="logo"
-                />
-                <Divider />
-            </Box>
+            <Link to="/">
+                <Box
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="space-between"
+                    className={classes.toolbar}
+                >
+                    <Avatar
+                        className={classes.avatar}
+                        variant="square"
+                        src={logo}
+                        alt="logo"
+                    />
+                    <Divider />
+                </Box>
+            </Link>
             <List>
-                {menuItems.map((listItem, key) => (
-                    <ListItem
-                        selected={listItem.selected ? listItem.selected : false}
-                        className={classes.listItem}
-                        button
-                        key={key}
-                    >
-                        {listItem.selected ? (
-                            <div
-                                style={{
-                                    position: "absolute",
-                                    right: 0,
-                                    height: "100%",
-                                    background: themeColors.secondary5,
-                                    width: theme.spacing(1)
-                                }}
-                            ></div>
-                        ) : null}
-                        <ListItemIcon>{listItem.listIcon}</ListItemIcon>
-                        <ListItemText primary={listItem.listText} />
-                    </ListItem>
-                ))}
+                {menuItems.map((listItem, key) => {
+                    let match = path === `/${listItem.listText}`;
+
+                    return (
+                        <Link key={key} to={`${listItem.listText}`}>
+                            <ListItem
+                                selected={match}
+                                className={classes.listItem}
+                                button
+                            >
+                                {match ? (
+                                    <div
+                                        style={{
+                                            position: "absolute",
+                                            right: 0,
+                                            height: "100%",
+                                            background: themeColors.secondary5,
+                                            width: theme.spacing(1)
+                                        }}
+                                    ></div>
+                                ) : null}
+                                <ListItemIcon>{listItem.listIcon}</ListItemIcon>
+                                <ListItemText primary={listItem.listText} />
+                            </ListItem>
+                        </Link>
+                    );
+                })}
             </List>
         </Box>
     );
@@ -148,7 +158,7 @@ export const NavBar = () => {
                                 className={classes.appBarTitle}
                                 variant="h5"
                             >
-                                Some Company
+                                Some Company {`/ ${page}`}
                             </Typography>
                         </Box>
                         <IconButton edge="end">
@@ -163,7 +173,7 @@ export const NavBar = () => {
                                     variant="temporary"
                                     ModalProps={{ keepMounted: true }}
                                 >
-                                    {NavBar()}
+                                    {NavBar(props)}
                                 </Drawer>
                             </Hidden>
                             <Hidden xsDown implementation="css">
@@ -172,7 +182,7 @@ export const NavBar = () => {
                                     onClose={toggleSlider}
                                     variant="permanent"
                                 >
-                                    {NavBar()}
+                                    {<NavBar location={props.location} />}
                                 </Drawer>
                             </Hidden>
                         </nav>
