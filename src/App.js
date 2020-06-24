@@ -20,6 +20,10 @@ export const themeColors = {
 
 //Navigation drawer width
 export const drawerWidth = 250;
+export const AppBarHeight = {
+    xs: 72,
+    sm: 80
+}
 
 function App() {
     return (

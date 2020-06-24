@@ -11,14 +11,9 @@ import {
     IconButton,
     Table,
     TableContainer,
-    TableHead,
-    TableRow,
-    TableCell,
-    Checkbox,
-    Typography,
     TableBody
 } from "@material-ui/core";
-import { SearchSharp, ArrowDownwardSharp } from "@material-ui/icons";
+import { SearchSharp } from "@material-ui/icons";
 import { drawerWidth } from "../App";
 import TableHeadExtended from "./TableHeadExtended";
 import TableRowExtended from "./TableRowExtended";
@@ -32,7 +27,7 @@ const useStyles = makeStyles(theme => ({
         },
         margin: margin,
         display: "flex",
-        flexGrow: 1,
+        flexGrow: 1
     },
 
     header: {
@@ -44,7 +39,7 @@ const useStyles = makeStyles(theme => ({
     },
 
     tableContainer: {
-        height: "400px"
+        height: "100%"
     }
 }));
 
@@ -68,7 +63,7 @@ const columns = [
 ];
 
 function createData(name, type, location, author) {
-    return [ name, type, location, author ];
+    return [name, type, location, author];
 }
 
 const rows = [
@@ -183,7 +178,7 @@ export default props => {
 
     return (
         <Box className={classes.main}>
-            <Paper style={{ height: "100%", flexGrow: 1 }} elevation={8}>
+            <Paper style={{ display: "flex",flexDirection:"column", flexGrow: 1 }} elevation={8}>
                 <header className={classes.header}>
                     <TextField
                         label="Search"
@@ -227,7 +222,7 @@ export default props => {
                         <TableHeadExtended columns={columns} />
                         <TableBody>
                             {rows.map((row, index) => (
-                                <TableRowExtended row={row} />
+                                <TableRowExtended key={index} row={row} />
                             ))}
                         </TableBody>
                     </Table>

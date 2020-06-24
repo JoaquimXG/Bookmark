@@ -8,14 +8,23 @@ import {
     AddSharp,
     FileCopySharp
 } from "@material-ui/icons";
-import { themeColors } from "../App";
+import { themeColors, AppBarHeight } from "../App";
 import { companyCardData } from "../static/pre-api-helpers/minorCardData";
 import secondaryCardData from "../static/pre-api-helpers/secondaryCardData";
 
-const useStyle = makeStyles(() => ({
+const useStyle = makeStyles(theme => ({
     body: {
         display: "flex",
-        flexDirection: "row"
+        flexDirection: "row",
+        height: "100%"
+    },
+
+    main: {
+        height: `calc(100vh - ${AppBarHeight.xs}px)`,
+        background: "#BBC7CD",
+        [theme.breakpoints.up("sm")]: {
+            height: `calc(100vh - ${AppBarHeight.sm}px)`,
+        }
     }
 }));
 
@@ -64,7 +73,7 @@ export default () => {
     const classes = useStyle();
 
     return (
-        <div style={{ height: "100vh", background: "#BBC7CD" }}>
+        <div className={classes.main}>
             <Box className={classes.body}>
                 <PrimaryCard
                     cards={companyCardData.cards}

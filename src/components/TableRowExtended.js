@@ -8,6 +8,7 @@ import {
     useTheme,
     makeStyles
 } from "@material-ui/core";
+import { themeColors } from "../App";
 
 const useStyles = makeStyles(theme => ({
     divider: {
@@ -21,7 +22,7 @@ const useStyles = makeStyles(theme => ({
         position: "relative"
     },
 
-    cell: { position: "relative" }
+    cell: { position: "relative", color: themeColors.secondary5 }
 }));
 
 export default props => {
