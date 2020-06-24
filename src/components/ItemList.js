@@ -3,19 +3,25 @@ import {
     Paper,
     makeStyles,
     Box,
-    Typography,
     Divider,
     Button,
-    Grid,
     useTheme,
     TextField,
     InputAdornment,
-    IconButton
+    IconButton,
+    Table,
+    TableContainer,
+    TableHead,
+    TableRow,
+    TableCell,
+    Checkbox,
+    Typography,
+    TableBody
 } from "@material-ui/core";
-import { SearchSharp } from "@material-ui/icons";
+import { SearchSharp, ArrowDownwardSharp } from "@material-ui/icons";
 import { drawerWidth } from "../App";
-
-import MinorCard from "./MinorCard";
+import TableHeadExtended from "./TableHeadExtended";
+import TableRowExtended from "./TableRowExtended";
 
 const margin = 25;
 
@@ -25,7 +31,8 @@ const useStyles = makeStyles(theme => ({
             marginLeft: drawerWidth + margin
         },
         margin: margin,
-        display: "flex"
+        display: "flex",
+        flexGrow: 1,
     },
 
     header: {
@@ -35,20 +42,140 @@ const useStyles = makeStyles(theme => ({
         height: 75,
         padding: theme.spacing(3)
     },
-    
-    label: {
-        borderColor: "red"
-    },
 
-    dataCard: {
-        padding: theme.spacing(2)
-    },
-
-    primarCardGrid: {
-        padding: theme.spacing(3),
-        flexGrow: 1
+    tableContainer: {
+        height: "400px"
     }
 }));
+
+const columns = [
+    {
+        id: "name",
+        label: "Username"
+    },
+    {
+        id: "type",
+        label: "Credential Type"
+    },
+    {
+        id: "location",
+        label: "Item location"
+    },
+    {
+        id: "author",
+        label: "Created By"
+    }
+];
+
+function createData(name, type, location, author) {
+    return [ name, type, location, author ];
+}
+
+const rows = [
+    createData("WORKSPACE/admin", "Some Type", "Aberdeen", "Joaquim Gomez"),
+    createData(
+        "A Primary Column",
+        "A Secondary Column",
+        "Some Extra Information",
+        "John Doe"
+    ),
+    createData(
+        "A Primary Column",
+        "A Secondary Column",
+        "Some Extra Information",
+        "John Doe"
+    ),
+    createData(
+        "A Primary Column",
+        "A Secondary Column",
+        "Some Extra Information",
+        "John Doe"
+    ),
+    createData(
+        "A Primary Column",
+        "A Secondary Column",
+        "Some Extra Information",
+        "John Doe"
+    ),
+    createData(
+        "A Primary Column",
+        "A Secondary Column",
+        "Some Extra Information",
+        "John Doe"
+    ),
+    createData(
+        "A Primary Column",
+        "A Secondary Column",
+        "Some Extra Information",
+        "John Doe"
+    ),
+    createData(
+        "A Primary Column",
+        "A Secondary Column",
+        "Some Extra Information",
+        "John Doe"
+    ),
+    createData(
+        "A Primary Column",
+        "A Secondary Column",
+        "Some Extra Information",
+        "John Doe"
+    ),
+    createData(
+        "A Primary Column",
+        "A Secondary Column",
+        "Some Extra Information",
+        "John Doe"
+    ),
+    createData(
+        "A Primary Column",
+        "A Secondary Column",
+        "Some Extra Information",
+        "John Doe"
+    ),
+    createData(
+        "A Primary Column",
+        "A Secondary Column",
+        "Some Extra Information",
+        "John Doe"
+    ),
+    createData(
+        "A Primary Column",
+        "A Secondary Column",
+        "Some Extra Information",
+        "John Doe"
+    ),
+    createData(
+        "A Primary Column",
+        "A Secondary Column",
+        "Some Extra Information",
+        "John Doe"
+    ),
+    createData(
+        "A Primary Column",
+        "A Secondary Column",
+        "Some Extra Information",
+        "John Doe"
+    ),
+    createData(
+        "A Primary Column",
+        "A Secondary Column",
+        "Some Extra Information",
+        "John Doe"
+    ),
+    createData(
+        "A Primary Column",
+        "A Secondary Column",
+        "Some Extra Information",
+        "John Doe"
+    ),
+    createData(
+        "A Primary Column",
+        "A Secondary Column",
+        "Some Extra Information",
+        "John Doe"
+    )
+];
 
 export default props => {
     const classes = useStyles();
@@ -56,12 +183,15 @@ export default props => {
 
     return (
         <Box className={classes.main}>
-            <Paper style={{ minHeight: 720 }} elevation={8}>
+            <Paper style={{ height: "100%", flexGrow: 1 }} elevation={8}>
                 <header className={classes.header}>
                     <TextField
                         label="Search"
                         size="small"
-                        style={{ flexGrow: 1 , marginRight: "10px", borderColor: "red"}}
+                        style={{
+                            flexGrow: 1,
+                            marginRight: "10px"
+                        }}
                         variant="outlined"
                         InputProps={{
                             endAdornment: (
@@ -73,48 +203,35 @@ export default props => {
                             )
                         }}
                     />
-                    {props.buttons.map((value, index) => {
+                    {props.buttons.map((Value, index) => {
                         return (
                             <Button
                                 key={index}
                                 variant="contained"
-                                startIcon={<value.icon />}
+                                startIcon={<Value.icon />}
                                 size="small"
                                 style={{
                                     margin: theme.spacing(1),
                                     color: "white",
-                                    background: value.color
+                                    background: Value.color
                                 }}
                             >
-                                {value.text}
+                                {Value.text}
                             </Button>
                         );
                     })}
                 </header>
                 <Divider />
-                <Grid
-                    container
-                    justify="space-between"
-                    className={classes.primarCardGrid}
-                    spacing={3}
-                >
-                    {props.cards.map((value, index) => {
-                        return (
-                            <Grid
-                                key={index}
-                                item
-                                xs={value.columns.xs ? value.columns.xs : true}
-                            >
-                                <MinorCard
-                                    elevation={2}
-                                    style={{ flexGrow: 1 }}
-                                    title={value.title}
-                                    content={value.content}
-                                ></MinorCard>
-                            </Grid>
-                        );
-                    })}
-                </Grid>
+                <TableContainer className={classes.tableContainer}>
+                    <Table stickyHeader>
+                        <TableHeadExtended columns={columns} />
+                        <TableBody>
+                            {rows.map((row, index) => (
+                                <TableRowExtended row={row} />
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             </Paper>
         </Box>
     );
