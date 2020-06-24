@@ -1,8 +1,9 @@
 import React from "react";
-import {CssBaseline} from "@material-ui/core";
+import { CssBaseline } from "@material-ui/core";
 import CompanyInfo from "./components/CompanyInfo";
 import NavBar from "./components/NavBar";
-import {BrowserRouter as Router, Switch, Route, useRouteMatch, useLocation} from "react-router-dom";
+import ItemList from "./components/ItemList";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 //Colors
 export const themeColors = {
@@ -20,16 +21,22 @@ export const themeColors = {
 //Navigation drawer width
 export const drawerWidth = 250;
 
-
 function App() {
-
     return (
         <>
             <CssBaseline>
                 <Router>
-                    <NavBar/>
+                    <NavBar />
                     <Switch>
                         <Route exact path="/" component={CompanyInfo} />
+                        <Route
+                            exact
+                            path="/credentials"
+                            render={() => {
+                                console.log("inside");
+                                return <ItemList title="hello" />;
+                            }}
+                        />
                     </Switch>
                 </Router>
             </CssBaseline>
