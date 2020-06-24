@@ -7,8 +7,12 @@ import {
     Divider,
     Button,
     Grid,
-    useTheme
+    useTheme,
+    TextField,
+    InputAdornment,
+    IconButton
 } from "@material-ui/core";
+import { SearchSharp } from "@material-ui/icons";
 import { drawerWidth } from "../App";
 
 import MinorCard from "./MinorCard";
@@ -28,8 +32,12 @@ const useStyles = makeStyles(theme => ({
         display: "flex",
         alignItems: "center",
         justifyItems: "space-between",
-        height: 65,
-        padding: theme.spacing(3) + 2
+        height: 75,
+        padding: theme.spacing(3)
+    },
+    
+    label: {
+        borderColor: "red"
     },
 
     dataCard: {
@@ -50,9 +58,21 @@ export default props => {
         <Box className={classes.main}>
             <Paper style={{ minHeight: 720 }} elevation={8}>
                 <header className={classes.header}>
-                    <Typography style={{ flexGrow: 1 }} variant="h5">
-                        {props.title}
-                    </Typography>
+                    <TextField
+                        label="Search"
+                        size="small"
+                        style={{ flexGrow: 1 , marginRight: "10px", borderColor: "red"}}
+                        variant="outlined"
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment>
+                                    <IconButton>
+                                        <SearchSharp />
+                                    </IconButton>
+                                </InputAdornment>
+                            )
+                        }}
+                    />
                     {props.buttons.map((value, index) => {
                         return (
                             <Button

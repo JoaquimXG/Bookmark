@@ -1,6 +1,4 @@
 import React from "react";
-import PrimaryCard from "./PrimaryCard";
-import SecondaryMenuCard from "./SecondaryMenuCard";
 import { Box, makeStyles } from "@material-ui/core";
 import {
     CreateSharp,
@@ -10,7 +8,7 @@ import {
 } from "@material-ui/icons";
 import { themeColors } from "../App";
 import { companyCardData } from "../static/pre-api-helpers/minorCardData";
-import secondaryCardData from "../static/pre-api-helpers/secondaryCardData";
+import ItemList from "./ItemList";
 
 const useStyle = makeStyles(() => ({
     body: {
@@ -58,7 +56,7 @@ export default props => {
     return (
         <div style={{ height: "100vh", background: "#BBC7CD" }}>
             <Box className={classes.body}>
-                <PrimaryCard
+                <ItemList
                     data={props.data}
                     cards={companyCardData.cards}
                     buttons={primaryButtons}

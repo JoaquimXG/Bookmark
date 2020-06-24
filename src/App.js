@@ -2,8 +2,8 @@ import React from "react";
 import { CssBaseline } from "@material-ui/core";
 import CompanyInfo from "./components/CompanyInfo";
 import NavBar from "./components/NavBar";
-import ItemList from "./components/ItemList";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import ItemCategory from "./components/ItemCategory";
 
 //Colors
 export const themeColors = {
@@ -34,7 +34,7 @@ function App() {
                             path="/credentials"
                             render={() => {
                                 console.log("inside");
-                                return <ItemList title="hello" />;
+                                return <ItemCategory title="hello" />;
                             }}
                         />
                     </Switch>
