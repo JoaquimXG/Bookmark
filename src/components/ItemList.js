@@ -43,134 +43,6 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const columns = [
-    {
-        id: "name",
-        label: "Username"
-    },
-    {
-        id: "type",
-        label: "Credential Type"
-    },
-    {
-        id: "location",
-        label: "Item location"
-    },
-    {
-        id: "author",
-        label: "Created By"
-    }
-];
-
-function createData(name, type, location, author) {
-    return [name, type, location, author];
-}
-
-const rows = [
-    createData("WORKSPACE/admin", "Some Type", "Aberdeen", "Joaquim Gomez"),
-    createData(
-        "A Primary Column",
-        "A Secondary Column",
-        "Some Extra Information",
-        "John Doe"
-    ),
-    createData(
-        "A Primary Column",
-        "A Secondary Column",
-        "Some Extra Information",
-        "John Doe"
-    ),
-    createData(
-        "A Primary Column",
-        "A Secondary Column",
-        "Some Extra Information",
-        "John Doe"
-    ),
-    createData(
-        "A Primary Column",
-        "A Secondary Column",
-        "Some Extra Information",
-        "John Doe"
-    ),
-    createData(
-        "A Primary Column",
-        "A Secondary Column",
-        "Some Extra Information",
-        "John Doe"
-    ),
-    createData(
-        "A Primary Column",
-        "A Secondary Column",
-        "Some Extra Information",
-        "John Doe"
-    ),
-    createData(
-        "A Primary Column",
-        "A Secondary Column",
-        "Some Extra Information",
-        "John Doe"
-    ),
-    createData(
-        "A Primary Column",
-        "A Secondary Column",
-        "Some Extra Information",
-        "John Doe"
-    ),
-    createData(
-        "A Primary Column",
-        "A Secondary Column",
-        "Some Extra Information",
-        "John Doe"
-    ),
-    createData(
-        "A Primary Column",
-        "A Secondary Column",
-        "Some Extra Information",
-        "John Doe"
-    ),
-    createData(
-        "A Primary Column",
-        "A Secondary Column",
-        "Some Extra Information",
-        "John Doe"
-    ),
-    createData(
-        "A Primary Column",
-        "A Secondary Column",
-        "Some Extra Information",
-        "John Doe"
-    ),
-    createData(
-        "A Primary Column",
-        "A Secondary Column",
-        "Some Extra Information",
-        "John Doe"
-    ),
-    createData(
-        "A Primary Column",
-        "A Secondary Column",
-        "Some Extra Information",
-        "John Doe"
-    ),
-    createData(
-        "A Primary Column",
-        "A Secondary Column",
-        "Some Extra Information",
-        "John Doe"
-    ),
-    createData(
-        "A Primary Column",
-        "A Secondary Column",
-        "Some Extra Information",
-        "John Doe"
-    ),
-    createData(
-        "A Primary Column",
-        "A Secondary Column",
-        "Some Extra Information",
-        "John Doe"
-    )
-];
 
 export default props => {
     const classes = useStyles();
@@ -219,9 +91,9 @@ export default props => {
                 <Divider />
                 <TableContainer className={classes.tableContainer}>
                     <Table stickyHeader>
-                        <TableHeadExtended columns={columns} />
+                        <TableHeadExtended columns={props.columns} />
                         <TableBody>
-                            {rows.map((row, index) => (
+                            {props.rows.map((row, index) => (
                                 <TableRowExtended key={index} row={row} />
                             ))}
                         </TableBody>

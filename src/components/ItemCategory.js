@@ -66,6 +66,8 @@ export default props => {
         <div className={classes.main} >
             <Box className={classes.body}>
                 <ItemList
+                    rows={props.rows}
+                    columns={props.colums}
                     data={props.data}
                     cards={companyCardData.cards}
                     buttons={primaryButtons}

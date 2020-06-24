@@ -4,6 +4,26 @@ import CompanyInfo from "./components/CompanyInfo";
 import NavBar from "./components/NavBar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ItemCategory from "./components/ItemCategory";
+import {
+    credentialRows,
+    credentialColumns,
+    assetRows,
+    assetColumns,
+    locationRows,
+    locationColumns,
+    contactRows,
+    contactColumns,
+    siteSummaryRows,
+    SiteSummaryColumns,
+    applicationRows,
+    applicationColumns,
+    backupRows,
+    backupColumns,
+    checklistRows,
+    checklistColumns,
+    printerRows,
+    printerColumns
+} from "./static/pre-api-helpers/itemlists";
 
 //Colors
 export const themeColors = {
@@ -23,7 +43,19 @@ export const drawerWidth = 250;
 export const AppBarHeight = {
     xs: 72,
     sm: 80
-}
+};
+
+const itemCategoryRoute = (path, rows, columns) => {
+    return (
+        <Route
+            exact
+            path={path}
+            render={() => {
+                return <ItemCategory rows={rows} colums={columns} />;
+            }}
+        />
+    );
+};
 
 function App() {
     return (
@@ -33,14 +65,15 @@ function App() {
                     <NavBar />
                     <Switch>
                         <Route exact path="/" component={CompanyInfo} />
-                        <Route
-                            exact
-                            path="/credentials"
-                            render={() => {
-                                console.log("inside");
-                                return <ItemCategory title="hello" />;
-                            }}
-                        />
+                        {itemCategoryRoute('/credentials',credentialRows, credentialColumns)}
+                        {itemCategoryRoute('/Assets',assetRows, assetColumns)}
+                        {itemCategoryRoute('/locations',locationRows, locationColumns)}
+                        {itemCategoryRoute('/contacts', contactRows, contactColumns)}
+                        {itemCategoryRoute('/site summaries', siteSummaryRows, SiteSummaryColumns)}
+                        {itemCategoryRoute('/applications', applicationRows, applicationColumns)}
+                        {itemCategoryRoute('/backups', backupRows, backupColumns)}
+                        {itemCategoryRoute('/checklists', checklistRows, checklistColumns)}
+                        {itemCategoryRoute('/printers', printerRows, printerColumns)}
                     </Switch>
                 </Router>
             </CssBaseline>
