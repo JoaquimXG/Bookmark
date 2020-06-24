@@ -99,6 +99,7 @@ export default props => {
                         variant="square"
                         src={logo}
                         alt="logo"
+                        onClick={() => setPage(null)}
                     />
                     <Divider />
                 </Box>
@@ -108,7 +109,11 @@ export default props => {
                     let match = path === `/${listItem.listText}`;
 
                     return (
-                        <Link key={key} to={`${listItem.listText}`}>
+                        <Link
+                            key={key}
+                            to={`${listItem.listText}`}
+                            onClick={() => setPage(listItem.listText)}
+                        >
                             <ListItem
                                 selected={match}
                                 className={classes.listItem}
@@ -158,7 +163,7 @@ export default props => {
                                 className={classes.appBarTitle}
                                 variant="h5"
                             >
-                                Some Company {`/ ${page}`}
+                                Some Company {page && `/ ${page}`}
                             </Typography>
                         </Box>
                         <IconButton edge="end">
