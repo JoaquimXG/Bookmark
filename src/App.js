@@ -2,6 +2,7 @@ import React from "react";
 import {CssBaseline} from "@material-ui/core";
 import CompanyInfo from "./components/CompanyInfo";
 import NavBar from "./components/NavBar";
+import './static/css/App.css'
 import {BrowserRouter as Router, Switch, Route, useRouteMatch, useLocation} from "react-router-dom";
 
 //Colors

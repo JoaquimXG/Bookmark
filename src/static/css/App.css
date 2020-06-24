@@ -1,0 +1,10 @@
+.NavItemOnSelect div::Before{
+            position: absolute;
+            content: '';
+            right: 0;
+            top: 0;
+            height: 100%;
+            background: #0D24A8;
+            width: 8px;
+}
+

@@ -21,7 +21,7 @@ import {
     useTheme
 } from "@material-ui/core";
 import { Home, Menu } from "@material-ui/icons";
-import { Link, useRouteMatch, useLocation } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 // CSS Styles
 const useStyles = makeStyles(theme => ({
@@ -56,12 +56,24 @@ const useStyles = makeStyles(theme => ({
     },
 
     listItem: {
-        color: "Black"
+        color: "Black",
     },
 
     drawer: {
         [theme.breakpoints.up("sm")]: {
             flexShrink: 0
+        }
+    },
+
+    NavItemOnSelect: {
+        "&::before": {
+            position: "absolute",
+            content: '"hello"',
+            display: "block",
+            right: 0,
+            height: "100%",
+            background: themeColors.secondary5,
+            width: theme.spacing(1)
         }
     }
 }));
@@ -69,7 +81,6 @@ const useStyles = makeStyles(theme => ({
 export default props => {
     const classes = useStyles();
     const theme = useTheme();
-    let path = useLocation().pathname;
 
     const [mobileOpen, setMobileOpen] = useState(false);
     const [page, setPage] = useState(null);
@@ -78,7 +89,7 @@ export default props => {
         setMobileOpen(!mobileOpen);
     };
 
-    const NavBar = props => (
+    const NavBar = () => (
         <Box className={classes.menuSliderContainer}>
             <Box
                 style={{
@@ -106,34 +117,21 @@ export default props => {
             </Link>
             <List>
                 {menuItems.map((listItem, key) => {
-                    let match = path === `/${listItem.listText}`;
-
                     return (
-                        <Link
+                        <NavLink 
+                            style={{textDecoration:"none"}}
                             key={key}
+                            exact
                             to={`${listItem.listText}`}
                             onClick={() => setPage(listItem.listText)}
+                            activeClassName="NavItemOnSelect"
+
                         >
-                            <ListItem
-                                selected={match}
-                                className={classes.listItem}
-                                button
-                            >
-                                {match ? (
-                                    <div
-                                        style={{
-                                            position: "absolute",
-                                            right: 0,
-                                            height: "100%",
-                                            background: themeColors.secondary5,
-                                            width: theme.spacing(1)
-                                        }}
-                                    ></div>
-                                ) : null}
+                            <ListItem className={classes.listItem} button>
                                 <ListItemIcon>{listItem.listIcon}</ListItemIcon>
                                 <ListItemText primary={listItem.listText} />
                             </ListItem>
-                        </Link>
+                        </NavLink>
                     );
                 })}
             </List>
