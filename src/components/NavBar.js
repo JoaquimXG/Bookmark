@@ -66,11 +66,11 @@ const useStyles = makeStyles(theme => ({
     },
 
     NavItemOnSelect: {
-        "&::before": {
+        "& div::before": {
             position: "absolute",
-            content: '"hello"',
-            display: "block",
+            content: '""',
             right: 0,
+            top: 0,
             height: "100%",
             background: themeColors.secondary5,
             width: theme.spacing(1)
@@ -124,7 +124,7 @@ export default props => {
                             exact
                             to={`${listItem.listText}`}
                             onClick={() => setPage(listItem.listText)}
-                            activeClassName="NavItemOnSelect"
+                            activeClassName={classes.NavItemOnSelect}
 
                         >
                             <ListItem className={classes.listItem} button>
