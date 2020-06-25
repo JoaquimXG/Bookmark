@@ -7,7 +7,6 @@ import {
     PublishSharp
 } from "@material-ui/icons";
 import { themeColors, AppBarHeight } from "../App";
-import { companyCardData } from "../static/pre-api-helpers/minorCardData";
 import ItemList from "./ItemList";
 
 const useStyle = makeStyles(theme => ({

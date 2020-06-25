@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, makeStyles, Paper, Divider } from "@material-ui/core";
 import SecondaryCardButtonRow from "./SecondaryCardButtonRow";
-import SecondaryCardData from "./SecondaryCardData";
+import SecondaryCardList from "./SecondaryCardList";
 
 const useStyle = makeStyles(theme => ({
     main: {
@@ -26,7 +26,7 @@ export default props => {
                 <Box className={classes.secondaryCardList}>
                     {props.data.map((value, index) => {
                         return (
-                            <SecondaryCardData
+                            <SecondaryCardList
                                 key={index}
                                 title={value.title}
                                 caption={value.caption}

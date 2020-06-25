@@ -1,6 +1,5 @@
 import React from "react";
 import { CssBaseline } from "@material-ui/core";
-import CompanyInfo from "./components/CompanyInfo";
 import NavBar from "./components/NavBar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ItemCategory from "./components/ItemCategory";
@@ -25,6 +24,11 @@ import {
     printerColumns
 } from "./static/pre-api-helpers/itemlists";
 import ItemData from "./components/ItemData";
+import DataScreen from "./components/DataScreen";
+import {
+    companyInfoPrimaryCardData,
+    companyInfoSecondaryCardData
+} from "./static/pre-api-helpers/companyInfoApiData";
 
 //Static routes for Item Categories
 const staticItemCategoryRoutes = [
@@ -71,17 +75,17 @@ const itemCategoryRoute = (path, rows, columns) => {
     );
 };
 
-const itemDataScreenRoute = (path) => {
+const itemDataScreenRoute = path => {
     return (
         <Route
             exact
             path={path}
             render={() => {
-                return (<ItemData />);
+                return <ItemData />;
             }}
         />
-    )
-}
+    );
+};
 
 function App() {
     return (
@@ -90,9 +94,23 @@ function App() {
                 <Router>
                     <NavBar />
                     <Switch>
-                        <Route exact path="/" component={CompanyInfo} />
-                        {staticItemCategoryRoutes.map((value) => {
-                            return (itemCategoryRoute(value[0],value[1],value[2]))
+                        <Route
+                            exact
+                            path="/"
+                            render={() => (
+                                <DataScreen
+                                    cards={companyInfoPrimaryCardData.cards}
+                                    data={companyInfoSecondaryCardData}
+                                />
+                            )}
+                        />
+
+                        {staticItemCategoryRoutes.map(value => {
+                            return itemCategoryRoute(
+                                value[0],
+                                value[1],
+                                value[2]
+                            );
                         })}
                     </Switch>
                 </Router>
