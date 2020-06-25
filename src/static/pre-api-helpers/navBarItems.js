@@ -12,7 +12,7 @@ import {
     PrintSharp
 } from "@material-ui/icons";
 
-export const menuItems = [
+export default [
     {
         listIcon: <VpnKeySharp htmlColor="Black" />,
         listText: "Credentials",

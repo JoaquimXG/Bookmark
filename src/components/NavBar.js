@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { menuItems } from "../static/pre-api-helpers/menu-items";
+import  navBarItems  from "../static/pre-api-helpers/navBarItems";
 import Drawer from "@material-ui/core/Drawer";
 import logo from "../static/images/Logo.svg";
 import { drawerWidth, themeColors } from "../App";
@@ -116,7 +116,7 @@ export default props => {
                 </Box>
             </Link>
             <List>
-                {menuItems.map((listItem, key) => {
+                {navBarItems.map((listItem, key) => {
                     return (
                         <NavLink 
                             style={{textDecoration:"none"}}

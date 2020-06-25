@@ -27,7 +27,8 @@ import ItemData from "./components/ItemData";
 import DataScreen from "./components/DataScreen";
 import {
     companyInfoPrimaryCardData,
-    companyInfoSecondaryCardData
+    companyInfoSecondaryCardData,
+    companyInfoButtons
 } from "./static/pre-api-helpers/companyInfoApiData";
 
 //Static routes for Item Categories
@@ -63,7 +64,10 @@ export const AppBarHeight = {
     sm: 80
 };
 
-const itemCategoryRoute = (path, rows, columns) => {
+const itemCategoryRoute = routeInfo => {
+    const path = routeInfo[0];
+    const rows = routeInfo[1];
+    const columns = routeInfo[2];
     return (
         <Route
             exact
@@ -75,13 +79,20 @@ const itemCategoryRoute = (path, rows, columns) => {
     );
 };
 
-const itemDataScreenRoute = path => {
+const itemDataScreenRoute = (
+    path,
+    primaryCardCards,
+    SecondaryCardData,
+    buttonLayout
+) => {
     return (
         <Route
             exact
             path={path}
             render={() => {
-                return <ItemData />;
+                return (
+                    <ItemData buttons={buttonLayout} cards={primaryCardCards} />
+                );
             }}
         />
     );
@@ -99,18 +110,18 @@ function App() {
                             path="/"
                             render={() => (
                                 <DataScreen
-                                    cards={companyInfoPrimaryCardData.cards}
-                                    data={companyInfoSecondaryCardData}
+                                    primaryCardCards={
+                                        companyInfoPrimaryCardData.cards
+                                    }
+                                    secondaryCardData={
+                                        companyInfoSecondaryCardData
+                                    }
+                                    buttons={companyInfoButtons}
                                 />
                             )}
                         />
-
-                        {staticItemCategoryRoutes.map(value => {
-                            return itemCategoryRoute(
-                                value[0],
-                                value[1],
-                                value[2]
-                            );
+                        {staticItemCategoryRoutes.map(routeInfo => {
+                            return itemCategoryRoute(routeInfo);
                         })}
                     </Switch>
                 </Router>

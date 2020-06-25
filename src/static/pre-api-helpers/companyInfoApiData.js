@@ -1,10 +1,63 @@
-import activityFeedData from './activityFeed'
-import React from 'react';
-import {NotificationImportantSharp, AttachFileSharp, VpnKeySharp} from '@material-ui/icons';
-import {themeColors} from '../../App';
-import {createMuiTheme} from '@material-ui/core';
+import activityFeedData from "./activityFeed";
+import React from "react";
+import {
+    NotificationImportantSharp,
+    AttachFileSharp,
+    VpnKeySharp
+} from "@material-ui/icons";
+import { themeColors } from "../../App";
+import { createMuiTheme } from "@material-ui/core";
+import {
+    CreateSharp,
+    PictureAsPdfSharp,
+    AddSharp,
+    FileCopySharp
+} from "@material-ui/icons";
 
-const theme = createMuiTheme()
+const theme = createMuiTheme();
+
+export const companyInfoButtons = {
+    primary: [
+        {
+            icon: PictureAsPdfSharp,
+            get color() {
+                return themeColors.primary5;
+            },
+            text: "Runbook"
+        },
+        {
+            icon: CreateSharp,
+            get color() {
+                return themeColors.secondary5;
+            },
+            text: "Edit"
+        }
+    ],
+
+    secondary: [
+        {
+            icon: CreateSharp,
+            get color() {
+                return themeColors.secondary5;
+            },
+            text: "Edit"
+        },
+        {
+            icon: FileCopySharp,
+            get color() {
+                return themeColors.primary5;
+            },
+            text: "Merge"
+        },
+        {
+            icon: AddSharp,
+            get color() {
+                return themeColors.success;
+            },
+            text: "New"
+        }
+    ]
+};
 
 export const companyInfoPrimaryCardData = {
     title: "Important Items",
@@ -12,15 +65,15 @@ export const companyInfoPrimaryCardData = {
     cards: [
         {
             title: "Company Notes",
-            content:
-            [
+            content: [
                 {
                     title: "",
-                    content: "This is where some notes can be kept about the item. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation." 
-                },
+                    content:
+                        "This is where some notes can be kept about the item. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+                }
             ],
             columns: {
-                xs: 12,
+                xs: 12
             }
         },
         {
@@ -52,7 +105,7 @@ export const companyInfoPrimaryCardData = {
                 }
             ],
             columns: {
-                xs: 4,
+                xs: 4
             }
         },
         {
@@ -72,35 +125,41 @@ export const companyInfoPrimaryCardData = {
                 }
             ],
             columns: {
-                xs: 4,
+                xs: 4
             }
         }
     ]
 };
 
-export const companyInfoSecondaryCardData =  [
+export const companyInfoSecondaryCardData = [
     {
-                        title:"Activity Feed",
-                        caption:(type, time) => `${type} - ${time}`,
-                        body:(author, item) => `${author} updated: ${item}`,
-                        icon:<NotificationImportantSharp style={{get color(){return themeColors.error}, marginRight: theme.spacing(1)}}/>,
-                        data:activityFeedData
+        title: "Activity Feed",
+        caption: (type, time) => `${type} - ${time}`,
+        body: (author, item) => `${author} updated: ${item}`,
+        icon: (
+            <NotificationImportantSharp
+                style={{
+                    get color() {
+                        return themeColors.error;
+                    },
+                    marginRight: theme.spacing(1)
+                }}
+            />
+        ),
+        data: activityFeedData
     },
     {
-
-                        title:"Top Attachments",
-                        caption:(time) => `Last Viewed: ${time}`,
-                        body:(author, item) => `${author}: ${item}`,
-                        icon:<AttachFileSharp style={{marginRight: theme.spacing(1)}}/>,
-                        data:null
+        title: "Top Attachments",
+        caption: time => `Last Viewed: ${time}`,
+        body: (author, item) => `${author}: ${item}`,
+        icon: <AttachFileSharp style={{ marginRight: theme.spacing(1) }} />,
+        data: null
     },
     {
-
-                        title:"Top Credentials",
-                        caption:(time) => `Last Viewed: ${time}`,
-                        body:(author, item) => `${author}: ${item}`,
-                        icon:<VpnKeySharp style={{marginRight: theme.spacing(1)}}/>,
-                        data:null,
+        title: "Top Credentials",
+        caption: time => `Last Viewed: ${time}`,
+        body: (author, item) => `${author}: ${item}`,
+        icon: <VpnKeySharp style={{ marginRight: theme.spacing(1) }} />,
+        data: null
     }
-
-]
+];
