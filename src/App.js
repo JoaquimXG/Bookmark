@@ -24,6 +24,20 @@ import {
     printerRows,
     printerColumns
 } from "./static/pre-api-helpers/itemlists";
+import ItemData from "./components/ItemData";
+
+//Static routes for Item Categories
+const staticItemCategoryRoutes = [
+    ["/credentials", credentialRows, credentialColumns],
+    ["/Assets", assetRows, assetColumns],
+    ["/locations", locationRows, locationColumns],
+    ["/contacts", contactRows, contactColumns],
+    ["/site summaries", siteSummaryRows, SiteSummaryColumns],
+    ["/applications", applicationRows, applicationColumns],
+    ["/backups", backupRows, backupColumns],
+    ["/checklists", checklistRows, checklistColumns],
+    ["/printers", printerRows, printerColumns]
+];
 
 //Colors
 export const themeColors = {
@@ -57,6 +71,18 @@ const itemCategoryRoute = (path, rows, columns) => {
     );
 };
 
+const itemDataScreenRoute = (path) => {
+    return (
+        <Route
+            exact
+            path={path}
+            render={() => {
+                return (<ItemData />);
+            }}
+        />
+    )
+}
+
 function App() {
     return (
         <>
@@ -65,20 +91,13 @@ function App() {
                     <NavBar />
                     <Switch>
                         <Route exact path="/" component={CompanyInfo} />
-                        {itemCategoryRoute('/credentials',credentialRows, credentialColumns)}
-                        {itemCategoryRoute('/Assets',assetRows, assetColumns)}
-                        {itemCategoryRoute('/locations',locationRows, locationColumns)}
-                        {itemCategoryRoute('/contacts', contactRows, contactColumns)}
-                        {itemCategoryRoute('/site summaries', siteSummaryRows, SiteSummaryColumns)}
-                        {itemCategoryRoute('/applications', applicationRows, applicationColumns)}
-                        {itemCategoryRoute('/backups', backupRows, backupColumns)}
-                        {itemCategoryRoute('/checklists', checklistRows, checklistColumns)}
-                        {itemCategoryRoute('/printers', printerRows, printerColumns)}
+                        {staticItemCategoryRoutes.map((value) => {
+                            return (itemCategoryRoute(value[0],value[1],value[2]))
+                        })}
                     </Switch>
                 </Router>
             </CssBaseline>
         </>
     );
 }
-
 export default App;

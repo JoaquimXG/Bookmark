@@ -68,10 +68,7 @@ export default props => {
                 <ItemList
                     rows={props.rows}
                     columns={props.colums}
-                    data={props.data}
-                    cards={companyCardData.cards}
                     buttons={primaryButtons}
-                    title="Important Items"
                 />
             </Box>
         </div>
