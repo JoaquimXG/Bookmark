@@ -122,7 +122,7 @@ export default props => {
                             style={{textDecoration:"none"}}
                             key={key}
                             exact
-                            to={`${listItem.listText}`}
+                            to={`/${listItem.listText}`}
                             onClick={() => setPage(listItem.listText)}
                             activeClassName={classes.NavItemOnSelect}
 

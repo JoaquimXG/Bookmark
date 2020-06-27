@@ -2,15 +2,15 @@ const templateArr = [
     "A Primary Column",
     "A Secondary Column",
     "Some Extra Information",
-    "An Author",
-]
+    "An Author"
+];
 
 function createData(firstRow, templateArr, x = 20) {
     var returnArr = [];
     returnArr.push(firstRow);
 
     for (let i = 0; i < x; i++) {
-        returnArr.push(templateArr);
+        returnArr.push({ data: templateArr, id: i });
     }
     return returnArr;
 }
@@ -34,18 +34,12 @@ export const credentialColumns = [
     }
 ];
 
-const firstCredentialRow = [
-    "WORKSPACE/admin",
-    "Some Type",
-    "Aberdeen",
-    "Joaquim Gomez"
-];
+const firstCredentialRow = {
+    data: ["WORKSPACE/admin", "Some Type", "Aberdeen", "Joaquim Gomez"],
+    id: "-1"
+};
 
-export const credentialRows = createData(
-    firstCredentialRow,
-    templateArr,
-    20
-);
+export const credentialRows = createData(firstCredentialRow, templateArr, 20);
 
 export const assetColumns = [
     {
@@ -66,18 +60,12 @@ export const assetColumns = [
     }
 ];
 
-const firstAssetRow = [
-    "ACS-PFA139",
-    "Notebook",
-    "Aberdeen",
-    "Joaquim Gomez"
-];
+const firstAssetRow = {
+    data: ["ACS-PFA139", "Notebook", "Aberdeen", "Joaquim Gomez"],
+    id: "-1"
+};
 
-export const assetRows = createData(
-    firstAssetRow,
-    templateArr,
-    20
-);
+export const assetRows = createData(firstAssetRow, templateArr, 20);
 
 export const locationColumns = [
     {
@@ -98,18 +86,17 @@ export const locationColumns = [
     }
 ];
 
-const firstLocationRow = [
-    "High Street Office",
-    "Head Office",
-    "1 Some Road, Aberdeen",
-    "Joaquim Gomez"
-];
+const firstLocationRow = {
+    data: [
+        "High Street Office",
+        "Head Office",
+        "1 Some Road, Aberdeen",
+        "Joaquim Gomez"
+    ],
+    id: "id"
+};
 
-export const locationRows = createData(
-    firstLocationRow,
-    templateArr,
-    20
-);
+export const locationRows = createData(firstLocationRow, templateArr, 20);
 
 export const contactColumns = [
     {
@@ -130,18 +117,17 @@ export const contactColumns = [
     }
 ];
 
-const firstContactRow = [
-    "High Street Office",
-    "Head Office",
-    "1 Some Road, Aberdeen",
-    "Joaquim Gomez"
-];
+const firstContactRow = {
+    data: [
+        "High Street Office",
+        "Head Office",
+        "1 Some Road, Aberdeen",
+        "Joaquim Gomez"
+    ],
+    id: "id"
+};
 
-export const contactRows = createData(
-    firstContactRow,
-    templateArr,
-    20
-);
+export const contactRows = createData(firstContactRow, templateArr, 20);
 
 export const SiteSummaryColumns = [
     {
@@ -162,18 +148,17 @@ export const SiteSummaryColumns = [
     }
 ];
 
-const firstSiteSummaryRow = [
-    "High Street Office",
-    "Head Office",
-    "1 Some Road, Aberdeen",
-    "Joaquim Gomez"
-];
+const firstSiteSummaryRow = {
+    data: [
+        "High Street Office",
+        "Head Office",
+        "1 Some Road, Aberdeen",
+        "Joaquim Gomez"
+    ],
+    id: "id"
+};
 
-export const siteSummaryRows = createData(
-    firstSiteSummaryRow,
-    templateArr,
-    20
-);
+export const siteSummaryRows = createData(firstSiteSummaryRow, templateArr, 20);
 
 export const applicationColumns = [
     {
@@ -194,18 +179,12 @@ export const applicationColumns = [
     }
 ];
 
-const firstApplicationRow = [
-    "Cloud Backup",
-    "Backup",
-    "Veeam",
-    "Joaquim Gomez"
-];
+const firstApplicationRow = {
+    data: ["Main Server", "Alto", "Daily", "Joaquim Gomez"],
+    id: "id"
+};
 
-export const applicationRows = createData(
-    firstApplicationRow,
-    templateArr,
-    20
-);
+export const applicationRows = createData(firstApplicationRow, templateArr, 20);
 
 export const backupColumns = [
     {
@@ -226,18 +205,12 @@ export const backupColumns = [
     }
 ];
 
-const firstBackupRow = [
-    "Cloud Backup",
-    "Backup",
-    "Veeam",
-    "Joaquim Gomez"
-];
+const firstBackupRow = {
+    data: ["Cloud Backup", "Backup", "Veeam", "Joaquim Gomez"],
+    id: "id"
+};
 
-export const backupRows = createData(
-    firstBackupRow,
-    templateArr,
-    20
-);
+export const backupRows = createData(firstBackupRow, templateArr, 20);
 
 export const checklistColumns = [
     {
@@ -258,18 +231,12 @@ export const checklistColumns = [
     }
 ];
 
-const firstChecklistRow = [
-    "Cloud Backup",
-    "Backup",
-    "Veeam",
-    "Joaquim Gomez"
-];
+const firstChecklistRow = {
+    data: ["Finish UX Design", "Joaquim Gomez", "Today", "Joaquim Gomez"],
+    id: "id"
+};
 
-export const checklistRows = createData(
-    firstChecklistRow,
-    templateArr,
-    20
-);
+export const checklistRows = createData(firstChecklistRow, templateArr, 20);
 
 export const printerColumns = [
     {
@@ -290,15 +257,9 @@ export const printerColumns = [
     }
 ];
 
-const firstPrinterRow = [
-    "Cloud Backup",
-    "Backup",
-    "Veeam",
-    "Joaquim Gomez"
-];
+const firstPrinterRow = {
+    data: ["Generic-0f24r", "Olivetti", "Reception", "Joaquim Gomez"],
+    id: "id"
+};
 
-export const printerRows = createData(
-    firstPrinterRow,
-    templateArr,
-    20
-);
+export const printerRows = createData(firstPrinterRow, templateArr, 20);

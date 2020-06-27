@@ -94,7 +94,7 @@ export default props => {
                         <TableHeadExtended columns={props.columns} />
                         <TableBody>
                             {props.rows.map((row, index) => (
-                                <TableRowExtended key={index} row={row} />
+                                <TableRowExtended path={props.path} key={index} row={row} />
                             ))}
                         </TableBody>
                     </Table>

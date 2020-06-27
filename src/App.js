@@ -1,7 +1,7 @@
 import React from "react";
 import { CssBaseline } from "@material-ui/core";
 import NavBar from "./components/NavBar";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, useParams } from "react-router-dom";
 import ItemCategory from "./components/ItemCategory";
 import {
     credentialRows,
@@ -23,7 +23,6 @@ import {
     printerRows,
     printerColumns
 } from "./static/pre-api-helpers/itemlists";
-import ItemData from "./components/ItemData";
 import DataScreen from "./components/DataScreen";
 import {
     companyInfoPrimaryCardData,
@@ -33,15 +32,24 @@ import {
 
 //Static routes for Item Categories
 const staticItemCategoryRoutes = [
-    ["/credentials", credentialRows, credentialColumns],
-    ["/Assets", assetRows, assetColumns],
-    ["/locations", locationRows, locationColumns],
-    ["/contacts", contactRows, contactColumns],
-    ["/site summaries", siteSummaryRows, SiteSummaryColumns],
-    ["/applications", applicationRows, applicationColumns],
-    ["/backups", backupRows, backupColumns],
-    ["/checklists", checklistRows, checklistColumns],
-    ["/printers", printerRows, printerColumns]
+    {path: "/credentials", rows: credentialRows, columns: credentialColumns},
+    {path: "/Assets", rows: assetRows, columns: assetColumns},
+    {path: "/locations", rows: locationRows, columns: locationColumns},
+    {path: "/contacts", rows: contactRows, columns: contactColumns},
+    {path: "/site summaries", rows: siteSummaryRows, columns: SiteSummaryColumns},
+    {path: "/applications", rows: applicationRows, columns: applicationColumns},
+    {path: "/backups", rows: backupRows, columns: backupColumns},
+    {path: "/checklists", rows: checklistRows, columns: checklistColumns},
+    {path: "/printers", rows: printerRows, columns: printerColumns}
+];
+
+const dataScreenRoutes = [
+    {
+        path: "/credentials",
+        primaryCardCards: companyInfoPrimaryCardData.cards,
+        secondaryCardData: companyInfoSecondaryCardData,
+        buttonLayout: companyInfoButtons
+    }
 ];
 
 //Colors
@@ -64,36 +72,39 @@ export const AppBarHeight = {
     sm: 80
 };
 
+const renderDataScreen = (routerProps) => {
+    let id = routerProps.match.params.id
+
+    console.log(id)
+    return (<div></div>)
+}
+//                <DataScreen
+//                    buttons={routeInfo.buttons}
+//                    primaryCardCards={routeInfo.primaryCards}
+//                    secondaryCardData={routeInfo.secondaryData}
+//                />
+
 const itemCategoryRoute = routeInfo => {
-    const path = routeInfo[0];
-    const rows = routeInfo[1];
-    const columns = routeInfo[2];
     return (
         <Route
-            exact
-            path={path}
+            key={routeInfo.path}
+            path={routeInfo.path}
             render={() => {
-                return <ItemCategory rows={rows} colums={columns} />;
+                return (
+                    <ItemCategory path={routeInfo.path} rows={routeInfo.rows} colums={routeInfo.columns} />
+                );
             }}
         />
     );
 };
 
-const itemDataScreenRoute = (
-    path,
-    primaryCardCards,
-    SecondaryCardData,
-    buttonLayout
-) => {
+
+const itemDataScreenRoute = routeInfo => {
     return (
         <Route
             exact
-            path={path}
-            render={() => {
-                return (
-                    <ItemData buttons={buttonLayout} cards={primaryCardCards} />
-                );
-            }}
+            path={`${routeInfo.path}/:id`}
+            render={renderDataScreen}
         />
     );
 };
@@ -120,6 +131,9 @@ function App() {
                                 />
                             )}
                         />
+                        {dataScreenRoutes.map(route => {
+                            return itemDataScreenRoute(route);
+                        })}
                         {staticItemCategoryRoutes.map(routeInfo => {
                             return itemCategoryRoute(routeInfo);
                         })}
