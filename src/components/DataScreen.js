@@ -29,7 +29,7 @@ export default props => {
                 <PrimaryCard
                     cards={props.primaryCardCards}
                     buttons={props.buttons.primary}
-                    title="Important Items"
+                    title={props.primaryCardCards.title}
                 />
                 <SecondaryCard
                     data={props.secondaryCardData}
