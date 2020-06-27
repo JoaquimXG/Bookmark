@@ -67,11 +67,6 @@ export const assetColumns = [
     }
 ];
 
-const firstAssetRow = {
-    data: ["ACS-PFA139", "Notebook", "25.25.25.25", "Joaquim Gomez"],
-    id: "-1"
-};
-
 export const assetRows = parseAssets(assets);
 
 export const locationColumns = [

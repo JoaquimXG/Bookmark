@@ -79,7 +79,7 @@ export default props => {
                     spacing={3}
                 >
                     {props.cards.map((value, index) => {
-                        return (
+                        return value.content.every(subtitle => subtitle === null) ? null: (
                             <Grid
                                 key={index}
                                 item

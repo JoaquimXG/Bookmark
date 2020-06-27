@@ -18,7 +18,6 @@ import {
     Box,
     ListItemIcon,
     Hidden,
-    useTheme
 } from "@material-ui/core";
 import { Home, Menu } from "@material-ui/icons";
 import { Link, NavLink } from "react-router-dom";
@@ -80,7 +79,6 @@ const useStyles = makeStyles(theme => ({
 
 export default props => {
     const classes = useStyles();
-    const theme = useTheme();
 
     const [mobileOpen, setMobileOpen] = useState(false);
     const [page, setPage] = useState(null);

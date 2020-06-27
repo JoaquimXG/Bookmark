@@ -8,14 +8,6 @@ import {
 } from "@material-ui/icons";
 import { themeColors, AppBarHeight } from "../App";
 import ItemList from "./ItemList";
-import DataScreen from "./DataScreen";
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
-
-import {
-    companyInfoPrimaryCardData,
-    companyInfoSecondaryCardData,
-    companyInfoButtons
-} from "../static/pre-api-helpers/companyInfoApiData";
 
 const useStyle = makeStyles(theme => ({
     body: {
@@ -64,27 +56,6 @@ const primaryButtons = [
         text: "New"
     }
 ];
-
-const itemDataScreenRoute = (
-    path,
-    primaryCardCards,
-    secondaryCardData,
-    buttonLayout
-) => {
-    return (
-        <Route
-            exact
-            path={path}
-            render={() => (
-                <DataScreen
-                    buttons={buttonLayout}
-                    primaryCardCards={primaryCardCards}
-                    secondaryCardData={secondaryCardData}
-                />
-            )}
-        />
-    );
-};
 
 export default props => {
     const classes = useStyle();

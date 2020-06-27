@@ -44,7 +44,7 @@ export const assetsTemplate = {
         },
         {
             title: "Usage",
-            content: ["creation_date", "last_user", "last_audit", "os"],
+            content: ["creation_date", "last_user", "last_audit"],
             columns: {
                 xs: 4
             }
@@ -57,14 +57,14 @@ export const assetsTemplate = {
             }
         },
         {
-            title: "notes",
+            title: "Notes",
             content: ["notes"],
             columns: {
                 xs: 12
             }
         },
         {
-            title: "notes",
+            title: "UDF",
             content: [
                 "udf1",
                 "udf2",

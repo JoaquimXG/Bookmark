@@ -1,5 +1,5 @@
 import React from "react";
-import { Paper, makeStyles, Typography, Divider, Box, useTheme } from "@material-ui/core";
+import { Paper, makeStyles, Typography, Divider, Box} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
     dataCard: {
@@ -23,6 +23,9 @@ const useStyles = makeStyles(theme => ({
 export default props => {
     const classes = useStyles();
 
+    console.log('props',props)
+
+
     return (
         <Paper elevation={props.elevation} className={classes.dataCard}>
             <header className={classes.header}>
@@ -33,14 +36,15 @@ export default props => {
             <Divider />
             <Box className={classes.data}>
                 {props.content.map((value, index) => {
-                    return (
+                    
+                    return value? (
                         <React.Fragment key={index}>
                             <Typography variant="caption" style={{color: "#646464"}}>
                                 {value.title}
                             </Typography>
                             <Typography variant="subtitle2" gutterBottom>{value.content}</Typography>
                         </React.Fragment>
-                    );
+                    ): null;
                 })}
             </Box>
         </Paper>

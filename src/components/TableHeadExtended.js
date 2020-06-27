@@ -6,7 +6,6 @@ import {
     Checkbox,
     Divider,
     Typography,
-    useTheme,
     makeStyles
 } from "@material-ui/core";
 import { ArrowDownwardSharp } from "@material-ui/icons";
@@ -32,7 +31,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default props => {
-    const theme = useTheme();
     const classes = useStyles();
 
     return (

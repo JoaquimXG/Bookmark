@@ -1,12 +1,7 @@
 import React from "react";
 import { CssBaseline } from "@material-ui/core";
 import NavBar from "./components/NavBar";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    useParams
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ItemCategory from "./components/ItemCategory";
 import {
     credentialRows,
@@ -35,6 +30,7 @@ import {
     companyInfoSecondaryCardData,
     companyInfoButtons
 } from "./static/pre-api-helpers/companyInfoApiData";
+import { assetsTemplate } from "./static/pre-api-helpers/testingCardGeneration";
 
 //Static routes for Item Categories
 const staticItemCategoryRoutes = [
@@ -77,21 +73,34 @@ export const AppBarHeight = {
     sm: 80
 };
 
-const generateAssetPrimaryCards = asset => {};
+const generatePrimaryCards = (item, template) => {
+    var newItem = {
+        cards: template.cards.map(card => {
+            var content = card.content.map(templateValue => {
+                console.log('templateValue',templateValue, 'item[templateValue]', item[templateValue])
+                return item[templateValue]
+                    ? { title: templateValue, content: item[templateValue] }
+                    : null;
+            });
+            console.log('card.content', content)
+            return content ? { ...card, content: content } : null;
+        })
+    };
+    newItem.header = item[template.header];
+    return newItem;
+};
 
 const renderDataScreen = routerProps => {
     let id = parseInt(routerProps.match.params.id);
 
-    console.log(id);
-    const asset = assets.find(asset => asset.id === id);
-    console.log(asset);
-    var cards = companyInfoPrimaryCardData.cards;
-    cards.title = id;
-    console.log(cards)
+    var item = assets.find(asset => asset.id === id);
+    item = generatePrimaryCards(item, assetsTemplate);
+    console.log(item);
     return (
         <DataScreen
             buttons={companyInfoButtons}
-            primaryCardCards={cards}
+            cards={item.cards}
+            title={item.header}
             secondaryCardData={companyInfoSecondaryCardData}
         />
     );
@@ -118,7 +127,12 @@ const itemCategoryRoute = route => {
 
 const itemDataScreenRoute = routeInfo => {
     return (
-        <Route exact path={`${routeInfo.path}/:id`} render={renderDataScreen} />
+        <Route
+            exact
+            key={routeInfo.path}
+            path={`${routeInfo.path}/:id`}
+            render={renderDataScreen}
+        />
     );
 };
 
@@ -134,13 +148,14 @@ function App() {
                             path="/"
                             render={() => (
                                 <DataScreen
-                                    primaryCardCards={
+                                    cards={
                                         companyInfoPrimaryCardData.cards
                                     }
                                     secondaryCardData={
                                         companyInfoSecondaryCardData
                                     }
                                     buttons={companyInfoButtons}
+                                    title="Company Info"
                                 />
                             )}
                         />

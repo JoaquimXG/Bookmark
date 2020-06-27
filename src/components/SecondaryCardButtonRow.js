@@ -1,6 +1,5 @@
 import React from "react";
 import { makeStyles, Button } from "@material-ui/core";
-import { themeColors } from "../App";
 
 const useStyle = makeStyles(theme => ({
     buttonRow: {
@@ -14,7 +13,6 @@ const useStyle = makeStyles(theme => ({
 
 export default props => {
     const classes = useStyle();
-    console.log(themeColors.secondary5);
 
     return (
         <div className={classes.buttonRow}>

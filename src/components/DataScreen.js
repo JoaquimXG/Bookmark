@@ -27,9 +27,9 @@ export default props => {
         <div className={classes.main}>
             <Box className={classes.body}>
                 <PrimaryCard
-                    cards={props.primaryCardCards}
+                    cards={props.cards}
                     buttons={props.buttons.primary}
-                    title={props.primaryCardCards.title}
+                    title={props.title}
                 />
                 <SecondaryCard
                     data={props.secondaryCardData}

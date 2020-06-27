@@ -5,7 +5,6 @@ import {
     Checkbox,
     Divider,
     Typography,
-    useTheme,
     makeStyles
 } from "@material-ui/core";
 import { themeColors } from "../App";
@@ -27,7 +26,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default props => {
-    const theme = useTheme();
     const classes = useStyles();
 
     const testing = () => {
