@@ -131,11 +131,11 @@ function App() {
                                 />
                             )}
                         />
-                        {dataScreenRoutes.map(route => {
-                            return itemDataScreenRoute(route);
-                        })}
                         {staticItemCategoryRoutes.map(routeInfo => {
                             return itemCategoryRoute(routeInfo);
+                        })}
+                        {dataScreenRoutes.map(route => {
+                            return itemDataScreenRoute(route);
                         })}
                     </Switch>
                 </Router>

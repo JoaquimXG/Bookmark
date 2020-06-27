@@ -1,3 +1,10 @@
+import assets from "./assetDump";
+
+const parseAssets = assets => {
+    const assetRows = assets.map(asset => ({ data: [asset.name, asset.type, asset.external_ip, asset.model], id: asset.id }));
+    return assetRows
+};
+
 const templateArr = [
     "A Primary Column",
     "A Secondary Column",
@@ -51,21 +58,21 @@ export const assetColumns = [
         label: "Asset Type"
     },
     {
-        id: "location",
-        label: "Item location"
+        id: "ext_ip",
+        label: "External IP"
     },
     {
-        id: "author",
-        label: "Created By"
+        id: "model",
+        label: "Model"
     }
 ];
 
 const firstAssetRow = {
-    data: ["ACS-PFA139", "Notebook", "Aberdeen", "Joaquim Gomez"],
+    data: ["ACS-PFA139", "Notebook", "25.25.25.25", "Joaquim Gomez"],
     id: "-1"
 };
 
-export const assetRows = createData(firstAssetRow, templateArr, 20);
+export const assetRows = parseAssets(assets);
 
 export const locationColumns = [
     {

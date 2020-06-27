@@ -1,4 +1,4 @@
-[
+export default [
   {
     "id": 2186154,
     "site_id": 235549,
