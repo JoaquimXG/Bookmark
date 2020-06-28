@@ -21,23 +21,23 @@ import {
     companyInfoSecondaryCardData,
     companyInfoButtons
 } from "./static/pre-api-helpers/companyInfoApiData";
-import  templates  from "./static/pre-api-helpers/testingCardGeneration";
-import assetsDump from "./static/pre-api-helpers/assetDump";
+import templates from "./static/pre-api-helpers/cardGenerationTemplates";
+import apiDumps from './static/pre-api-helpers/apiDumps'
 
 //Static routes for Item Categories
 const staticItemCategoryRoutes = [
     {
         path: "/credentials",
-        rows: rows.credentials,
+        rows: apiDumps.credentials,
         columns: credentialColumns
     },
     {
         path: "/assets",
-        rows: assetsDump,
+        rows: apiDumps.assets,
         columns: assetColumns,
         template: templates.assetTemplate
     },
-    { path: "/locations", rows: rows.locations, columns: locationColumns },
+    { path: "/locations", rows: apiDumps.locations, columns: locationColumns },
     { path: "/contacts", rows: rows.contacts, columns: contactColumns },
     {
         path: "/site summaries",
@@ -49,7 +49,7 @@ const staticItemCategoryRoutes = [
         rows: rows.applications,
         columns: applicationColumns
     },
-    { path: "/backups", rows: rows.backups, columns: backupColumns },
+    { path: "/backups", rows: apiDumps.backups, columns: backupColumns },
     { path: "/checklists", rows: rows.checklists, columns: checklistColumns },
     { path: "/printers", rows: rows.printers, columns: printerColumns }
 ];
@@ -94,20 +94,21 @@ const ItemCategoryRoute = (route, setRows) => {
     );
 };
 
-const itemDataScreenRoute = (routeInfo, rows)=> {
+const itemDataScreenRoute = (routeInfo, rows) => {
     return (
         <Route
             exact
             key={routeInfo.path}
             path={`${routeInfo.path}/:id`}
-            render={(routerProps) => (<DataScreen 
-                {...routerProps}
-                rows={rows}
-                buttons={companyInfoButtons}
-                secondaryCardData={companyInfoSecondaryCardData}
-                rowTemplate={routeInfo.template}
-            />)}
-
+            render={routerProps => (
+                <DataScreen
+                    {...routerProps}
+                    rows={rows}
+                    buttons={companyInfoButtons}
+                    secondaryCardData={companyInfoSecondaryCardData}
+                    rowTemplate={routeInfo.template}
+                />
+            )}
         />
     );
 };

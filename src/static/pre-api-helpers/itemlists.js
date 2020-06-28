@@ -1,12 +1,3 @@
-import  assetsDump  from "./assetDump";
-
-const parseAssets = assetsDump => {
-    const assetRows = assetsDump.map(asset => ({
-        data: [asset.name, asset.type, asset.external_ip, asset.model],
-        id: asset.id
-    }));
-    return assetRows;
-};
 
 const templateArr = [
     "A Primary Column",
@@ -44,13 +35,6 @@ export const credentialColumns = [
     }
 ];
 
-const firstCredentialRow = {
-    data: ["WORKSPACE/admin", "Some Type", "Aberdeen", "Joaquim Gomez"],
-    id: "-1"
-};
-
-const credentials = createData(firstCredentialRow, templateArr, 20);
-
 export const assetColumns = [
     {
         id: "name",
@@ -70,8 +54,6 @@ export const assetColumns = [
     }
 ];
 
-const assets = parseAssets(assetsDump);
-
 export const locationColumns = [
     {
         id: "name",
@@ -90,18 +72,6 @@ export const locationColumns = [
         label: "Created By"
     }
 ];
-
-const firstLocationRow = {
-    data: [
-        "High Street Office",
-        "Head Office",
-        "1 Some Road, Aberdeen",
-        "Joaquim Gomez"
-    ],
-    id: "id"
-};
-
-const locations = createData(firstLocationRow, templateArr, 20);
 
 export const contactColumns = [
     {
@@ -210,13 +180,6 @@ export const backupColumns = [
     }
 ];
 
-const firstBackupRow = {
-    data: ["Cloud Backup", "Backup", "Veeam", "Joaquim Gomez"],
-    id: "id"
-};
-
-const backups = createData(firstBackupRow, templateArr, 20);
-
 export const checklistColumns = [
     {
         id: "name",
@@ -270,13 +233,9 @@ const firstPrinterRow = {
 export const printers = createData(firstPrinterRow, templateArr, 20);
 
 export const rows = {
-    credentials,
-    assets,
-    locations,
     contacts,
     siteSummarys,
     applications,
-    backups,
     checklists,
     printers
 };

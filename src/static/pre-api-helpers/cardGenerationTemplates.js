@@ -1,3 +1,32 @@
+
+const credentialTemplate = {
+    header: "name",
+
+    cards: [
+        {
+            title: "Credentials",
+            content: ["name", "password", "url"],
+            columns: {
+                xs: 4
+            }
+        },
+        {
+            title: "Additional Information",
+            content: ["description", "type", "client", "folder"],
+            columns: {
+                xs: 4
+            }
+        },
+        {
+            title: "Notes",
+            content: ["notes"],
+            columns: {
+                xs: 4
+            }
+        }
+
+    ]
+}
 const assetTemplate = {
     header: "name",
 
@@ -55,4 +84,5 @@ const assetTemplate = {
 
 export default {
     assetTemplate,
+    credentialTemplate,
 }
