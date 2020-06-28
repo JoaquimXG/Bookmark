@@ -21,7 +21,7 @@ import {
     companyInfoSecondaryCardData,
     companyInfoButtons
 } from "./static/pre-api-helpers/companyInfoApiData";
-import { assetTemplate } from "./static/pre-api-helpers/testingCardGeneration";
+import  templates  from "./static/pre-api-helpers/testingCardGeneration";
 import assetsDump from "./static/pre-api-helpers/assetDump";
 
 //Static routes for Item Categories
@@ -35,7 +35,7 @@ const staticItemCategoryRoutes = [
         path: "/assets",
         rows: assetsDump,
         columns: assetColumns,
-        template: assetTemplate
+        template: templates.assetTemplate
     },
     { path: "/locations", rows: rows.locations, columns: locationColumns },
     { path: "/contacts", rows: rows.contacts, columns: contactColumns },
