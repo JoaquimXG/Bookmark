@@ -8,7 +8,8 @@ const useStyle = makeStyles(theme => ({
     body: {
         display: "flex",
         flexDirection: "row",
-        height: "100%"
+        height: "100%",
+        flexGrow: 1,
     },
 
     main: {
@@ -16,7 +17,7 @@ const useStyle = makeStyles(theme => ({
         background: "#BBC7CD",
         [theme.breakpoints.up("sm")]: {
             height: `calc(100vh - ${AppBarHeight.sm}px)`,
-        }
+        },
     }
 }));
 

@@ -3,55 +3,61 @@ import { CssBaseline } from "@material-ui/core";
 import NavBar from "./components/NavBar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ItemCategory from "./components/ItemCategory";
-import {
-    credentialColumns,
-    assetColumns,
-    locationColumns,
-    contactColumns,
-    SiteSummaryColumns,
-    applicationColumns,
-    backupColumns,
-    checklistColumns,
-    printerColumns,
-    rows
-} from "./static/pre-api-helpers/itemlists";
+import { rows,columns} from "./static/pre-api-helpers/itemlists";
 import DataScreen from "./components/DataScreen";
 import {
     companyInfoPrimaryCardData,
     companyInfoSecondaryCardData,
     companyInfoButtons
 } from "./static/pre-api-helpers/companyInfoApiData";
+import itemDataScreenTemplate from './static/pre-api-helpers/itemDataScreenTemplate'
 import templates from "./static/pre-api-helpers/cardGenerationTemplates";
-import apiDumps from './static/pre-api-helpers/apiDumps'
+import apiDumps from "./static/pre-api-helpers/apiDumps";
 
 //Static routes for Item Categories
 const staticItemCategoryRoutes = [
     {
         path: "/credentials",
         rows: apiDumps.credentials,
-        columns: credentialColumns
+        columns: columns.credentialColumns,
+        template: templates.credentialTemplate
     },
     {
         path: "/assets",
         rows: apiDumps.assets,
-        columns: assetColumns,
+        columns: columns.assetColumns,
         template: templates.assetTemplate
     },
-    { path: "/locations", rows: apiDumps.locations, columns: locationColumns },
-    { path: "/contacts", rows: rows.contacts, columns: contactColumns },
+    {
+        path: "/locations",
+        rows: apiDumps.locations,
+        columns: columns.locationColumns,
+        template: templates.locationTemplate
+    },
+    {
+        path: "/contacts",
+        rows: apiDumps.contacts,
+        columns: columns.contactColumns,
+        template: templates.contactTemplate
+    },
+    {
+        path: "/backups",
+        rows: apiDumps.backups,
+        columns: columns.backupColumns,
+        templates: templates.backupTemplate
+    },
     {
         path: "/site summaries",
         rows: rows.siteSummarys,
-        columns: SiteSummaryColumns
+        columns: columns.siteSummaryColumns
     },
     {
         path: "/applications",
         rows: rows.applications,
-        columns: applicationColumns
+        columns: columns.applicationColumns
     },
-    { path: "/backups", rows: apiDumps.backups, columns: backupColumns },
-    { path: "/checklists", rows: rows.checklists, columns: checklistColumns },
-    { path: "/printers", rows: rows.printers, columns: printerColumns }
+    { path: "/checklists", rows: rows.checklists, columns: columns.checklistColumns },
+    { path: "/printers", rows: rows.printers, columns: columns.printerColumns }
 ];
 
 //Colors
@@ -104,8 +110,8 @@ const itemDataScreenRoute = (routeInfo, rows) => {
                 <DataScreen
                     {...routerProps}
                     rows={rows}
-                    buttons={companyInfoButtons}
-                    secondaryCardData={companyInfoSecondaryCardData}
+                    buttons={itemDataScreenTemplate.buttons}
+                    secondaryCardData={itemDataScreenTemplate.secondaryCardData}
                     rowTemplate={routeInfo.template}
                 />
             )}

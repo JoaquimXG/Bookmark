@@ -31,16 +31,16 @@ export default [
         listText: "Contacts"
     },
     {
+        listIcon: <BackupSharp htmlColor="Black" />,
+        listText: "Backups"
+    },
+    {
         listIcon: <BusinessSharp htmlColor="Black" />,
         listText: "Site Summaries"
     },
     {
         listIcon: <AppsSharp htmlColor="Black" />,
         listText: "Applications"
-    },
-    {
-        listIcon: <BackupSharp htmlColor="Black" />,
-        listText: "Backups"
     },
     {
         listIcon: <DoneAllSharp htmlColor="Black" />,

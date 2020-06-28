@@ -1,3 +1,93 @@
+const contactTemplate = {
+    header: "name",
+
+    cards: [
+        {
+            title: "Contact Information",
+            content: ["email", "phone", "extension", "mobile", "fax"],
+            columns: {
+                xs: 4
+            }
+        },
+        {
+            title: "Additional Information",
+            content: ["name", "middle_name", "last_name", "type", "job_title"],
+            columns: {
+                xs: 4
+            }
+        },
+        {
+            title: "Notes",
+            content: ["notes"],
+            columns: {
+                xs: 12
+            }
+        }
+    ]
+}
+
+const backupTemplate = {
+    header: "name",
+
+    cards: [
+        {
+            title: "Schedule",
+            content: ["start_time", "full_backup", "differential", "incremental", "retention_details"],
+            columns: {
+                xs: 4
+            }
+        },
+        {
+            title: "Additional Information",
+            content: ["vendor", "type", "location"],
+            columns: {
+                xs: 4
+            }
+        },
+        {
+            title: "Retention Details", 
+            content: ["retention_details"],
+            columns: {
+                xs: 4
+            }
+        },
+        {
+            title: "Notes",
+            content: ["notes"],
+            columns: {
+                xs: 12
+            }
+        }
+    ]
+}
+
+const locationTemplate = {
+    header: "name",
+
+    cards: [
+        {
+            title: "Address",
+            content: ["addr_1", "addr_2", "city", "postcode", "state","country"],
+            columns: {
+                xs: 4
+            }
+        },
+        {
+            title: "Additional Information",
+            content: ["phone", "fax", "type"],
+            columns: {
+                xs: 4
+            }
+        },
+        {
+            title: "notes",
+            content: ["notes"],
+            columns: {
+                xs: 12
+            }
+        }
+    ]
+}
 
 const credentialTemplate = {
     header: "name",
@@ -21,7 +111,7 @@ const credentialTemplate = {
             title: "Notes",
             content: ["notes"],
             columns: {
-                xs: 4
+                xs: 12
             }
         }
 
@@ -85,4 +175,7 @@ const assetTemplate = {
 export default {
     assetTemplate,
     credentialTemplate,
+    locationTemplate,
+    backupTemplate,
+    contactTemplate
 }

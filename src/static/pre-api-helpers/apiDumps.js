@@ -1,3 +1,54 @@
+const contacts = [
+  {
+    "id": 23,
+    "site_id": 12345,
+    "name": "Steven",
+    "type": "Sole Trader",
+    "primary_contact": "Joaquim Gomez",
+    "job_title": "Technical Directory",
+    "middle_name": "",
+    "last_name": "Smith",
+    "email": "steven@smith.com",
+    "phone": "012123451879",
+    "extension": "444",
+    "mobile": "0732415781",
+    "fax": "0123475768",
+    "notes": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+  },
+  {
+    "id": 21,
+    "site_id": 12345,
+    "name": "John",
+    "type": "Primary Contact",
+    "primary_contact": "Joaquim Gomez",
+    "job_title": "COO",
+    "middle_name": "",
+    "last_name": "Doe",
+    "email": "John@Doe.com",
+    "phone": "012123451879",
+    "extension": "444",
+    "mobile": "0732415781",
+    "fax": "0123475768",
+    "notes": "This is where you can keep some notes"
+  },
+  {
+    "id": 22,
+    "site_id": 12345,
+    "name": "Jane",
+    "type": "Primary Contact",
+    "primary_contact": "Joaquim Gomez",
+    "job_title": "COO",
+    "middle_name": "",
+    "last_name": "Doe",
+    "email": "Jane@Doe.com",
+    "phone": "012123451879",
+    "extension": "444",
+    "mobile": "0732415781",
+    "fax": "0123475768",
+    "notes": "Thi"
+  }
+]
+
  const assets = [
   {
     "id": 2186154,
@@ -378,4 +429,5 @@ export default {
     credentials,
     backups,
     locations,
+    contacts
 }

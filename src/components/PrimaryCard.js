@@ -21,8 +21,11 @@ const useStyles = makeStyles(theme => ({
             marginLeft: drawerWidth + margin
         },
         margin: margin,
-        display: "flex"
+        display: "flex",
+        flexGrow: 1
     },
+
+    primaryCard: { flexGrow: 1, display: "flex", flexDirection: "column" },
 
     header: {
         display: "flex",
@@ -36,9 +39,8 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(2)
     },
 
-    primarCardGrid: {
-        padding: theme.spacing(3),
-        flexGrow: 1
+    primaryCardGrid: {
+        padding: theme.spacing(3)
     }
 }));
 
@@ -48,7 +50,7 @@ export default props => {
 
     return (
         <Box className={classes.main}>
-            <Paper style={{ minHeight: 720 }} elevation={8}>
+            <Paper className={classes.primaryCard} elevation={8}>
                 <header className={classes.header}>
                     <Typography style={{ flexGrow: 1 }} variant="h5">
                         {props.title}
@@ -62,7 +64,9 @@ export default props => {
                                 size="small"
                                 style={{
                                     margin: theme.spacing(1),
-                                    color: "white",
+                                    color: value.textColor
+                                        ? value.textColor
+                                        : "white",
                                     background: value.color
                                 }}
                             >
@@ -72,29 +76,36 @@ export default props => {
                     })}
                 </header>
                 <Divider />
-                <Grid
-                    container
-                    justify="space-between"
-                    className={classes.primarCardGrid}
-                    spacing={3}
-                >
-                    {props.cards.map((value, index) => {
-                        return value.content.every(subtitle => subtitle === null) ? null: (
-                            <Grid
-                                key={index}
-                                item
-                                xs={value.columns.xs ? value.columns.xs : true}
-                            >
-                                <MinorCard
-                                    elevation={2}
-                                    style={{ flexGrow: 1 }}
-                                    title={value.title}
-                                    content={value.content}
-                                ></MinorCard>
-                            </Grid>
-                        );
-                    })}
-                </Grid>
+                <Box style={{ overflowY: "auto", overflowX: "hidden", flexGrow: 1}}>
+                    <Grid
+                        container
+                        className={classes.primaryCardGrid}
+                        spacing={3}
+                    >
+                        {props.cards.map((value, index) => {
+                            return value.content.every(
+                                subtitle => subtitle === null
+                            ) ? null : (
+                                <Grid
+                                    key={index}
+                                    item
+                                    xs={
+                                        value.columns.xs
+                                            ? value.columns.xs
+                                            : true
+                                    }
+                                >
+                                    <MinorCard
+                                        elevation={2}
+                                        style={{ flexGrow: 1 }}
+                                        title={value.title}
+                                        content={value.content}
+                                    ></MinorCard>
+                                </Grid>
+                            );
+                        })}
+                    </Grid>
+                </Box>
             </Paper>
         </Box>
     );
