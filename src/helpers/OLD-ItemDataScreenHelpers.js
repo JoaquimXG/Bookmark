@@ -51,7 +51,13 @@ export const itemDataScreenRoute = (routeInfo, rows)=> {
             exact
             key={routeInfo.path}
             path={`${routeInfo.path}/:id`}
-            render={(routerProps) => renderDataScreen(routerProps, rows)}
+            render={(routerProps) => (<DataScreen 
+                {...routerProps}
+                rows={rows}
+                buttons={companyInfoButtons}
+                secondaryCardData={companyInfoSecondaryCardData}
+            />)}
+
         />
     );
 };

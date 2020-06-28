@@ -22,7 +22,6 @@ import {
     companyInfoButtons
 } from "./static/pre-api-helpers/companyInfoApiData";
 import { assetTemplate } from "./static/pre-api-helpers/testingCardGeneration";
-import { itemDataScreenRoute } from "./helpers/ItemDataScreenHelpers";
 import assetsDump from "./static/pre-api-helpers/assetDump";
 
 //Static routes for Item Categories
@@ -91,6 +90,23 @@ const ItemCategoryRoute = (route, setRows) => {
                     />
                 );
             }}
+        />
+    );
+};
+
+const itemDataScreenRoute = (routeInfo, rows)=> {
+    return (
+        <Route
+            exact
+            key={routeInfo.path}
+            path={`${routeInfo.path}/:id`}
+            render={(routerProps) => (<DataScreen 
+                {...routerProps}
+                rows={rows}
+                buttons={companyInfoButtons}
+                secondaryCardData={companyInfoSecondaryCardData}
+            />)}
+
         />
     );
 };
