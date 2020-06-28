@@ -23,9 +23,6 @@ const useStyles = makeStyles(theme => ({
 export default props => {
     const classes = useStyles();
 
-    console.log('props',props)
-
-
     return (
         <Paper elevation={props.elevation} className={classes.dataCard}>
             <header className={classes.header}>

@@ -1,56 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 import { CssBaseline } from "@material-ui/core";
 import NavBar from "./components/NavBar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ItemCategory from "./components/ItemCategory";
 import {
-    credentialRows,
     credentialColumns,
-    assetRows,
     assetColumns,
-    locationRows,
     locationColumns,
-    contactRows,
     contactColumns,
-    siteSummaryRows,
     SiteSummaryColumns,
-    applicationRows,
     applicationColumns,
-    backupRows,
     backupColumns,
-    checklistRows,
     checklistColumns,
-    printerRows,
-    printerColumns
+    printerColumns,
+    rows
 } from "./static/pre-api-helpers/itemlists";
-import assets from "./static/pre-api-helpers/assetDump";
 import DataScreen from "./components/DataScreen";
 import {
     companyInfoPrimaryCardData,
     companyInfoSecondaryCardData,
     companyInfoButtons
 } from "./static/pre-api-helpers/companyInfoApiData";
-import { assetsTemplate } from "./static/pre-api-helpers/testingCardGeneration";
+import { assetTemplate } from "./static/pre-api-helpers/testingCardGeneration";
+import { itemDataScreenRoute } from "./helpers/ItemDataScreenHelpers";
+import assetsDump from "./static/pre-api-helpers/assetDump";
 
 //Static routes for Item Categories
 const staticItemCategoryRoutes = [
-    { path: "/credentials", rows: credentialRows, columns: credentialColumns },
-    { path: "/assets", rows: assetRows, columns: assetColumns },
-    { path: "/locations", rows: locationRows, columns: locationColumns },
-    { path: "/contacts", rows: contactRows, columns: contactColumns },
+    {
+        path: "/credentials",
+        rows: rows.credentials,
+        columns: credentialColumns
+    },
+    {
+        path: "/assets",
+        rows: assetsDump,
+        columns: assetColumns,
+        assetTemplate
+    },
+    { path: "/locations", rows: rows.locations, columns: locationColumns },
+    { path: "/contacts", rows: rows.contacts, columns: contactColumns },
     {
         path: "/site summaries",
-        rows: siteSummaryRows,
+        rows: rows.siteSummarys,
         columns: SiteSummaryColumns
     },
     {
         path: "/applications",
-        rows: applicationRows,
+        rows: rows.applications,
         columns: applicationColumns
     },
-    { path: "/backups", rows: backupRows, columns: backupColumns },
-    { path: "/checklists", rows: checklistRows, columns: checklistColumns },
-    { path: "/printers", rows: printerRows, columns: printerColumns }
+    { path: "/backups", rows: rows.backups, columns: backupColumns },
+    { path: "/checklists", rows: rows.checklists, columns: checklistColumns },
+    { path: "/printers", rows: rows.printers, columns: printerColumns }
 ];
 
 //Colors
@@ -73,40 +75,7 @@ export const AppBarHeight = {
     sm: 80
 };
 
-const generatePrimaryCards = (item, template) => {
-    var newItem = {
-        cards: template.cards.map(card => {
-            var content = card.content.map(templateValue => {
-                console.log('templateValue',templateValue, 'item[templateValue]', item[templateValue])
-                return item[templateValue]
-                    ? { title: templateValue, content: item[templateValue] }
-                    : null;
-            });
-            console.log('card.content', content)
-            return content ? { ...card, content: content } : null;
-        })
-    };
-    newItem.header = item[template.header];
-    return newItem;
-};
-
-const renderDataScreen = routerProps => {
-    let id = parseInt(routerProps.match.params.id);
-
-    var item = assets.find(asset => asset.id === id);
-    item = generatePrimaryCards(item, assetsTemplate);
-    console.log(item);
-    return (
-        <DataScreen
-            buttons={companyInfoButtons}
-            cards={item.cards}
-            title={item.header}
-            secondaryCardData={companyInfoSecondaryCardData}
-        />
-    );
-};
-
-const itemCategoryRoute = route => {
+const ItemCategoryRoute = (route, setRows) => {
     return (
         <Route
             exact
@@ -115,6 +84,7 @@ const itemCategoryRoute = route => {
             render={() => {
                 return (
                     <ItemCategory
+                        setRows={setRows}
                         path={route.path}
                         rows={route.rows}
                         colums={route.columns}
@@ -125,18 +95,10 @@ const itemCategoryRoute = route => {
     );
 };
 
-const itemDataScreenRoute = routeInfo => {
-    return (
-        <Route
-            exact
-            key={routeInfo.path}
-            path={`${routeInfo.path}/:id`}
-            render={renderDataScreen}
-        />
-    );
-};
-
 function App() {
+    const [rows, setRows] = useState(null);
+    console.log("rows", rows);
+
     return (
         <>
             <CssBaseline>
@@ -148,9 +110,7 @@ function App() {
                             path="/"
                             render={() => (
                                 <DataScreen
-                                    cards={
-                                        companyInfoPrimaryCardData.cards
-                                    }
+                                    cards={companyInfoPrimaryCardData.cards}
                                     secondaryCardData={
                                         companyInfoSecondaryCardData
                                     }
@@ -160,10 +120,10 @@ function App() {
                             )}
                         />
                         {staticItemCategoryRoutes.map(route => {
-                            return itemCategoryRoute(route);
+                            return ItemCategoryRoute(route, setRows);
                         })}
                         {staticItemCategoryRoutes.map(route => {
-                            return itemDataScreenRoute(route);
+                            return itemDataScreenRoute(route, rows);
                         })}
                     </Switch>
                 </Router>

@@ -31,7 +31,7 @@ export const cardsTemplate = {
     ]
 };
 
-export const assetsTemplate = {
+export const assetTemplate = {
     header: "name",
 
     cards: [

@@ -28,10 +28,6 @@ const useStyles = makeStyles(theme => ({
 export default props => {
     const classes = useStyles();
 
-    const testing = () => {
-        console.log(props.row);
-    };
-
     return (
         <TableRow hover>
             <TableCell className={classes.checkbox} padding="checkbox">
@@ -40,7 +36,6 @@ export default props => {
             </TableCell>
             {props.row.data.map(cell => (
                 <TableCell
-                    onClick={testing}
                     to={`${props.path}/${props.row.id}`}
                     component={Link}
                     className={classes.cell}

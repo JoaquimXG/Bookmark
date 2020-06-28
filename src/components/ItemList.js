@@ -43,14 +43,37 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-
 export default props => {
     const classes = useStyles();
     const theme = useTheme();
 
+    const template = props.columns.map(column => column.id)
+
+    const parseRows = (rows, template) => {
+        const parsedRows = rows.map(row => ({
+            data: [
+                row[template[0]],
+                row[template[1]],
+                row[template[2]],
+                row[template[3]]
+            ],
+            id: row.id
+        }));
+        return parsedRows
+    };
+
+    const parsedRows = parseRows(props.rows, template)
+
     return (
         <Box className={classes.main}>
-            <Paper style={{ display: "flex",flexDirection:"column", flexGrow: 1 }} elevation={8}>
+            <Paper
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    flexGrow: 1
+                }}
+                elevation={8}
+            >
                 <header className={classes.header}>
                     <TextField
                         label="Search"
@@ -93,8 +116,12 @@ export default props => {
                     <Table stickyHeader>
                         <TableHeadExtended columns={props.columns} />
                         <TableBody>
-                            {props.rows.map((row, index) => (
-                                <TableRowExtended path={props.path} key={index} row={row} />
+                            {parsedRows.map((row, index) => (
+                                <TableRowExtended
+                                    path={props.path}
+                                    key={index}
+                                    row={row}
+                                />
                             ))}
                         </TableBody>
                     </Table>
