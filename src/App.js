@@ -35,7 +35,7 @@ const staticItemCategoryRoutes = [
         path: "/assets",
         rows: assetsDump,
         columns: assetColumns,
-        assetTemplate
+        template: assetTemplate
     },
     { path: "/locations", rows: rows.locations, columns: locationColumns },
     { path: "/contacts", rows: rows.contacts, columns: contactColumns },
@@ -105,6 +105,7 @@ const itemDataScreenRoute = (routeInfo, rows)=> {
                 rows={rows}
                 buttons={companyInfoButtons}
                 secondaryCardData={companyInfoSecondaryCardData}
+                rowTemplate={routeInfo.template}
             />)}
 
         />

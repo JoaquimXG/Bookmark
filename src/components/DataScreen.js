@@ -3,7 +3,6 @@ import PrimaryCard from "./PrimaryCard";
 import SecondaryCard from "./SecondaryCard";
 import { Box, makeStyles } from "@material-ui/core";
 import { AppBarHeight } from "../App";
-import { assetTemplate } from "../static/pre-api-helpers/testingCardGeneration";
 
 const useStyle = makeStyles(theme => ({
     body: {
@@ -39,7 +38,6 @@ export default props => {
         return newItem;
     };
 
-
     var item
     if (props.match){
         let id = parseInt(props.match.params.id);
@@ -51,7 +49,7 @@ export default props => {
         }
         
         item = props.rows.find(row => row.id === id);
-        item = generatePrimaryCards(item, assetTemplate);
+        item = generatePrimaryCards(item, props.rowTemplate);
     }
     else { item = null }
 
