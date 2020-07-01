@@ -19,7 +19,7 @@ import { drawerWidth } from "../App";
 import TableHeadExtended from "./TableHeadExtended";
 import TableRowExtended from "./TableRowExtended";
 import { useQuery } from "@apollo/react-hooks"; 
-import queries from '../static/pre-api-helpers/queries'
+import {itemListQueries }from '../static/pre-api-helpers/queries'
 
 const margin = 25;
 
@@ -51,7 +51,7 @@ export default props => {
     const classes = useStyles();
     const theme = useTheme();
 
-    const {loading, error, data } = useQuery(queries[props.query].query);
+    const {loading, error, data } = useQuery(itemListQueries[props.query].query);
 
     if (error) return <p>Error</p>;
 
@@ -108,7 +108,7 @@ export default props => {
                     <Table stickyHeader>
                         <TableHeadExtended columns={props.columns} />
                         <TableBody>
-                            {data[queries[props.query].data].map((row) => (
+                            {data[itemListQueries[props.query].data].map((row) => (
                                 <TableRowExtended
                                     columns={props.columns}
                                     path={props.path}

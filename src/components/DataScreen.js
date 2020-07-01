@@ -3,6 +3,8 @@ import PrimaryCard from "./PrimaryCard";
 import SecondaryCard from "./SecondaryCard";
 import { Box, makeStyles } from "@material-ui/core";
 import { AppBarHeight } from "../App";
+import {useQuery} from "@apollo/react-hooks";
+import {individualQueries} from '../static/pre-api-helpers/queries'
 
 const useStyle = makeStyles(theme => ({
     body: {
@@ -23,6 +25,9 @@ const useStyle = makeStyles(theme => ({
 
 export default props => {
     const classes = useStyle();
+    const {loading, error, data } = useQuery(individualQueries['credential'].query, {variables: {id: 25}});
+
+    console.log(props)
 
     const generatePrimaryCards = (item, template) => {
         var newItem = {
@@ -47,6 +52,7 @@ export default props => {
         if (props.rows === null) {
             //TO-DO getRows
             console.log("rows undefined, page probably refreshed");
+            return <div>hellllllooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo</div>
         }
 
         item = props.rows.find(row => row.id === id);

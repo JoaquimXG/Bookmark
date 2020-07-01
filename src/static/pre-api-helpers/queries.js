@@ -71,10 +71,31 @@ const backupsList = {
     data: "backups"
 };
 
-export default {
+export const itemListQueries = {
     assetsList,
     credentialsList,
     locationsList,
     contactsList,
     backupsList
+}
+
+const credential = {
+    query: gql`
+    {
+          credential(id: $id){
+            id
+            name
+            password
+            url
+            description
+            type
+            client
+            folder
+            notes
+          }
+    }`
+}
+
+export const individualQueries = {
+    credential
 }
