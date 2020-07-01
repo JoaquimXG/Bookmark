@@ -23,42 +23,33 @@ const useStyle = makeStyles(theme => ({
     }
 }));
 
+const generatePrimaryCards = (item, template) => {
+    var newItem = {
+        cards: template.cards.map(card => {
+            var content = card.content.map(templateValue => {
+                return item[templateValue]
+                    ? { title: templateValue, content: item[templateValue] }
+                    : null;
+            });
+            return content ? { ...card, content: content } : null;
+        })
+    };
+    newItem.header = item[template.header];
+    return newItem;
+};
+
 export default props => {
     const classes = useStyle();
-    const {loading, error, data } = useQuery(individualQueries['credential'].query, {variables: {id: 25}});
+    let id = parseInt(props.match.params.id); 
+    const {loading, error, data } = useQuery(individualQueries[props.path].query, {variables: {id: id}});
 
-    console.log(props)
+    if (loading) return <p>looooooooooooooooooooooooooooooooooaaaaaaaaaaaaaaaaaaaaaaaaaading</p>
+    if (error) return <p>eeeeeeeeeeeeeeeeeeeeeerrrrrrrrrrrrrrrrrrrrrrrrrrroooooooooooooooooooooooooorrrrrrrrrrrrrrr</p>
 
-    const generatePrimaryCards = (item, template) => {
-        var newItem = {
-            cards: template.cards.map(card => {
-                var content = card.content.map(templateValue => {
-                    return item[templateValue]
-                        ? { title: templateValue, content: item[templateValue] }
-                        : null;
-                });
-                return content ? { ...card, content: content } : null;
-            })
-        };
-        newItem.header = item[template.header];
-        return newItem;
-    };
-
-    var item;
-    if (props.match) {
-        let id = parseInt(props.match.params.id);
-
-        // if the page is refreshed then there will be no value in rows
-        if (props.rows === null) {
-            //TO-DO getRows
-            console.log("rows undefined, page probably refreshed");
-            return <div>hellllllooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo</div>
-        }
-
-        item = props.rows.find(row => row.id === id);
+    if (data){
+        var item;
+        item = data ? data[props.path]: null
         item = generatePrimaryCards(item, props.rowTemplate);
-    } else {
-        item = null;
     }
 
     return (

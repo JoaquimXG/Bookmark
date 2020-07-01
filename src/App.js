@@ -19,60 +19,60 @@ import { ApolloProvider } from "@apollo/react-hooks";
 //Static routes for Item Categories
 const staticItemCategoryRoutes = [
     {
-        path: "/credentials",
+        path: "credential",
         rows: apiDumps.credentials,
         columns: columns.credentialColumns,
         template: templates.credentialTemplate,
         query: "credentialsList"
     },
     {
-        path: "/assets",
+        path: "asset",
         rows: apiDumps.assets,
         columns: columns.assetColumns,
         template: templates.assetTemplate,
         query: "assetsList"
     },
     {
-        path: "/locations",
+        path: "location",
         rows: apiDumps.locations,
         columns: columns.locationColumns,
         template: templates.locationTemplate,
         query: "locationsList"
     },
     {
-        path: "/contacts",
+        path: "contact",
         rows: apiDumps.contacts,
         columns: columns.contactColumns,
         template: templates.contactTemplate,
         query: "contactsList"
     },
     {
-        path: "/backups",
+        path: "backup",
         rows: apiDumps.backups,
         columns: columns.backupColumns,
-        templates: templates.backupTemplate,
+        template: templates.backupTemplate,
         query: "backupsList"
     },
     {
-        path: "/site summaries",
+        path: "site summarie",
         rows: rows.siteSummarys,
         columns: columns.siteSummaryColumns,
         query: "siteSummariesList"
     },
     {
-        path: "/applications",
+        path: "application",
         rows: rows.applications,
         columns: columns.applicationColumns,
         query: "applicationsList"
     },
     {
-        path: "/checklists",
+        path: "checklist",
         rows: rows.checklists,
         columns: columns.checklistColumns,
         query: "checklistsList"
     },
     {
-        path: "/printers",
+        path: "printer",
         rows: rows.printers,
         columns: columns.printerColumns,
         query: "printersList"
@@ -104,12 +104,12 @@ const ItemCategoryRoute = (route, setRows) => {
         <Route
             exact
             key={route.path}
-            path={route.path}
+            path={`/${route.path}s`}
             render={() => {
                 return (
                     <ItemCategory
                         setRows={setRows}
-                        path={route.path}
+                        path={`/${route.path}s`}
                         rows={route.rows}
                         query={route.query}
                         colums={route.columns}
@@ -125,10 +125,11 @@ const itemDataScreenRoute = (routeInfo, rows) => {
         <Route
             exact
             key={routeInfo.path}
-            path={`${routeInfo.path}/:id`}
+            path={`/${routeInfo.path}s/:id`}
             render={routerProps => (
                 <DataScreen
                     {...routerProps}
+                    path={routeInfo.path}
                     rows={rows}
                     buttons={itemDataScreenTemplate.buttons}
                     secondaryCardData={itemDataScreenTemplate.secondaryCardData}
@@ -157,6 +158,7 @@ function App() {
                             path="/"
                             render={() => (
                                 <DataScreen
+                                    path="credential"
                                     cards={companyInfoPrimaryCardData.cards}
                                     secondaryCardData={
                                         companyInfoSecondaryCardData
