@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import { Box, makeStyles } from "@material-ui/core";
+import React, { useEffect } from "react";
+import { Box, makeStyles, ThemeProvider } from "@material-ui/core";
 import {
     CreateSharp,
     AddSharp,
@@ -8,6 +8,8 @@ import {
 } from "@material-ui/icons";
 import { themeColors, AppBarHeight } from "../App";
 import ItemList from "./ItemList";
+import ItemCategoryErrorBoundary from "./ItemCategoryErrorBoundary";
+import {useTheme} from "@material-ui/styles";
 
 const useStyle = makeStyles(theme => ({
     body: {
@@ -59,22 +61,27 @@ const primaryButtons = [
 
 export default props => {
     const classes = useStyle();
+    const theme = useTheme()
 
     useEffect(() => {
-        props.setRows(props.rows)
-    },[props]);
+        props.setRows(props.rows);
+    }, [props]);
 
     return (
-        <div className={classes.main}>
-            <Box className={classes.body}>
-                <ItemList
-                    path={props.path}
-                    rows={props.rows}
-                    columns={props.colums}
-                    query={props.query}
-                    buttons={primaryButtons}
-                />
-            </Box>
-        </div>
+        <ThemeProvider theme={theme}>
+            <ItemCategoryErrorBoundary myclasses={classes}>
+                <div className={classes.main}>
+                    <Box className={classes.body}>
+                        <ItemList
+                            path={props.path}
+                            rows={props.rows}
+                            columns={props.colums}
+                            query={props.query}
+                            buttons={primaryButtons}
+                        />
+                    </Box>
+                </div>
+            </ItemCategoryErrorBoundary>
+        </ThemeProvider>
     );
 };
