@@ -37,6 +37,7 @@ export default props => {
                     {props.data.map((value, index) => {
                         return (
                             <SecondaryCardList
+                                addFile={value.addFile}
                                 key={index}
                                 title={value.title}
                                 caption={value.caption}

@@ -75,7 +75,8 @@ const secondaryCardData = [
         caption: time => `Last Viewed: ${time}`,
         body: (author, item) => `${author}: ${item}`,
         icon: <AttachFileSharp style={{ marginRight: theme.spacing(1) }} />,
-        data: null
+        data: activityFeedData,
+        addFile: true
     },
     {
         title: "Activity Feed",
