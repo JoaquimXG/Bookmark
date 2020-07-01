@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import  navBarItems  from "../static/pre-api-helpers/navBarItems";
 import Drawer from "@material-ui/core/Drawer";
 import logo from "../static/images/Logo.svg";
 import { drawerWidth, themeColors } from "../App";
-
 import {
     AppBar,
     Toolbar,
@@ -20,7 +19,7 @@ import {
     Hidden,
 } from "@material-ui/core";
 import { Home, Menu } from "@material-ui/icons";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
 // CSS Styles
 const useStyles = makeStyles(theme => ({
@@ -81,7 +80,17 @@ export default props => {
     const classes = useStyles();
 
     const [mobileOpen, setMobileOpen] = useState(false);
-    const [page, setPage] = useState(null);
+    const [id, setId] = useState(0);
+    const [page, setPage] = useState('')
+
+    const currentPage = useLocation().pathname.slice(1)
+
+    useEffect(() => {
+    })
+
+    useEffect(()=> {
+        setPage(currentPage)
+    },[currentPage])
 
     const toggleSlider = () => {
         setMobileOpen(!mobileOpen);
@@ -108,7 +117,7 @@ export default props => {
                         variant="square"
                         src={logo}
                         alt="logo"
-                        onClick={() => setPage(null)}
+                        onClick={() => setId(0)}
                     />
                     <Divider />
                 </Box>
@@ -121,11 +130,11 @@ export default props => {
                             key={key}
                             exact
                             to={`/${listItem.listText}`}
-                            onClick={() => setPage(listItem.listText)}
+                            onClick={() => setId(listItem.id)}
                             activeClassName={classes.NavItemOnSelect}
 
                         >
-                            <ListItem className={classes.listItem} button>
+                            <ListItem selected={id ?(id === listItem.id): (page === listItem.listText)} className={classes.listItem} button>
                                 <ListItemIcon>{listItem.listIcon}</ListItemIcon>
                                 <ListItemText primary={listItem.listText} />
                             </ListItem>

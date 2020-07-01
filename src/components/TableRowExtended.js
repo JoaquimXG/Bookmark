@@ -22,7 +22,11 @@ const useStyles = makeStyles(theme => ({
         position: "relative"
     },
 
-    cell: { position: "relative", color: themeColors.secondary5 }
+    cell: {
+        position: "relative",
+        color: themeColors.secondary5,
+        textDecoration: "none"
+    }
 }));
 
 export default props => {

@@ -121,7 +121,6 @@ const itemDataScreenRoute = (routeInfo, rows) => {
 
 function App() {
     const [rows, setRows] = useState(null);
-    console.log("rows", rows);
 
     return (
         <>

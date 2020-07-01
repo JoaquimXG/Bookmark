@@ -3,7 +3,6 @@ import React from "react";
 import {
     NotificationImportantSharp,
     AttachFileSharp,
-    VpnKeySharp,
     DeleteOutlineSharp,
     LinkSharp
 } from "@material-ui/icons";
