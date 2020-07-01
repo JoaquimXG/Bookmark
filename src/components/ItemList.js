@@ -11,12 +11,15 @@ import {
     IconButton,
     Table,
     TableContainer,
-    TableBody
+    TableBody,
+    Typography
 } from "@material-ui/core";
 import { SearchSharp } from "@material-ui/icons";
 import { drawerWidth } from "../App";
 import TableHeadExtended from "./TableHeadExtended";
 import TableRowExtended from "./TableRowExtended";
+import { useQuery } from "@apollo/react-hooks"; 
+import { gql } from "apollo-boost";
 
 const margin = 25;
 
@@ -43,11 +46,27 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+const sites = gql`
+    {
+        assets(site_id: 235549) {
+            id
+            name
+            type
+            external_ip
+            model
+        }
+    }
+`;
+
 export default props => {
     const classes = useStyles();
     const theme = useTheme();
 
     const template = props.columns.map(column => column.id)
+
+    const { loading, error, data } = useQuery(sites);
+
+    if (error) return <p>Error</p>;
 
     const parseRows = (rows, template) => {
         const parsedRows = rows.map(row => ({
@@ -61,6 +80,10 @@ export default props => {
         }));
         return parsedRows
     };
+
+    console.log("template", template)
+    console.log("apidata", data)
+    const test =data? console.log("apidata", data.assets): null
 
     const parsedRows = parseRows(props.rows, template)
 
@@ -113,6 +136,7 @@ export default props => {
                 </header>
                 <Divider />
                 <TableContainer className={classes.tableContainer}>
+                    { loading ? <Typography variant="h1">Loading...</Typography>: 
                     <Table stickyHeader>
                         <TableHeadExtended columns={props.columns} />
                         <TableBody>
@@ -125,6 +149,7 @@ export default props => {
                             ))}
                         </TableBody>
                     </Table>
+                }
                 </TableContainer>
             </Paper>
         </Box>

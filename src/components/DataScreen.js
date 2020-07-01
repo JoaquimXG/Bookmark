@@ -9,15 +9,15 @@ const useStyle = makeStyles(theme => ({
         display: "flex",
         flexDirection: "row",
         height: "100%",
-        flexGrow: 1,
+        flexGrow: 1
     },
 
     main: {
         height: `calc(100vh - ${AppBarHeight.xs}px)`,
         background: "#BBC7CD",
         [theme.breakpoints.up("sm")]: {
-            height: `calc(100vh - ${AppBarHeight.sm}px)`,
-        },
+            height: `calc(100vh - ${AppBarHeight.sm}px)`
+        }
     }
 }));
 
@@ -39,28 +39,29 @@ export default props => {
         return newItem;
     };
 
-    var item
-    if (props.match){
+    var item;
+    if (props.match) {
         let id = parseInt(props.match.params.id);
-        
+
         // if the page is refreshed then there will be no value in rows
-        if (props.rows === null){
+        if (props.rows === null) {
             //TO-DO getRows
-            console.log('rows undefined, page probably refreshed')
+            console.log("rows undefined, page probably refreshed");
         }
-        
+
         item = props.rows.find(row => row.id === id);
         item = generatePrimaryCards(item, props.rowTemplate);
+    } else {
+        item = null;
     }
-    else { item = null }
 
     return (
         <div className={classes.main}>
             <Box className={classes.body}>
                 <PrimaryCard
-                    cards={item? item.cards: props.cards}
+                    cards={item ? item.cards : props.cards}
                     buttons={props.buttons.primary}
-                    title={item? item.header: props.title}
+                    title={item ? item.header : props.title}
                 />
                 <SecondaryCard
                     data={props.secondaryCardData}

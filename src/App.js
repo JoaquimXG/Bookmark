@@ -13,6 +13,8 @@ import {
 import itemDataScreenTemplate from './static/pre-api-helpers/itemDataScreenTemplate'
 import templates from "./static/pre-api-helpers/cardGenerationTemplates";
 import apiDumps from "./static/pre-api-helpers/apiDumps";
+import ApolloClient, {gql} from 'apollo-boost'
+import { ApolloProvider } from '@apollo/react-hooks';
 
 //Static routes for Item Categories
 const staticItemCategoryRoutes = [
@@ -119,11 +121,17 @@ const itemDataScreenRoute = (routeInfo, rows) => {
     );
 };
 
+const client = new ApolloClient({
+    uri: "http://localhost:4000"
+})
+
+
+
 function App() {
     const [rows, setRows] = useState(null);
 
     return (
-        <>
+        <ApolloProvider client={client}>
             <CssBaseline>
                 <Router>
                     <NavBar />
@@ -151,7 +159,7 @@ function App() {
                     </Switch>
                 </Router>
             </CssBaseline>
-        </>
+        </ApolloProvider>
     );
 }
 export default App;
