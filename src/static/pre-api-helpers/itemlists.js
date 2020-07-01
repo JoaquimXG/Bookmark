@@ -82,12 +82,12 @@ const contactColumns = [
         label: "Contact Type"
     },
     {
-        id: "location",
-        label: "Contact Address"
+        id: "mobile",
+        label: "Contact Mobile"
     },
     {
-        id: "author",
-        label: "Created By"
+        id: "email",
+        label: "Email"
     }
 ];
 
@@ -158,12 +158,12 @@ const backupColumns = [
         label: "Backup Type"
     },
     {
-        id: "schedule",
-        label: "Backup Schedule"
+        id: "start_time",
+        label: "Start Time"
     },
     {
-        id: "author",
-        label: "Created By"
+        id: "vendor",
+        label: "Vendor"
     }
 ];
 

@@ -38,14 +38,14 @@ export default props => {
                 <Checkbox></Checkbox>
                 <Divider className={classes.divider} orientation="vertical" />
             </TableCell>
-            {props.row.data.map(cell => (
+            {props.columns.map(column => (
                 <TableCell
                     to={`${props.path}/${props.row.id}`}
                     component={Link}
                     className={classes.cell}
-                    key={cell}
+                    key={`${column.id}-${props.row.id}`}
                 >
-                    <Typography variant="subtitle2">{cell}</Typography>
+                    <Typography variant="subtitle2">{props.row[column.id]}</Typography>
                     <Divider
                         className={classes.divider}
                         orientation="vertical"

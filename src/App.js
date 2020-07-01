@@ -3,18 +3,18 @@ import { CssBaseline } from "@material-ui/core";
 import NavBar from "./components/NavBar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ItemCategory from "./components/ItemCategory";
-import { rows,columns} from "./static/pre-api-helpers/itemlists";
+import { rows, columns } from "./static/pre-api-helpers/itemlists";
 import DataScreen from "./components/DataScreen";
 import {
     companyInfoPrimaryCardData,
     companyInfoSecondaryCardData,
     companyInfoButtons
 } from "./static/pre-api-helpers/companyInfoApiData";
-import itemDataScreenTemplate from './static/pre-api-helpers/itemDataScreenTemplate'
+import itemDataScreenTemplate from "./static/pre-api-helpers/itemDataScreenTemplate";
 import templates from "./static/pre-api-helpers/cardGenerationTemplates";
 import apiDumps from "./static/pre-api-helpers/apiDumps";
-import ApolloClient, {gql} from 'apollo-boost'
-import { ApolloProvider } from '@apollo/react-hooks';
+import ApolloClient from "apollo-boost";
+import { ApolloProvider } from "@apollo/react-hooks";
 
 //Static routes for Item Categories
 const staticItemCategoryRoutes = [
@@ -22,44 +22,61 @@ const staticItemCategoryRoutes = [
         path: "/credentials",
         rows: apiDumps.credentials,
         columns: columns.credentialColumns,
-        template: templates.credentialTemplate
+        template: templates.credentialTemplate,
+        query: "credentialsList"
     },
     {
         path: "/assets",
         rows: apiDumps.assets,
         columns: columns.assetColumns,
-        template: templates.assetTemplate
+        template: templates.assetTemplate,
+        query: "assetsList"
     },
     {
         path: "/locations",
         rows: apiDumps.locations,
         columns: columns.locationColumns,
-        template: templates.locationTemplate
+        template: templates.locationTemplate,
+        query: "locationsList"
     },
     {
         path: "/contacts",
         rows: apiDumps.contacts,
         columns: columns.contactColumns,
-        template: templates.contactTemplate
+        template: templates.contactTemplate,
+        query: "contactsList"
     },
     {
         path: "/backups",
         rows: apiDumps.backups,
         columns: columns.backupColumns,
-        templates: templates.backupTemplate
+        templates: templates.backupTemplate,
+        query: "backupsList"
     },
     {
         path: "/site summaries",
         rows: rows.siteSummarys,
-        columns: columns.siteSummaryColumns
+        columns: columns.siteSummaryColumns,
+        query: "siteSummariesList"
     },
     {
         path: "/applications",
         rows: rows.applications,
-        columns: columns.applicationColumns
+        columns: columns.applicationColumns,
+        query: "applicationsList"
     },
-    { path: "/checklists", rows: rows.checklists, columns: columns.checklistColumns },
-    { path: "/printers", rows: rows.printers, columns: columns.printerColumns }
+    {
+        path: "/checklists",
+        rows: rows.checklists,
+        columns: columns.checklistColumns,
+        query: "checklistsList"
+    },
+    {
+        path: "/printers",
+        rows: rows.printers,
+        columns: columns.printerColumns,
+        query: "printersList"
+    }
 ];
 
 //Colors
@@ -94,6 +111,7 @@ const ItemCategoryRoute = (route, setRows) => {
                         setRows={setRows}
                         path={route.path}
                         rows={route.rows}
+                        query={route.query}
                         colums={route.columns}
                     />
                 );
@@ -122,10 +140,8 @@ const itemDataScreenRoute = (routeInfo, rows) => {
 };
 
 const client = new ApolloClient({
-    uri: "http://localhost:4000"
-})
-
-
+    uri: "http://lvh.me:4000"
+});
 
 function App() {
     const [rows, setRows] = useState(null);

@@ -19,7 +19,7 @@ import { drawerWidth } from "../App";
 import TableHeadExtended from "./TableHeadExtended";
 import TableRowExtended from "./TableRowExtended";
 import { useQuery } from "@apollo/react-hooks"; 
-import { gql } from "apollo-boost";
+import queries from '../static/pre-api-helpers/queries'
 
 const margin = 25;
 
@@ -46,46 +46,14 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const sites = gql`
-    {
-        assets(site_id: 235549) {
-            id
-            name
-            type
-            external_ip
-            model
-        }
-    }
-`;
 
 export default props => {
     const classes = useStyles();
     const theme = useTheme();
 
-    const template = props.columns.map(column => column.id)
-
-    const { loading, error, data } = useQuery(sites);
+    const {loading, error, data } = useQuery(queries[props.query].query);
 
     if (error) return <p>Error</p>;
-
-    const parseRows = (rows, template) => {
-        const parsedRows = rows.map(row => ({
-            data: [
-                row[template[0]],
-                row[template[1]],
-                row[template[2]],
-                row[template[3]]
-            ],
-            id: row.id
-        }));
-        return parsedRows
-    };
-
-    console.log("template", template)
-    console.log("apidata", data)
-    const test =data? console.log("apidata", data.assets): null
-
-    const parsedRows = parseRows(props.rows, template)
 
     return (
         <Box className={classes.main}>
@@ -140,10 +108,11 @@ export default props => {
                     <Table stickyHeader>
                         <TableHeadExtended columns={props.columns} />
                         <TableBody>
-                            {parsedRows.map((row, index) => (
+                            {data[queries[props.query].data].map((row) => (
                                 <TableRowExtended
+                                    columns={props.columns}
                                     path={props.path}
-                                    key={index}
+                                    key={row.id}
                                     row={row}
                                 />
                             ))}
