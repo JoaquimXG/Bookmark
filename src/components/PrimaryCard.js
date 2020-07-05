@@ -10,9 +10,10 @@ import {
     useTheme
 } from "@material-ui/core";
 import { drawerWidth } from "../App";
-
 import MinorCard from "./MinorCard";
-import {useState} from "react";
+import { useState } from "react";
+import mutations from "../static/pre-api-helpers/mutations";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 
 const margin = 25;
 
@@ -45,18 +46,34 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-
 export default props => {
     const classes = useStyles();
     const theme = useTheme();
-    const [edit, setEdit] = useState(false)
+    const [edit, setEdit] = useState(false);
+    const [formValues, setFormValues] = useState({});
+    const { loading, error, data } = useMutation(
+        mutations.locationsMutation.mutation,
+        { variables: { id: 2125, site_id: 12345, name: "Second Office", type: "Operating Location" } }
+    );
 
     const buttonFunctions = {
         handleEditOnClick: () => {
-            setEdit(!edit)
-            console.log(`change edit to ${edit}`)
+            setEdit(!edit);
         }
+    };
+
+    if (data) {
+        console.log("data", data);
     }
+    if (error){
+        console.log('error', error)
+    }
+
+    const handleTextFieldChange = event => {
+        setFormValues({ ...formValues, [event.target.id]: event.target.value });
+        console.log(props);
+        console.log(mutations.locationsMutation);
+    };
 
     return (
         <Box className={classes.main}>
@@ -87,7 +104,13 @@ export default props => {
                     })}
                 </header>
                 <Divider />
-                <Box style={{ overflowY: "auto", overflowX: "hidden", flexGrow: 1}}>
+                <Box
+                    style={{
+                        overflowY: "auto",
+                        overflowX: "hidden",
+                        flexGrow: 1
+                    }}
+                >
                     <Grid
                         container
                         className={classes.primaryCardGrid}
@@ -107,6 +130,10 @@ export default props => {
                                     }
                                 >
                                     <MinorCard
+                                        formValues={formValues}
+                                        handleTextFieldChange={
+                                            handleTextFieldChange
+                                        }
                                         edit={edit}
                                         elevation={2}
                                         style={{ flexGrow: 1 }}

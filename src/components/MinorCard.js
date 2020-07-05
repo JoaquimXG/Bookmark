@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
     Paper,
     makeStyles,
@@ -7,7 +7,8 @@ import {
     Box,
     TextField,
     ThemeProvider,
-    createMuiTheme
+    createMuiTheme,
+    useTheme
 } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -33,7 +34,8 @@ const useStyles = makeStyles(theme => ({
         letterSpacing: "0.00938rem",
         fontSize: "0.875rem",
         fontWeight: "500",
-        paddingBottom: "6px"
+        paddingBottom: "6px",
+        wordWrap: "break-word"
     }
 }));
 
@@ -77,8 +79,10 @@ export default props => {
                             {props.edit ? (
                                 <ThemeProvider theme={theme}>
                                     <TextField
+                                        value={props.formValues[value.id]}
+                                        onChange={props.handleTextFieldChange}
                                         id={value.title}
-                                        value={value.content}
+                                        defaultValue={value.content}
                                         multiline
                                     >
                                         Test

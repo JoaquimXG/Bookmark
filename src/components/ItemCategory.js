@@ -61,14 +61,12 @@ const primaryButtons = [
 
 export default props => {
     const classes = useStyle();
-    const theme = useTheme()
 
     useEffect(() => {
         props.setRows(props.rows);
     }, [props]);
 
     return (
-        <ThemeProvider theme={theme}>
             <ItemCategoryErrorBoundary myclasses={classes}>
                 <div className={classes.main}>
                     <Box className={classes.body}>
@@ -82,6 +80,5 @@ export default props => {
                     </Box>
                 </div>
             </ItemCategoryErrorBoundary>
-        </ThemeProvider>
     );
 };
