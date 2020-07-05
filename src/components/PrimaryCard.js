@@ -12,6 +12,7 @@ import {
 import { drawerWidth } from "../App";
 
 import MinorCard from "./MinorCard";
+import {useState} from "react";
 
 const margin = 25;
 
@@ -48,6 +49,14 @@ const useStyles = makeStyles(theme => ({
 export default props => {
     const classes = useStyles();
     const theme = useTheme();
+    const [edit, setEdit] = useState(false)
+
+    const buttonFunctions = {
+        handleEditOnClick: () => {
+            setEdit(!edit)
+            console.log(`change edit to ${edit}`)
+        }
+    }
 
     return (
         <Box className={classes.main}>
@@ -59,6 +68,7 @@ export default props => {
                     {props.buttons.map((value, index) => {
                         return (
                             <Button
+                                onClick={buttonFunctions.handleEditOnClick}
                                 key={index}
                                 variant="contained"
                                 startIcon={<value.icon />}
@@ -97,6 +107,7 @@ export default props => {
                                     }
                                 >
                                     <MinorCard
+                                        edit={edit}
                                         elevation={2}
                                         style={{ flexGrow: 1 }}
                                         title={value.title}

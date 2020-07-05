@@ -1,5 +1,14 @@
 import React from "react";
-import { Paper, makeStyles, Typography, Divider, Box} from "@material-ui/core";
+import {
+    Paper,
+    makeStyles,
+    Typography,
+    Divider,
+    Box,
+    TextField,
+    ThemeProvider,
+    createMuiTheme
+} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
     dataCard: {
@@ -17,8 +26,32 @@ const useStyles = makeStyles(theme => ({
         display: "flex",
         flexDirection: "column",
         padding: theme.spacing(2)
+    },
+
+    fieldsTypography: {
+        lineHeight: "1.0625rem",
+        letterSpacing: "0.00938rem",
+        fontSize: "0.875rem",
+        fontWeight: "500",
+        paddingBottom: "6px"
     }
 }));
+
+const theme = createMuiTheme({
+    overrides: {
+        MuiInputBase: {
+            root: {
+                fontSize: "0.875rem",
+                fontWeight: "500",
+                lineHeight: "1.0625rem",
+                letterSpacing: "0.00938rem"
+            },
+            multiline: {
+                padding: "0px 0px 6px"
+            }
+        }
+    }
+});
 
 export default props => {
     const classes = useStyles();
@@ -33,15 +66,34 @@ export default props => {
             <Divider />
             <Box className={classes.data}>
                 {props.content.map((value, index) => {
-                    
-                    return value? (
+                    return value ? (
                         <React.Fragment key={index}>
-                            <Typography variant="caption" style={{color: "#646464"}}>
+                            <Typography
+                                variant="caption"
+                                style={{ color: "#646464", marginTop: "5px" }}
+                            >
                                 {value.title}
                             </Typography>
-                            <Typography variant="subtitle2" gutterBottom>{value.content}</Typography>
+                            {props.edit ? (
+                                <ThemeProvider theme={theme}>
+                                    <TextField
+                                        id={value.title}
+                                        value={value.content}
+                                        multiline
+                                    >
+                                        Test
+                                    </TextField>
+                                </ThemeProvider>
+                            ) : (
+                                <Typography
+                                    className={classes.fieldsTypography}
+                                    variant="subtitle2"
+                                >
+                                    {value.content}
+                                </Typography>
+                            )}
                         </React.Fragment>
-                    ): null;
+                    ) : null;
                 })}
             </Box>
         </Paper>

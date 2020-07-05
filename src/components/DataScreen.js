@@ -40,13 +40,23 @@ const generatePrimaryCards = (item, template) => {
 
 export default props => {
     const classes = useStyle();
-    let id = parseInt(props.match.params.id); 
-    const {loading, error, data } = useQuery(individualQueries[props.path].query, {variables: {id: id}});
+
+    var query = ""
+    var id = null
+    if (props.home){
+        query = individualQueries.companyInfo.query
+        id = 235537
+    }else{
+        id = parseInt(props.match.params.id)
+        query = individualQueries[props.path].query
+    }
+
+    const {loading, error, data } = useQuery(query, {variables: {id: id}});
 
     if (loading) return <p>looooooooooooooooooooooooooooooooooaaaaaaaaaaaaaaaaaaaaaaaaaading</p>
     if (error) return <p>eeeeeeeeeeeeeeeeeeeeeerrrrrrrrrrrrrrrrrrrrrrrrrrroooooooooooooooooooooooooorrrrrrrrrrrrrrr</p>
 
-    if (data){
+    if (data && !props.home){
         var item;
         item = data ? data[props.path]: null
         item = generatePrimaryCards(item, props.rowTemplate);

@@ -158,6 +158,7 @@ function App() {
                             path="/"
                             render={() => (
                                 <DataScreen
+                                    home
                                     path="credential"
                                     cards={companyInfoPrimaryCardData.cards}
                                     secondaryCardData={

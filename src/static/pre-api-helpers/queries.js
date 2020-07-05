@@ -200,10 +200,24 @@ const backup = {
     `
 };
 
+const companyInfo = {
+    query: gql`
+        query site($id: Int!) {
+            site(id: $id) {
+                id
+                name
+                address
+            }
+        }
+    `
+};
+
+
 export const individualQueries = {
     credential,
     asset,
     location,
     contact,
-    backup
+    backup,
+    companyInfo
 };
