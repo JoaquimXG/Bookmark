@@ -68,7 +68,7 @@ export default props => {
         <div className={classes.main}>
             <Box className={classes.body}>
                 <PrimaryCard
-                    id={props.match.params.id}
+                    id={props.home ? id : props.match.params.id}
                     cards={item ? item.cards : props.cards}
                     buttons={props.buttons.primary}
                     title={item ? item.header : props.title}
