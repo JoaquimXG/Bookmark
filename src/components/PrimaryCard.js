@@ -7,7 +7,10 @@ import {
     Divider,
     Button,
     Grid,
-    useTheme
+    useTheme,
+    TextField,
+    ThemeProvider,
+    createMuiTheme
 } from "@material-ui/core";
 import { drawerWidth } from "../App";
 import MinorCard from "./MinorCard";
@@ -46,13 +49,28 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+const theme = createMuiTheme({
+    overrides: {
+        MuiInputBase: {
+            root: {
+                fontSize: "10rem",
+                fontWeight: "400",
+                lineHeight: "1.334rem",
+                letterSpacing: "0rem"
+            },
+            multiline: {
+                padding: "0px 0px 6px"
+            }
+        }
+    }
+});
+
 export default props => {
     const classes = useStyles();
-    const theme = useTheme();
     const [edit, setEdit] = useState(false);
     const [newItem, setNewItem] = useState(false);
     const [formValues, setFormValues] = useState({});
-    const [id, setID] = useState(props.id)
+    const [id, setID] = useState(props.id);
 
     const [updateLocation, { data }] = useMutation(
         mutations.locationsMutation.mutation
@@ -71,9 +89,6 @@ export default props => {
             });
     };
 
-    const cards = newItem? null : props.cards
-    console.log(cards)
-
     const buttonFunctions = {
         Edit: () => {
             console.log("pressed save");
@@ -81,11 +96,10 @@ export default props => {
         },
         Delete: () => {
             console.log("pressed delete");
-            console.log(props.cards)
         },
         New: () => {
             console.log("pressed new");
-            setEdit(!edit)
+            setEdit(!edit);
             setNewItem(!newItem);
         },
         Save: () => {
@@ -96,21 +110,32 @@ export default props => {
     };
 
     const handleTextFieldChange = event => {
+        console.log(event.target.id, event.target.value);
         setFormValues({ ...formValues, [event.target.id]: event.target.value });
     };
 
+    const cards = newItem ? props.rowTemplate.cards : props.cards;
+    const title = newItem ? "New Item" : props.title;
 
     return (
         <Box className={classes.main}>
             <Paper className={classes.primaryCard} elevation={8}>
                 <header className={classes.header}>
-                    <Typography
-                        onClick={myMutation}
-                        style={{ flexGrow: 1 }}
-                        variant="h5"
-                    >
-                        {props.title}
-                    </Typography>
+                    {edit ? (
+                        <Box style={{ flexGrow: 1 }}>
+                            <ThemeProvider theme={theme}>
+                                <TextField
+                                    onChange={handleTextFieldChange}
+                                    id={title}
+                                    defaultValue={title}
+                                ></TextField>
+                            </ThemeProvider>
+                        </Box>
+                    ) : (
+                        <Typography style={{ flexGrow: 1 }} variant="h5">
+                            {title}
+                        </Typography>
+                    )}
                     {props.buttons.map((value, index) => {
                         return edit && value.text === "Edit" ? (
                             <Button

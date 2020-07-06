@@ -67,21 +67,21 @@ const locationTemplate = {
     cards: [
         {
             title: "Address",
-            content: ["addr_1", "addr_2", "city", "postcode", "state","country"],
+            content: [{title: "addr_1"}, {title: "addr_2"}, {title: "city"}, {title: "postcode"}, {title: "state"},{title: "country"}],
             columns: {
                 xs: 4
             }
         },
         {
             title: "Additional Information",
-            content: ["phone", "fax", "type"],
+            content: [{title: "phone"}, {title: "fax"}, {title: "type"}],
             columns: {
                 xs: 4
             }
         },
         {
             title: "notes",
-            content: ["notes"],
+            content: [{title: "notes"}],
             columns: {
                 xs: 12
             }

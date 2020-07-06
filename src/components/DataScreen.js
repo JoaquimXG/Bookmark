@@ -27,15 +27,14 @@ const generatePrimaryCards = (item, template) => {
     var newItem = {
         cards: template.cards.map(card => {
             var content = card.content.map(templateValue => {
-                return item[templateValue]
-                    ? { title: templateValue, content: item[templateValue] }
-                    : {title: templateValue, content: null};
+                return item[templateValue.title]
+                    ? {...templateValue, content: item[templateValue.title] }
+                    : {...templateValue, content: null};
             });
             return content ? { ...card, content: content } : null;
         })
     };
     newItem.header = item[template.header];
-    console.log("newItem",newItem)
     return newItem;
 };
 
@@ -71,6 +70,7 @@ export default props => {
                     cards={item ? item.cards : props.cards}
                     buttons={props.buttons.primary}
                     title={item ? item.header : props.title}
+                    rowTemplate={props.rowTemplate}
                 />
                 <SecondaryCard
                     data={props.secondaryCardData}

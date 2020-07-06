@@ -68,7 +68,6 @@ export default props => {
             <Divider />
             <Box className={classes.data}>
                 {props.content.map((value, index) => {
-                    console.log("value inside minorcard", value)
                     return value.content ||props.edit ? (
                         <React.Fragment key={index}>
                             <Typography
@@ -80,13 +79,11 @@ export default props => {
                             {props.edit ? (
                                 <ThemeProvider theme={theme}>
                                     <TextField
-                                        value={props.formValues[value.id]}
                                         onChange={props.handleTextFieldChange}
                                         id={value.title}
                                         defaultValue={value.content}
                                         multiline
                                     >
-                                        Test
                                     </TextField>
                                 </ThemeProvider>
                             ) : (
