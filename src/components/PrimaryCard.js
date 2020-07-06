@@ -55,24 +55,33 @@ export default props => {
     const [updateLocation, { data }] = useMutation(mutations.locationsMutation.mutation);
 
     const myMutation = () => {
-        console.log(formValues)
         var variables = {}
         variables.id = props.id
         variables.site_id = 12345
         variables.isnew = false
         Object.keys(formValues).map(key => variables[key] = formValues[key])
         console.log(variables)
-        updateLocation({ variables: variables })
-            .then(({data}) => {
-                console.log(data)
-            })
+        updateLocation({ variables: variables ,errorPolicy: 'all'})
+            .then()
             .catch(e => {
                 console.log(e)
             });
     }
 
     const buttonFunctions = {
-        handleEditOnClick: () => {
+        Edit: () => {
+            console.log("pressed save")
+            setEdit(!edit);
+        },
+        Delete: () => {
+            console.log("pressed delete")
+        },
+        New: () => {
+            console.log("pressed new")
+        },
+        Save: () => {
+            console.log("pressed save")
+            myMutation()
             setEdit(!edit);
         }
     };
@@ -93,9 +102,24 @@ export default props => {
                         {props.title}
                     </Typography>
                     {props.buttons.map((value, index) => {
-                        return (
+                        return edit && value.text === "Edit" ?
                             <Button
-                                onClick={buttonFunctions.handleEditOnClick}
+                                onClick={buttonFunctions[value.save.text]}
+                                key={index}
+                                variant="contained"
+                                startIcon={<value.save.icon />}
+                                size="small"
+                                style={{
+                                    margin: theme.spacing(1),
+                                    color: "white",
+                                    background: value.save.color
+                                }}
+                            >
+                                {value.save.text}
+                            </Button>
+                        : (
+                            <Button
+                                onClick={buttonFunctions[value.text]}
                                 key={index}
                                 variant="contained"
                                 startIcon={<value.icon />}

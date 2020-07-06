@@ -4,7 +4,8 @@ import {
     NotificationImportantSharp,
     AttachFileSharp,
     DeleteOutlineSharp,
-    LinkSharp
+    LinkSharp,
+    SaveSharp
 } from "@material-ui/icons";
 import { themeColors } from "../../App";
 import { createMuiTheme } from "@material-ui/core";
@@ -25,14 +26,21 @@ const buttons = {
                 return themeColors.error;
             },
             text: "Delete",
-            textColor: "black"
+            textColor: "black",
         },
         {
             icon: CreateSharp,
             get color() {
                 return themeColors.secondary5;
             },
-            text: "Edit"
+            text: "Edit",
+            save: {
+                icon: SaveSharp,
+                get color() {
+                    return themeColors.secondary5;
+                },
+                text: "Save",
+            }
         },
         {
             icon: AddSharp,
