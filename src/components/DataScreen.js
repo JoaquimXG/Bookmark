@@ -29,12 +29,13 @@ const generatePrimaryCards = (item, template) => {
             var content = card.content.map(templateValue => {
                 return item[templateValue]
                     ? { title: templateValue, content: item[templateValue] }
-                    : null;
+                    : {title: templateValue, content: null};
             });
             return content ? { ...card, content: content } : null;
         })
     };
     newItem.header = item[template.header];
+    console.log("newItem",newItem)
     return newItem;
 };
 
@@ -61,8 +62,6 @@ export default props => {
         item = data ? data[props.path]: null
         item = generatePrimaryCards(item, props.rowTemplate);
     }
-
-    console.log("datascreen props",props)
 
     return (
         <div className={classes.main}>

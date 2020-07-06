@@ -13,7 +13,7 @@ import { drawerWidth } from "../App";
 import MinorCard from "./MinorCard";
 import { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import mutations from '../static/pre-api-helpers/mutations'
+import mutations from "../static/pre-api-helpers/mutations";
 
 const margin = 25;
 
@@ -50,38 +50,47 @@ export default props => {
     const classes = useStyles();
     const theme = useTheme();
     const [edit, setEdit] = useState(false);
+    const [newItem, setNewItem] = useState(false);
     const [formValues, setFormValues] = useState({});
+    const [id, setID] = useState(props.id)
 
-    const [updateLocation, { data }] = useMutation(mutations.locationsMutation.mutation);
+    const [updateLocation, { data }] = useMutation(
+        mutations.locationsMutation.mutation
+    );
 
     const myMutation = () => {
-        var variables = {}
-        variables.id = props.id
-        variables.site_id = 12345
-        variables.isnew = false
-        Object.keys(formValues).map(key => variables[key] = formValues[key])
-        console.log(variables)
-        updateLocation({ variables: variables ,errorPolicy: 'all'})
+        var variables = {};
+        variables.id = id;
+        variables.site_id = 12345;
+        variables.isnew = newItem;
+        Object.keys(formValues).map(key => (variables[key] = formValues[key]));
+        updateLocation({ variables: variables, errorPolicy: "all" })
             .then()
             .catch(e => {
-                console.log(e)
+                console.log(e);
             });
-    }
+    };
+
+    const cards = newItem? null : props.cards
+    console.log(cards)
 
     const buttonFunctions = {
         Edit: () => {
-            console.log("pressed save")
+            console.log("pressed save");
             setEdit(!edit);
         },
         Delete: () => {
-            console.log("pressed delete")
+            console.log("pressed delete");
+            console.log(props.cards)
         },
         New: () => {
-            console.log("pressed new")
+            console.log("pressed new");
+            setEdit(!edit)
+            setNewItem(!newItem);
         },
         Save: () => {
-            console.log("pressed save")
-            myMutation()
+            console.log("pressed save");
+            myMutation();
             setEdit(!edit);
         }
     };
@@ -89,6 +98,7 @@ export default props => {
     const handleTextFieldChange = event => {
         setFormValues({ ...formValues, [event.target.id]: event.target.value });
     };
+
 
     return (
         <Box className={classes.main}>
@@ -102,7 +112,7 @@ export default props => {
                         {props.title}
                     </Typography>
                     {props.buttons.map((value, index) => {
-                        return edit && value.text === "Edit" ?
+                        return edit && value.text === "Edit" ? (
                             <Button
                                 onClick={buttonFunctions[value.save.text]}
                                 key={index}
@@ -117,7 +127,7 @@ export default props => {
                             >
                                 {value.save.text}
                             </Button>
-                        : (
+                        ) : (
                             <Button
                                 onClick={buttonFunctions[value.text]}
                                 key={index}
@@ -150,10 +160,10 @@ export default props => {
                         className={classes.primaryCardGrid}
                         spacing={3}
                     >
-                        {props.cards.map((value, index) => {
+                        {cards.map((value, index) => {
                             return value.content.every(
-                                subtitle => subtitle === null
-                            ) ? null : (
+                                subtitle => subtitle.content === null
+                            ) && !edit ? null : (
                                 <Grid
                                     key={index}
                                     item
@@ -168,6 +178,7 @@ export default props => {
                                         handleTextFieldChange={
                                             handleTextFieldChange
                                         }
+                                        newItem={newItem}
                                         edit={edit}
                                         elevation={2}
                                         style={{ flexGrow: 1 }}

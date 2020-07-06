@@ -68,7 +68,8 @@ export default props => {
             <Divider />
             <Box className={classes.data}>
                 {props.content.map((value, index) => {
-                    return value ? (
+                    console.log("value inside minorcard", value)
+                    return value.content ||props.edit ? (
                         <React.Fragment key={index}>
                             <Typography
                                 variant="caption"
