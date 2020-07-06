@@ -12,8 +12,8 @@ import {
 import { drawerWidth } from "../App";
 import MinorCard from "./MinorCard";
 import { useState } from "react";
-import { useQuery, useMutation } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
+import { useMutation } from "@apollo/react-hooks";
+import mutations from '../static/pre-api-helpers/mutations'
 
 const margin = 25;
 
@@ -46,72 +46,13 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const locationMutation = gql`
-    mutation updateLocation(
-        $id: ID!
-        $site_id: ID!
-        $isnew: Boolean!
-        $name: String
-        $phone: String
-        $fax: String
-        $addr_1: String
-        $addr_2: String
-        $postcode: String
-        $city: String
-        $state: String
-        $country: String
-        $notes: String
-        $type: String
-    ) {
-        location(
-            locationinput: {
-                id: $id
-                site_id: $site_id
-                isnew: $isnew
-                name: $name
-                phone: $phone
-                fax: $fax
-                addr_1: $addr_1
-                addr_2: $addr_2
-                postcode: $postcode
-                city: $city
-                state: $state
-                country: $country
-                notes: $notes
-                type: $type
-            }
-        ) {
-            updatedRow {
-                id
-                site_id
-                name
-                phone
-                fax
-                addr_1
-                addr_2
-                postcode
-                city
-                state
-                country
-                notes
-                type
-            }
-            error {
-                field
-                message
-            }
-            isnew
-        }
-    }
-`;
-
 export default props => {
     const classes = useStyles();
     const theme = useTheme();
     const [edit, setEdit] = useState(false);
     const [formValues, setFormValues] = useState({});
 
-    const [updateLocation, { data }] = useMutation(locationMutation);
+    const [updateLocation, { data }] = useMutation(mutations.locationsMutation.mutation);
 
     const myMutation = () => {
         console.log(formValues)
