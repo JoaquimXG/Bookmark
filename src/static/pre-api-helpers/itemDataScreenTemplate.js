@@ -34,6 +34,7 @@ const buttons = {
                 return themeColors.secondary5;
             },
             text: "Edit",
+            minWidth: "80px",
             save: {
                 icon: SaveSharp,
                 get color() {

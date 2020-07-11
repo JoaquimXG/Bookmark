@@ -8,7 +8,6 @@ import {
     TextField,
     ThemeProvider,
     createMuiTheme,
-    useTheme
 } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({

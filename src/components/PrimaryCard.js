@@ -7,10 +7,10 @@ import {
     Divider,
     Button,
     Grid,
-    useTheme,
     TextField,
     ThemeProvider,
-    createMuiTheme
+    createMuiTheme,
+    useTheme
 } from "@material-ui/core";
 import { drawerWidth } from "../App";
 import MinorCard from "./MinorCard";
@@ -28,6 +28,17 @@ const useStyles = makeStyles(theme => ({
         margin: margin,
         display: "flex",
         flexGrow: 1
+    },
+
+    titleTextField: {
+        fontSize: "1.5rem",
+        lineHeight: "1.5rem",
+        letterSpacing: "0rem",
+        marginRight: "6px"
+    },
+    
+    titleTextFieldInput: {
+        padding: "8px 0px"
     },
 
     primaryCard: { flexGrow: 1, display: "flex", flexDirection: "column" },
@@ -49,24 +60,9 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const theme = createMuiTheme({
-    overrides: {
-        MuiInputBase: {
-            root: {
-                fontSize: "10rem",
-                fontWeight: "400",
-                lineHeight: "1.334rem",
-                letterSpacing: "0rem"
-            },
-            multiline: {
-                padding: "0px 0px 6px"
-            }
-        }
-    }
-});
-
 export default props => {
     const classes = useStyles();
+    const theme = useTheme();
     const [edit, setEdit] = useState(false);
     const [newItem, setNewItem] = useState(false);
     const [formValues, setFormValues] = useState({});
@@ -76,6 +72,8 @@ export default props => {
         mutations.locationsMutation.mutation
     );
 
+    //either updates the currently viewed item or creates a new one
+    //dependant on if the id is of the current item and if .isnew is set to true
     const myMutation = () => {
         var variables = {};
         variables.id = id;
@@ -104,13 +102,13 @@ export default props => {
         },
         Save: () => {
             console.log("pressed save");
+            console.log(formValues)
             myMutation();
             setEdit(!edit);
         }
     };
 
     const handleTextFieldChange = event => {
-        console.log(event.target.id, event.target.value);
         setFormValues({ ...formValues, [event.target.id]: event.target.value });
     };
 
@@ -122,15 +120,19 @@ export default props => {
             <Paper className={classes.primaryCard} elevation={8}>
                 <header className={classes.header}>
                     {edit ? (
-                        <Box style={{ flexGrow: 1 }}>
-                            <ThemeProvider theme={theme}>
-                                <TextField
-                                    onChange={handleTextFieldChange}
-                                    id={title}
-                                    defaultValue={title}
-                                ></TextField>
-                            </ThemeProvider>
-                        </Box>
+                        <TextField
+                            style={{ flexGrow: 1 }}
+                            InputProps={{
+                                className: classes.titleTextField,
+                                test: "this",
+                                classes: {
+                                    input: classes.titleTextFieldInput
+                                }
+                            }}
+                            onChange={handleTextFieldChange}
+                            id="name"
+                            defaultValue={title}
+                        ></TextField>
                     ) : (
                         <Typography style={{ flexGrow: 1 }} variant="h5">
                             {title}
@@ -147,7 +149,8 @@ export default props => {
                                 style={{
                                     margin: theme.spacing(1),
                                     color: "white",
-                                    background: value.save.color
+                                    background: value.save.color,
+                                    minWidth: "80px"
                                 }}
                             >
                                 {value.save.text}
@@ -164,7 +167,10 @@ export default props => {
                                     color: value.textColor
                                         ? value.textColor
                                         : "white",
-                                    background: value.color
+                                    background: value.color,
+                                    minWidth: value.minWidth
+                                        ? value.minWidth
+                                        : "auto"
                                 }}
                             >
                                 {value.text}
