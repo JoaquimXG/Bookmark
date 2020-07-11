@@ -1,12 +1,17 @@
 import { gql } from "apollo-boost";
 
-const locationsMutation = {
+const locations = {
+    delete: gql`
+        mutation deleteLocation($id: ID!, $site_id: ID!) {
+            deleteLocation(id: $id, site_id: $site_id)
+        }
+    `,
     mutation: gql`
         mutation updateLocation(
             $id: ID!
             $site_id: ID!
             $isnew: Boolean!
-            $name: String
+            $name: String!
             $phone: String
             $fax: String
             $addr_1: String
@@ -63,5 +68,5 @@ const locationsMutation = {
 };
 
 export default {
-    locationsMutation
+    locations
 };

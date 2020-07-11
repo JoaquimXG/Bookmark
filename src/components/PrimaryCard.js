@@ -17,6 +17,7 @@ import MinorCard from "./MinorCard";
 import { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import mutations from "../static/pre-api-helpers/mutations";
+import {v1 as uuidv1} from 'uuid'
 
 const margin = 25;
 
@@ -69,8 +70,12 @@ export default props => {
     const [id, setID] = useState(props.id);
 
     const [updateLocation, { data }] = useMutation(
-        mutations.locationsMutation.mutation
+        mutations.locations.mutation
     );
+    
+    const [deleteLocation, {data:deleteData}] = useMutation(
+    mutations.locations.delete
+    )
 
     //either updates the currently viewed item or creates a new one
     //dependant on if the id is of the current item and if .isnew is set to true
@@ -90,10 +95,19 @@ export default props => {
     const buttonFunctions = {
         Edit: () => {
             console.log("pressed save");
+            setFormValues({...formValues, 'name': title})
             setEdit(!edit);
         },
         Delete: () => {
             console.log("pressed delete");
+            let variables = {}
+            variables.id = props.id
+            variables.site_id = 12345
+            deleteLocation({variables: variables, errorPolicy: "all"})
+                .then()
+                .catch(e => {
+                    console.log(e)
+                })
         },
         New: () => {
             console.log("pressed new");
