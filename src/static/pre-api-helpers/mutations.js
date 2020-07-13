@@ -1,5 +1,63 @@
 import { gql } from "apollo-boost";
 
+const credential = {
+    delete: gql`
+        mutation deleteCredential($id: ID!, $site_id: ID!) {
+            deleteCredential(id: $id, site_id: $site_id)
+        }
+    `,
+    mutation: gql`
+    mutation updateCredential(
+        $id: ID!
+        $site_id: ID!
+        $name: String
+        $password: String
+        $description: String
+        $type: String
+        $client: String
+        $folder:String
+        $url: String
+        $notes:String
+        $isnew: Boolean!
+){
+  credential(
+    credentialinput: {
+      id: $id
+      site_id: $site_id
+      name: $name
+      password: $password
+      description: $description
+      type: $type
+      client: $client
+      folder: $folder
+      url: $url
+      notes: $notes
+      isnew: $isnew
+    }
+  ) {
+    updatedRow {
+      id
+      site_id
+      name
+      password
+      description
+      type
+      client
+      folder
+      url
+      notes
+    }
+    isnew
+    error{
+      field
+      message
+    }
+  }
+}
+    `,
+    data: "credentials"
+};
+
 const location = {
     delete: gql`
         mutation deleteLocation($id: ID!, $site_id: ID!) {
@@ -68,5 +126,6 @@ const location = {
 };
 
 export default {
-    location
+    location,
+    credential
 };
