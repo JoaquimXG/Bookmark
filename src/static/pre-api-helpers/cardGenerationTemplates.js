@@ -67,7 +67,7 @@ const locationTemplate = {
     cards: [
         {
             title: "Address",
-            content: [{title: "addr_1"}, {title: "addr_2"}, {title: "city"}, {title: "postcode"}, {title: "state"},{title: "country"}],
+            content: [{title: "addr_1", required: true}, {title: "addr_2"}, {title: "city"}, {title: "postcode"}, {title: "state"},{title: "country"}],
             columns: {
                 xs: 4
             }
@@ -95,7 +95,7 @@ const credentialTemplate = {
     cards: [
         {
             title: "Credentials",
-            content: [{title: "name"}, {title: "password"}, {title: "url"}],
+            content: [{title: "name", required: true}, {title: "password", required: true}, {title: "url"}],
             columns: {
                 xs: 4
             }

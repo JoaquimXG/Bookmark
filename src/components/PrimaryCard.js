@@ -74,6 +74,8 @@ export default props => {
     mutations[props.path].delete
     )
 
+    console.log(props.cards)
+    
     //either updates the currently viewed item or creates a new one
     //dependant on if the id is of the current item and if .isnew is set to true
     const myMutation = () => {
@@ -121,8 +123,10 @@ export default props => {
     };
 
     const handleTextFieldChange = event => {
+        console.log(formValues)
         setFormValues({ ...formValues, [event.target.id]: event.target.value });
     };
+
 
     const cards = newItem ? props.rowTemplate.cards : props.cards;
     const title = newItem ? "New Item" : props.title;
@@ -134,9 +138,9 @@ export default props => {
                     {edit ? (
                         <TextField
                             style={{ flexGrow: 1 }}
+                            required
                             InputProps={{
                                 className: classes.titleTextField,
-                                test: "this",
                                 classes: {
                                     input: classes.titleTextFieldInput
                                 }
@@ -144,6 +148,7 @@ export default props => {
                             onChange={handleTextFieldChange}
                             id="name"
                             defaultValue={title}
+                            error={formValues.name ? false : true}
                         ></TextField>
                     ) : (
                         <Typography style={{ flexGrow: 1 }} variant="h5">

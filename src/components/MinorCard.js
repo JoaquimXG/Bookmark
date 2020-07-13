@@ -7,7 +7,7 @@ import {
     Box,
     TextField,
     ThemeProvider,
-    createMuiTheme,
+    createMuiTheme
 } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -67,13 +67,20 @@ export default props => {
             <Divider />
             <Box className={classes.data}>
                 {props.content.map((value, index) => {
-                    return value.content ||props.edit ? (
+                    return value.content || props.edit ? (
                         <React.Fragment key={index}>
                             <Typography
                                 variant="caption"
                                 style={{ color: "#646464", marginTop: "5px" }}
                             >
-                                {value.title}
+                                {props.edit && value.required ? (
+                                    <span>
+                                        <span>{value.title}</span>
+                                        <span style={{ color: "red" }}>*</span>
+                                    </span>
+                                ) : (
+                                    value.title
+                                )}
                             </Typography>
                             {props.edit ? (
                                 <ThemeProvider theme={theme}>
@@ -82,8 +89,8 @@ export default props => {
                                         id={value.title}
                                         defaultValue={value.content}
                                         multiline
-                                    >
-                                    </TextField>
+                                        error={!props.formValues[value.title] && value.required ? true : false}
+                                    ></TextField>
                                 </ThemeProvider>
                             ) : (
                                 <Typography
