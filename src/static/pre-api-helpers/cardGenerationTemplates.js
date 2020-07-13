@@ -4,21 +4,21 @@ const contactTemplate = {
     cards: [
         {
             title: "Contact Information",
-            content: ["email", "phone", "extension", "mobile", "fax"],
+            content: [{title: "email"}, {title: "phone"}, {title: "extension"}, {title: "mobile"}, {title: "fax"}],
             columns: {
                 xs: 4
             }
         },
         {
             title: "Additional Information",
-            content: ["name", "middle_name", "last_name", "type", "job_title"],
+            content: [{title: "name"}, {title: "middle_name"}, {title: "last_name"}, {title: "type"}, {title: "job_title"}],
             columns: {
                 xs: 4
             }
         },
         {
             title: "Notes",
-            content: ["notes"],
+            content: [{title: "notes"}],
             columns: {
                 xs: 12
             }
@@ -32,28 +32,28 @@ const backupTemplate = {
     cards: [
         {
             title: "Schedule",
-            content: ["start_time", "full_backup", "differential", "incremental", "retention_details"],
+    content: [{title: "start_time"}, {title: "full_backup"}, {title: "differential"}, {title: "incremental"}],
             columns: {
                 xs: 4
             }
         },
         {
             title: "Additional Information",
-            content: ["vendor", "type", "location"],
+            content: [{title: "vendor"}, {title: "type"}, {title: "location"}],
             columns: {
                 xs: 4
             }
         },
         {
             title: "Retention Details", 
-            content: ["retention_details"],
+            content: [{title: "retention_details"}],
             columns: {
                 xs: 4
             }
         },
         {
             title: "Notes",
-            content: ["notes"],
+            content: [{title: "notes"}],
             columns: {
                 xs: 12
             }
@@ -95,21 +95,21 @@ const credentialTemplate = {
     cards: [
         {
             title: "Credentials",
-            content: ["name", "password", "url"],
+            content: [{title: "name"}, {title: "password"}, {title: "url"}],
             columns: {
                 xs: 4
             }
         },
         {
             title: "Additional Information",
-            content: ["description", "type", "client", "folder"],
+            content: [{title: "description"}, {title: "type"}, {title: "client"}, {title: "folder"}],
             columns: {
                 xs: 4
             }
         },
         {
             title: "Notes",
-            content: ["notes"],
+            content: [{title: "notes"}],
             columns: {
                 xs: 12
             }
@@ -123,28 +123,28 @@ const assetTemplate = {
     cards: [
         {
             title: "Networking",
-            content: ["internal_ip", "external_ip", "hostname", "domain"],
+            content: [{title: "internal_ip"}, {title: "external_ip"}, {title: "hostname"}, {title: "domain"}],
             columns: {
                 xs: 4
             }
         },
         {
             title: "Usage",
-            content: ["creation_date", "last_user", "last_audit"],
+            content: [{title: "creation_date"}, {title: "last_user"}, {title: "last_audit"}],
             columns: {
                 xs: 4
             }
         },
         {
             title: "Technical",
-            content: ["type", "model", "serial", "os"],
+            content: [{title: "type"}, {title: "model"}, {title: "serial"}, {title: "os"}],
             columns: {
                 xs: 4
             }
         },
         {
             title: "Notes",
-            content: ["notes"],
+            content: [{title: "notes"}],
             columns: {
                 xs: 12
             }
@@ -152,18 +152,18 @@ const assetTemplate = {
         {
             title: "UDF",
             content: [
-                "udf1",
-                "udf2",
-                "udf3",
-                "udf4",
-                "udf5",
-                "udf6",
-                "udf7",
-                "udf8",
-                "udf9",
-                "udf10",
-                "udf11",
-                "udf12"
+                {title: "udf1"},
+                {title: "udf2"},
+                {title: "udf3"},
+                {title: "udf4"},
+                {title: "udf5"},
+                {title: "udf6"},
+                {title: "udf7"},
+                {title: "udf8"},
+                {title: "udf9"},
+                {title: "udf10"},
+                {title: "udf11"},
+                {title: "udf12"}
             ],
             columns: {
                 xs: 4

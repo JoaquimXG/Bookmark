@@ -8,8 +8,6 @@ import {
     Button,
     Grid,
     TextField,
-    ThemeProvider,
-    createMuiTheme,
     useTheme
 } from "@material-ui/core";
 import { drawerWidth } from "../App";
@@ -17,7 +15,6 @@ import MinorCard from "./MinorCard";
 import { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import mutations from "../static/pre-api-helpers/mutations";
-import {v1 as uuidv1} from 'uuid'
 
 const margin = 25;
 
@@ -85,6 +82,7 @@ export default props => {
         variables.site_id = 12345;
         variables.isnew = newItem;
         Object.keys(formValues).map(key => (variables[key] = formValues[key]));
+        console.log(variables)
         updateLocation({ variables: variables, errorPolicy: "all" })
             .then()
             .catch(e => {
@@ -103,6 +101,7 @@ export default props => {
             let variables = {}
             variables.id = props.id
             variables.site_id = 12345
+            console.log(variables)
             deleteLocation({variables: variables, errorPolicy: "all"})
                 .then()
                 .catch(e => {
@@ -116,7 +115,6 @@ export default props => {
         },
         Save: () => {
             console.log("pressed save");
-            console.log(formValues)
             myMutation();
             setEdit(!edit);
         }

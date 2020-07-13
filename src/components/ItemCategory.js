@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Box, makeStyles, ThemeProvider } from "@material-ui/core";
+import { Box, makeStyles } from "@material-ui/core";
 import {
     CreateSharp,
     AddSharp,
@@ -9,7 +9,6 @@ import {
 import { themeColors, AppBarHeight } from "../App";
 import ItemList from "./ItemList";
 import ItemCategoryErrorBoundary from "./ItemCategoryErrorBoundary";
-import {useTheme} from "@material-ui/styles";
 
 const useStyle = makeStyles(theme => ({
     body: {
