@@ -9,6 +9,7 @@ import {
     ThemeProvider,
     createMuiTheme
 } from "@material-ui/core";
+import {themeColors} from '../App'
 
 const useStyles = makeStyles(theme => ({
     dataCard: {
@@ -76,7 +77,7 @@ export default props => {
                                 {props.edit && value.required ? (
                                     <span>
                                         <span>{value.title}</span>
-                                        <span style={{ color: "red" }}>*</span>
+                                        <span style={{ color: themeColors.secondary5, fontWeight:"bold"}}>*</span>
                                     </span>
                                 ) : (
                                     value.title
@@ -87,9 +88,9 @@ export default props => {
                                     <TextField
                                         onChange={props.handleTextFieldChange}
                                         id={value.title}
-                                        defaultValue={value.content}
+                                        value={props.formValues[value.title]}
                                         multiline
-                                        error={!props.formValues[value.title] && value.required ? true : false}
+                                        error={props.formValues[value.title] === "" && value.required ? true : false}
                                     ></TextField>
                                 </ThemeProvider>
                             ) : (
@@ -97,7 +98,7 @@ export default props => {
                                     className={classes.fieldsTypography}
                                     variant="subtitle2"
                                 >
-                                    {value.content}
+                                    {props.formValues[value.title]}
                                 </Typography>
                             )}
                         </React.Fragment>

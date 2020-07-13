@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {
     Paper,
     makeStyles,
@@ -15,6 +15,7 @@ import MinorCard from "./MinorCard";
 import { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import mutations from "../static/pre-api-helpers/mutations";
+import {useHistory} from "react-router-dom";
 
 const margin = 25;
 
@@ -34,7 +35,7 @@ const useStyles = makeStyles(theme => ({
         letterSpacing: "0rem",
         marginRight: "6px"
     },
-    
+
     titleTextFieldInput: {
         padding: "8px 0px"
     },
@@ -58,24 +59,46 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+const initialiseFormValues = cards => {
+    let tempFormValues = {};
+    cards
+        .map(card => card.content)
+        .flat()
+        .forEach(
+            value =>
+                (tempFormValues[value.title] = value.content
+                    ? value.content
+                    : "")
+        );
+    return tempFormValues;
+};
+
 export default props => {
     const classes = useStyles();
     const theme = useTheme();
+    const history = useHistory()
     const [edit, setEdit] = useState(false);
     const [newItem, setNewItem] = useState(false);
-    const [formValues, setFormValues] = useState({});
+    const [initialFormValues] = useState(initialiseFormValues(props.cards));
+    const [formValues, setFormValues] = useState(initialFormValues);
     const [id, setID] = useState(props.id);
 
     const [updateLocation, { data }] = useMutation(
         mutations[props.path].mutation
     );
-    
-    const [deleteLocation, {data:deleteData}] = useMutation(
-    mutations[props.path].delete
-    )
 
-    console.log(props.cards)
-    
+    const [deleteLocation, { data: deleteData }] = useMutation(
+        mutations[props.path].delete
+    );
+
+    const clearFormValues = () => {
+        setFormValues({})
+    }
+    const resetFormValues = () => {
+        setFormValues(initialFormValues)
+    }
+    console.log(formValues)
+
     //either updates the currently viewed item or creates a new one
     //dependant on if the id is of the current item and if .isnew is set to true
     const myMutation = () => {
@@ -84,52 +107,65 @@ export default props => {
         variables.site_id = 12345;
         variables.isnew = newItem;
         Object.keys(formValues).map(key => (variables[key] = formValues[key]));
-        console.log(variables)
-        updateLocation({ variables: variables, errorPolicy: "all" })
-            .then()
-            .catch(e => {
-                console.log(e);
-            });
+        updateLocation({ variables: variables, errorPolicy: "all" }).then(
+            success => {
+                console.log("succes", success);
+                let id = success.data.location.updatedRow.id
+                history.push(`/locations/${id}`)
+                setNewItem(false)
+                setEdit(false)
+            },
+            failure => {
+                console.log("failure", failure);
+                //TO-DO
+                //display the fields that need to be filled
+                //potentially by setting the required values to ""
+            }
+        );
     };
 
     const buttonFunctions = {
         Edit: () => {
             console.log("pressed save");
-            setFormValues({...formValues, 'name': title})
+            setFormValues(previousState => ({...previousState, name: props.title }));
             setEdit(!edit);
         },
         Delete: () => {
             console.log("pressed delete");
-            let variables = {}
-            variables.id = props.id
-            variables.site_id = 12345
-            console.log(variables)
-            deleteLocation({variables: variables, errorPolicy: "all"})
-                .then()
-                .catch(e => {
-                    console.log(e)
-                })
+            let variables = {};
+            variables.id = props.id;
+            variables.site_id = 12345;
+            deleteLocation({ variables: variables, errorPolicy: "all" }).then(
+                success => {
+                    console.log("succes", success);
+                    history.push(`/${props.path}s`)
+                },
+                failure => {
+                    console.log("failure", failure);
+                }
+            );
         },
         New: () => {
             console.log("pressed new");
+            if(!newItem){
+                clearFormValues()
+            }else{ 
+                resetFormValues()
+            }
             setEdit(!edit);
             setNewItem(!newItem);
         },
         Save: () => {
             console.log("pressed save");
             myMutation();
-            setEdit(!edit);
         }
     };
 
     const handleTextFieldChange = event => {
-        console.log(formValues)
-        setFormValues({ ...formValues, [event.target.id]: event.target.value });
+        setFormValues({ ...formValues, [event.target.id]: event.target.value});
     };
 
-
     const cards = newItem ? props.rowTemplate.cards : props.cards;
-    const title = newItem ? "New Item" : props.title;
 
     return (
         <Box className={classes.main}>
@@ -147,12 +183,13 @@ export default props => {
                             }}
                             onChange={handleTextFieldChange}
                             id="name"
-                            defaultValue={title}
-                            error={formValues.name ? false : true}
+                            placeholder="Title"
+                            defaultValue={formValues.name}
+                            error={formValues.name === "" ? true : false}
                         ></TextField>
                     ) : (
                         <Typography style={{ flexGrow: 1 }} variant="h5">
-                            {title}
+                            {props.title}
                         </Typography>
                     )}
                     {props.buttons.map((value, index) => {
