@@ -70,11 +70,11 @@ export default props => {
     const [id, setID] = useState(props.id);
 
     const [updateLocation, { data }] = useMutation(
-        mutations.locations.mutation
+        mutations[props.path].mutation
     );
     
     const [deleteLocation, {data:deleteData}] = useMutation(
-    mutations.locations.delete
+    mutations[props.path].delete
     )
 
     //either updates the currently viewed item or creates a new one

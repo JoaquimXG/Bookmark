@@ -1,6 +1,6 @@
 import { gql } from "apollo-boost";
 
-const locations = {
+const location = {
     delete: gql`
         mutation deleteLocation($id: ID!, $site_id: ID!) {
             deleteLocation(id: $id, site_id: $site_id)
@@ -68,5 +68,5 @@ const locations = {
 };
 
 export default {
-    locations
+    location
 };
