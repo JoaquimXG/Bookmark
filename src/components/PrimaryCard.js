@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import {
     Paper,
     makeStyles,
@@ -15,7 +15,8 @@ import MinorCard from "./MinorCard";
 import { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import mutations from "../static/pre-api-helpers/mutations";
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import MyMessage from "./MyMessage";
 
 const margin = 25;
 
@@ -40,7 +41,12 @@ const useStyles = makeStyles(theme => ({
         padding: "8px 0px"
     },
 
-    primaryCard: { flexGrow: 1, display: "flex", flexDirection: "column" },
+    primaryCard: {
+        flexGrow: 1,
+        display: "flex",
+        flexDirection: "column",
+        position: "relative"
+    },
 
     header: {
         display: "flex",
@@ -76,11 +82,12 @@ const initialiseFormValues = cards => {
 export default props => {
     const classes = useStyles();
     const theme = useTheme();
-    const history = useHistory()
+    const history = useHistory();
     const [edit, setEdit] = useState(false);
     const [newItem, setNewItem] = useState(false);
     const [initialFormValues] = useState(initialiseFormValues(props.cards));
     const [formValues, setFormValues] = useState(initialFormValues);
+    const [message, setMessage] = useState({});
     const [id, setID] = useState(props.id);
 
     const [updateLocation, { data }] = useMutation(
@@ -92,12 +99,12 @@ export default props => {
     );
 
     const clearFormValues = () => {
-        setFormValues({})
-    }
+        setFormValues({});
+    };
     const resetFormValues = () => {
-        setFormValues(initialFormValues)
-    }
-    console.log(formValues)
+        setFormValues(initialFormValues);
+    };
+    console.log(formValues);
 
     //either updates the currently viewed item or creates a new one
     //dependant on if the id is of the current item and if .isnew is set to true
@@ -110,13 +117,18 @@ export default props => {
         updateLocation({ variables: variables, errorPolicy: "all" }).then(
             success => {
                 console.log("succes", success);
-                let id = success.data.location.updatedRow.id
-                history.push(`/locations/${id}`)
-                setNewItem(false)
-                setEdit(false)
+                let id = success.data.location.updatedRow.id;
+                history.push(`/locations/${id}`);
+                setNewItem(false);
+                setEdit(false);
             },
             failure => {
                 console.log("failure", failure);
+                setMessage({text:"Please Fill Required Fields", display:true});
+                setTimeout(() => {
+                    setMessage((message) => ({...message, display: false}))
+                }, 2000)
+                console.log(formValues)
                 //TO-DO
                 //display the fields that need to be filled
                 //potentially by setting the required values to ""
@@ -127,7 +139,10 @@ export default props => {
     const buttonFunctions = {
         Edit: () => {
             console.log("pressed save");
-            setFormValues(previousState => ({...previousState, name: props.title }));
+            setFormValues(previousState => ({
+                ...previousState,
+                name: props.title
+            }));
             setEdit(!edit);
         },
         Delete: () => {
@@ -138,7 +153,7 @@ export default props => {
             deleteLocation({ variables: variables, errorPolicy: "all" }).then(
                 success => {
                     console.log("succes", success);
-                    history.push(`/${props.path}s`)
+                    history.push(`/${props.path}s`);
                 },
                 failure => {
                     console.log("failure", failure);
@@ -147,10 +162,10 @@ export default props => {
         },
         New: () => {
             console.log("pressed new");
-            if(!newItem){
-                clearFormValues()
-            }else{ 
-                resetFormValues()
+            if (!newItem) {
+                clearFormValues();
+            } else {
+                resetFormValues();
             }
             setEdit(!edit);
             setNewItem(!newItem);
@@ -162,7 +177,7 @@ export default props => {
     };
 
     const handleTextFieldChange = event => {
-        setFormValues({ ...formValues, [event.target.id]: event.target.value});
+        setFormValues({ ...formValues, [event.target.id]: event.target.value });
     };
 
     const cards = newItem ? props.rowTemplate.cards : props.cards;
@@ -170,6 +185,7 @@ export default props => {
     return (
         <Box className={classes.main}>
             <Paper className={classes.primaryCard} elevation={8}>
+                <MyMessage message={message} />
                 <header className={classes.header}>
                     {edit ? (
                         <TextField

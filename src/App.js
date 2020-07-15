@@ -15,6 +15,7 @@ import templates from "./static/pre-api-helpers/cardGenerationTemplates";
 import apiDumps from "./static/pre-api-helpers/apiDumps";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
+import { ToastContainer, toast } from 'react-toastify';
 
 //Static routes for Item Categories
 const staticItemCategoryRoutes = [
@@ -178,6 +179,7 @@ function App() {
                     </Switch>
                 </Router>
             </CssBaseline>
+            <ToastContainer/ >
         </ApolloProvider>
     );
 }

@@ -10,7 +10,7 @@ const backup = {
         mutation updateBackup(
             $id: ID!
             $site_id: ID!
-            $name: String
+            $name: String!
             $vendor: String
             $type: String
             $location: String
