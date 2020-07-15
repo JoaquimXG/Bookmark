@@ -305,7 +305,7 @@ const location = {
     `,
     mutation: gql`
         mutation updateLocation(
-            $id: ID!
+            $id: ID
             $site_id: ID!
             $isnew: Boolean!
             $name: String!

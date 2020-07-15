@@ -65,8 +65,8 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const initialiseFormValues = (cards, title)=> {
-    let tempFormValues = {name: title};
+const initialiseFormValues = (cards, title) => {
+    let tempFormValues = { name: title };
     cards
         .map(card => card.content)
         .flat()
@@ -85,15 +85,14 @@ export default props => {
     const history = useHistory();
     const [edit, setEdit] = useState(false);
     const [newItem, setNewItem] = useState(false);
-    const [initialFormValues] = useState(initialiseFormValues(props.cards, props.title));
+    const [initialFormValues] = useState(
+        initialiseFormValues(props.cards, props.title)
+    );
     const [formValues, setFormValues] = useState(initialFormValues);
     const [message, setMessage] = useState({});
     const [submitted, setSubmitted] = useState(false);
-    const [id, setID] = useState(props.id);
 
-    const [updateItem, { data }] = useMutation(
-        mutations[props.path].mutation
-    );
+    const [updateItem, { data }] = useMutation(mutations[props.path].mutation);
 
     const [deleteItem, { data: deleteData }] = useMutation(
         mutations[props.path].delete
@@ -105,35 +104,46 @@ export default props => {
     const resetFormValues = () => {
         setFormValues(initialFormValues);
     };
+    const handleBadFormSubmit = () => {
+        setMessage({
+            text: "Please Fill Required Fields",
+            display: true
+        });
+        setSubmitted(true);
+        setTimeout(() => {
+            setMessage(message => ({ ...message, display: false }));
+        }, 2000);
+    };
 
     //either updates the currently viewed item or creates a new one
     //dependant on if the id is of the current item and if .isnew is set to true
     const myMutation = () => {
         var variables = {};
-        variables.id = id;
+        if (!newItem){
+            variables.id = props.id
+        }
         variables.site_id = 12345;
         variables.isnew = newItem;
-        Object.keys(formValues).map(key => (variables[key] = formValues[key] === "" ? null: formValues[key]));
+        Object.keys(formValues).map(
+            key =>
+                (variables[key] =
+                    formValues[key] === "" ? null : formValues[key])
+        );
         updateItem({ variables: variables, errorPolicy: "all" }).then(
             success => {
                 console.log("succes", success);
-                if (success.error){
-                    console.log("error")
+                if (success.errors) {
+                    success.errors.forEach((error) => console.log(error.message))
+                    handleBadFormSubmit()
+                } else {
+                    let id = success.data[props.path].updatedRow.id;
+                    setEdit(false);
+                    history.push(`/${props.path}s/${id}`);
                 }
-                let id = success.data[props.path].updatedRow.id;
-                setEdit(false)
-                history.push(`/${props.path}s/${id}`);
             },
             failure => {
                 console.log("failure", failure);
-                setMessage({
-                    text: "Please Fill Required Fields",
-                    display: true
-                });
-                setSubmitted(true);
-                setTimeout(() => {
-                    setMessage(message => ({ ...message, display: false }));
-                }, 2000);
+                handleBadFormSubmit()
             }
         );
     };
@@ -162,11 +172,11 @@ export default props => {
             console.log("pressed new");
             if (!newItem) {
                 clearFormValues();
-                setEdit(true)
+                setEdit(true);
             } else {
                 resetFormValues();
-                setSubmitted(false)
-                setEdit(false)
+                setSubmitted(false);
+                setEdit(false);
             }
             setNewItem(!newItem);
         },

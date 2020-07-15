@@ -97,6 +97,7 @@ export default props => {
                                         id={value.title}
                                         value={props.formValues[value.title]}
                                         multiline
+                                        disabled={value.disabled}
                                         error={
                                             ((props.submitted &&
                                                 !props.formValues[
