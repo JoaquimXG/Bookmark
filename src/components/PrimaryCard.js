@@ -65,8 +65,8 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const initialiseFormValues = cards => {
-    let tempFormValues = {};
+const initialiseFormValues = (cards, title)=> {
+    let tempFormValues = {name: title};
     cards
         .map(card => card.content)
         .flat()
@@ -85,16 +85,17 @@ export default props => {
     const history = useHistory();
     const [edit, setEdit] = useState(false);
     const [newItem, setNewItem] = useState(false);
-    const [initialFormValues] = useState(initialiseFormValues(props.cards));
+    const [initialFormValues] = useState(initialiseFormValues(props.cards, props.title));
     const [formValues, setFormValues] = useState(initialFormValues);
     const [message, setMessage] = useState({});
+    const [submitted, setSubmitted] = useState(false);
     const [id, setID] = useState(props.id);
 
-    const [updateLocation, { data }] = useMutation(
+    const [updateItem, { data }] = useMutation(
         mutations[props.path].mutation
     );
 
-    const [deleteLocation, { data: deleteData }] = useMutation(
+    const [deleteItem, { data: deleteData }] = useMutation(
         mutations[props.path].delete
     );
 
@@ -104,7 +105,6 @@ export default props => {
     const resetFormValues = () => {
         setFormValues(initialFormValues);
     };
-    console.log(formValues);
 
     //either updates the currently viewed item or creates a new one
     //dependant on if the id is of the current item and if .isnew is set to true
@@ -113,25 +113,27 @@ export default props => {
         variables.id = id;
         variables.site_id = 12345;
         variables.isnew = newItem;
-        Object.keys(formValues).map(key => (variables[key] = formValues[key]));
-        updateLocation({ variables: variables, errorPolicy: "all" }).then(
+        Object.keys(formValues).map(key => (variables[key] = formValues[key] === "" ? null: formValues[key]));
+        updateItem({ variables: variables, errorPolicy: "all" }).then(
             success => {
                 console.log("succes", success);
-                let id = success.data.location.updatedRow.id;
-                history.push(`/locations/${id}`);
-                setNewItem(false);
-                setEdit(false);
+                if (success.error){
+                    console.log("error")
+                }
+                let id = success.data[props.path].updatedRow.id;
+                setEdit(false)
+                history.push(`/${props.path}s/${id}`);
             },
             failure => {
                 console.log("failure", failure);
-                setMessage({text:"Please Fill Required Fields", display:true});
+                setMessage({
+                    text: "Please Fill Required Fields",
+                    display: true
+                });
+                setSubmitted(true);
                 setTimeout(() => {
-                    setMessage((message) => ({...message, display: false}))
-                }, 2000)
-                console.log(formValues)
-                //TO-DO
-                //display the fields that need to be filled
-                //potentially by setting the required values to ""
+                    setMessage(message => ({ ...message, display: false }));
+                }, 2000);
             }
         );
     };
@@ -139,10 +141,6 @@ export default props => {
     const buttonFunctions = {
         Edit: () => {
             console.log("pressed save");
-            setFormValues(previousState => ({
-                ...previousState,
-                name: props.title
-            }));
             setEdit(!edit);
         },
         Delete: () => {
@@ -150,7 +148,7 @@ export default props => {
             let variables = {};
             variables.id = props.id;
             variables.site_id = 12345;
-            deleteLocation({ variables: variables, errorPolicy: "all" }).then(
+            deleteItem({ variables: variables, errorPolicy: "all" }).then(
                 success => {
                     console.log("succes", success);
                     history.push(`/${props.path}s`);
@@ -164,10 +162,12 @@ export default props => {
             console.log("pressed new");
             if (!newItem) {
                 clearFormValues();
+                setEdit(true)
             } else {
                 resetFormValues();
+                setSubmitted(false)
+                setEdit(false)
             }
-            setEdit(!edit);
             setNewItem(!newItem);
         },
         Save: () => {
@@ -200,12 +200,17 @@ export default props => {
                             onChange={handleTextFieldChange}
                             id="name"
                             placeholder="Title"
-                            defaultValue={formValues.name}
-                            error={formValues.name === "" ? true : false}
+                            value={formValues.name}
+                            error={
+                                (submitted && !formValues.name) ||
+                                formValues.name === ""
+                                    ? true
+                                    : false
+                            }
                         ></TextField>
                     ) : (
                         <Typography style={{ flexGrow: 1 }} variant="h5">
-                            {props.title}
+                            {formValues.name}
                         </Typography>
                     )}
                     {props.buttons.map((value, index) => {
@@ -279,6 +284,7 @@ export default props => {
                                         handleTextFieldChange={
                                             handleTextFieldChange
                                         }
+                                        submitted={submitted}
                                         newItem={newItem}
                                         edit={edit}
                                         elevation={2}

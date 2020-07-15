@@ -147,8 +147,6 @@ const asset = {
             $name: String
             $last_user: String
             $type: String
-            $last_audit: String
-            $creation_date: String
             $hostname: String
             $domain: String
             $internal_ip: String
@@ -178,8 +176,6 @@ const asset = {
                     name: $name
                     last_user: $last_user
                     type: $type
-                    last_audit: $last_audit
-                    creation_date: $creation_date
                     hostname: $hostname
                     domain: $domain
                     internal_ip: $internal_ip
@@ -253,8 +249,8 @@ const credential = {
         mutation updateCredential(
             $id: ID!
             $site_id: ID!
-            $name: String
-            $password: String
+            $name: String!
+            $password: String!
             $description: String
             $type: String
             $client: String

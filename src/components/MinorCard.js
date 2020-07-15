@@ -9,7 +9,7 @@ import {
     ThemeProvider,
     createMuiTheme
 } from "@material-ui/core";
-import {themeColors} from '../App'
+import { themeColors } from "../App";
 
 const useStyles = makeStyles(theme => ({
     dataCard: {
@@ -77,7 +77,14 @@ export default props => {
                                 {props.edit && value.required ? (
                                     <span>
                                         <span>{value.title}</span>
-                                        <span style={{ color: themeColors.secondary5, fontWeight:"bold"}}>*</span>
+                                        <span
+                                            style={{
+                                                color: themeColors.secondary5,
+                                                fontWeight: "bold"
+                                            }}
+                                        >
+                                            *
+                                        </span>
                                     </span>
                                 ) : (
                                     value.title
@@ -90,7 +97,18 @@ export default props => {
                                         id={value.title}
                                         value={props.formValues[value.title]}
                                         multiline
-                                        error={props.formValues[value.title] === "" && value.required ? true : false}
+                                        error={
+                                            ((props.submitted &&
+                                                !props.formValues[
+                                                    value.title
+                                                ]) ||
+                                                props.formValues[
+                                                    value.title
+                                                ] === "") &&
+                                            value.required
+                                                ? true
+                                                : false
+                                        }
                                     ></TextField>
                                 </ThemeProvider>
                             ) : (
