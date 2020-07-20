@@ -14,11 +14,6 @@ const useStyle = makeStyles(theme => ({
 export default props => {
     const classes = useStyle();
 
-    const buttonHandlers={
-        Copy: () => {
-            console.log("copy")
-        }
-    }
 
     return (
         <div className={classes.buttonRow}>
@@ -33,7 +28,7 @@ export default props => {
                             color: "white",
                             background: value.color
                         }}
-                        onClick={buttonHandlers[value.text]}
+                        onClick={props.handleClick[value.text]}
                     >
                         {value.text}   
                     </Button>

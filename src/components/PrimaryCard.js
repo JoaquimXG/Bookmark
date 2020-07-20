@@ -65,18 +65,42 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const initialiseFormValues = (cards, title) => {
-    let tempFormValues = { name: title };
-    cards
-        .map(card => card.content)
-        .flat()
-        .forEach(
-            value =>
-                (tempFormValues[value.title] = value.content
-                    ? value.content
-                    : "")
-        );
-    return tempFormValues;
+const myMutation = (
+    isNew,
+    id,
+    updatedValues,
+    updateFunction,
+    handleErrorFunction,
+    handleSuccessfulUpdateFunction,
+    site_id = 12345
+) => {
+    var variables = {};
+    if (!isNew) {
+        variables.id = id;
+    }
+    //TO-DO remove hardcode site_id
+    variables.site_id = site_id;
+    variables.isnew = isNew;
+    Object.keys(updatedValues).map(
+        //loop through the formvalues object and copy values into variables
+        //if the string is empty then copy across null instead
+        //the empty string will be accepted and then we can't assess for empty fields
+        key =>
+            (variables[key] =
+                updatedValues[key] === "" ? null : updatedValues[key])
+    );
+    updateFunction({ variables: variables, errorPolicy: "all" }).then(
+        success => {
+            if (success.errors) {
+                handleErrorFunction(success.errors);
+            } else {
+                handleSuccessfulUpdateFunction(success);
+            }
+        },
+        failure => {
+            handleErrorFunction(failure);
+        }
+    );
 };
 
 export default props => {
@@ -86,26 +110,21 @@ export default props => {
     //when true, editable fields are displayed
     const [edit, setEdit] = useState(false);
     const [newItem, setNewItem] = useState(false);
-    const [initialFormValues] = useState(
-        initialiseFormValues(props.cards, props.header.title)
-    );
-    //separates formvalues from initialFormValues
-    const [formValues, setFormValues] = useState(initialFormValues);
+
     //when set, an error box will be displayed with the given message
     const [message, setMessage] = useState({});
     //when true the form is being submitted
     const [submitted, setSubmitted] = useState(false);
 
-    const [updateItem, { data }] = useMutation(mutations[props.path].mutation);
     const [deleteItem, { data: deleteData }] = useMutation(
         mutations[props.path].delete
     );
 
     const resetFormValues = () => {
-        setFormValues(initialFormValues);
+        props.setFormValues(props.initialFormValues);
     };
     const clearFormValues = () => {
-        setFormValues({});
+        props.setFormValues({});
     };
 
     //Sets the message to be displayed in the error box
@@ -121,46 +140,10 @@ export default props => {
         }, 2000);
     };
 
-    //either updates the currently viewed item or creates a new one
-    //dependant on if the id is of the current item and if .isnew is set to true
-    const myMutation = () => {
-        var variables = {};
-        if (!newItem) {
-            variables.id = props.id;
-        }
-        //TO-DO remove hardcode site_id
-        variables.site_id = 12345;
-        variables.isnew = newItem;
-        Object.keys(formValues).map(
-            //loop through the formvalues object and copy values into variables
-            //if the string is empty then copy across null instead
-            //the empty string will be accepted and then we can't assess for empty fields
-            key =>
-                (variables[key] =
-                    formValues[key] === "" ? null : formValues[key])
-        );
-        updateItem({ variables: variables, errorPolicy: "all" }).then(
-            success => {
-                console.log("succes", success);
-                if (success.errors) {
-                    //the form likely has missing fields if successful but returns with errors
-                    //so the error is displayed and handle formsubmit is run
-                    success.errors.forEach(error => console.log(error.message));
-                    handleBadFormSubmit();
-                } else {
-                    //otherwise set the id to the id of the returned item
-                    //and move to the new page to display it
-                    let id = success.data[props.path].updatedRow.id;
-                    setEdit(false);
-                    history.push(`/${props.path}s/${id}`);
-                }
-            },
-            failure => {
-                //in case of failure inform the user of the form not being complete
-                console.log("failure", failure);
-                handleBadFormSubmit();
-            }
-        );
+    const handleSuccessfulUpdate = success => {
+        let id = success.data[props.path].updatedRow.id;
+        setEdit(false);
+        history.push(`/${props.path}s/${id}`);
     };
 
     const buttonFunctions = {
@@ -197,12 +180,23 @@ export default props => {
         },
         Save: () => {
             console.log("pressed save");
-            myMutation();
-        },
+            myMutation(
+                newItem,
+                props.id,
+                props.formValues,
+                props.updateItem,
+                handleBadFormSubmit,
+                handleSuccessfulUpdate,
+                12345
+            );
+        }
     };
 
     const handleTextFieldChange = event => {
-        setFormValues({ ...formValues, [event.target.id]: event.target.value });
+        props.setFormValues({
+            ...props.formValues,
+            [event.target.id]: event.target.value
+        });
     };
 
     const cards = newItem ? props.rowTemplate.cards : props.cards;
@@ -225,18 +219,18 @@ export default props => {
                             onChange={handleTextFieldChange}
                             id="name"
                             placeholder="Title"
-                            value={formValues.name}
+                            value={props.formValues.name}
                             disabled={props.header.disabled}
                             error={
-                                (submitted && !formValues.name) ||
-                                formValues.name === ""
+                                (submitted && !props.formValues.name) ||
+                                props.formValues.name === ""
                                     ? true
                                     : false
                             }
                         ></TextField>
                     ) : (
                         <Typography style={{ flexGrow: 1 }} variant="h5">
-                            {formValues.name}
+                            {props.formValues.name}
                         </Typography>
                     )}
                     {props.buttons.map((value, index) => {
@@ -304,7 +298,7 @@ export default props => {
                                     }
                                 >
                                     <MinorCard
-                                        formValues={formValues}
+                                        formValues={props.formValues}
                                         handleTextFieldChange={
                                             handleTextFieldChange
                                         }

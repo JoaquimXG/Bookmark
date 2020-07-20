@@ -10,11 +10,10 @@ const useStyle = makeStyles(theme => ({
         display: "flex"
     },
 
-    secondaryCard : {
+    secondaryCard: {
         minWidth: 350,
         display: "flex",
         flexDirection: "column"
-
     },
 
     secondaryCardList: {
@@ -22,7 +21,6 @@ const useStyle = makeStyles(theme => ({
         overflowY: "auto",
         overflowX: "hidden"
     }
-
 }));
 
 export default props => {
@@ -30,8 +28,11 @@ export default props => {
 
     return (
         <Box className={classes.main}>
-            <Paper elevation={8} className={classes.secondaryCard} >
-                <SecondaryCardButtonRow buttons={props.buttons} />
+            <Paper elevation={8} className={classes.secondaryCard}>
+                <SecondaryCardButtonRow
+                    buttons={props.buttons}
+                    handleClick={props.handleClick}
+                />
                 <Divider />
                 <Box className={classes.secondaryCardList}>
                     {props.data.map((value, index) => {
