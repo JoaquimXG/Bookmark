@@ -166,7 +166,7 @@ function App() {
                                         companyInfoSecondaryCardData
                                     }
                                     buttons={companyInfoButtons}
-                                    title="Company Info"
+                                    header={{title:"Company Info", disabled: false}}
                                 />
                             )}
                         />

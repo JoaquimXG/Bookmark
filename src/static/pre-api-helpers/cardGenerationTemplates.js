@@ -1,5 +1,5 @@
 const contactTemplate = {
-    header: "name",
+    header: {title: "name"},
 
     cards: [
         {
@@ -39,7 +39,7 @@ const contactTemplate = {
 };
 
 const backupTemplate = {
-    header: "name",
+    header: {title: "name"},
 
     cards: [
         {
@@ -83,7 +83,7 @@ const backupTemplate = {
 };
 
 const locationTemplate = {
-    header: "name",
+    header: {title: "name"},
 
     cards: [
         {
@@ -118,7 +118,7 @@ const locationTemplate = {
 };
 
 const credentialTemplate = {
-    header: "name",
+    header: {title: "name"},
 
     cards: [
         {
@@ -154,7 +154,7 @@ const credentialTemplate = {
     ]
 };
 const assetTemplate = {
-    header: "name",
+    header: {title: "name", disabled: true},
 
     cards: [
         {

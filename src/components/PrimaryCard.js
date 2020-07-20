@@ -83,27 +83,33 @@ export default props => {
     const classes = useStyles();
     const theme = useTheme();
     const history = useHistory();
+    //when true, editable fields are displayed
     const [edit, setEdit] = useState(false);
     const [newItem, setNewItem] = useState(false);
     const [initialFormValues] = useState(
-        initialiseFormValues(props.cards, props.title)
+        initialiseFormValues(props.cards, props.header.title)
     );
+    //separates formvalues from initialFormValues
     const [formValues, setFormValues] = useState(initialFormValues);
+    //when set, an error box will be displayed with the given message
     const [message, setMessage] = useState({});
+    //when true the form is being submitted
     const [submitted, setSubmitted] = useState(false);
 
     const [updateItem, { data }] = useMutation(mutations[props.path].mutation);
-
     const [deleteItem, { data: deleteData }] = useMutation(
         mutations[props.path].delete
     );
 
-    const clearFormValues = () => {
-        setFormValues({});
-    };
     const resetFormValues = () => {
         setFormValues(initialFormValues);
     };
+    const clearFormValues = () => {
+        setFormValues({});
+    };
+
+    //Sets the message to be displayed in the error box
+    //The error box is only displayed when message.display is true
     const handleBadFormSubmit = () => {
         setMessage({
             text: "Please Fill Required Fields",
@@ -119,12 +125,16 @@ export default props => {
     //dependant on if the id is of the current item and if .isnew is set to true
     const myMutation = () => {
         var variables = {};
-        if (!newItem){
-            variables.id = props.id
+        if (!newItem) {
+            variables.id = props.id;
         }
+        //TO-DO remove hardcode site_id
         variables.site_id = 12345;
         variables.isnew = newItem;
         Object.keys(formValues).map(
+            //loop through the formvalues object and copy values into variables
+            //if the string is empty then copy across null instead
+            //the empty string will be accepted and then we can't assess for empty fields
             key =>
                 (variables[key] =
                     formValues[key] === "" ? null : formValues[key])
@@ -133,17 +143,22 @@ export default props => {
             success => {
                 console.log("succes", success);
                 if (success.errors) {
-                    success.errors.forEach((error) => console.log(error.message))
-                    handleBadFormSubmit()
+                    //the form likely has missing fields if successful but returns with errors
+                    //so the error is displayed and handle formsubmit is run
+                    success.errors.forEach(error => console.log(error.message));
+                    handleBadFormSubmit();
                 } else {
+                    //otherwise set the id to the id of the returned item
+                    //and move to the new page to display it
                     let id = success.data[props.path].updatedRow.id;
                     setEdit(false);
                     history.push(`/${props.path}s/${id}`);
                 }
             },
             failure => {
+                //in case of failure inform the user of the form not being complete
                 console.log("failure", failure);
-                handleBadFormSubmit()
+                handleBadFormSubmit();
             }
         );
     };
@@ -211,6 +226,7 @@ export default props => {
                             id="name"
                             placeholder="Title"
                             value={formValues.name}
+                            disabled={props.header.disabled}
                             error={
                                 (submitted && !formValues.name) ||
                                 formValues.name === ""
@@ -276,17 +292,15 @@ export default props => {
                         className={classes.primaryCardGrid}
                         spacing={3}
                     >
-                        {cards.map((value, index) => {
-                            return value.content.every(
+                        {cards.map((card, index) => {
+                            return card.content.every(
                                 subtitle => subtitle.content === null
                             ) && !edit ? null : (
                                 <Grid
                                     key={index}
                                     item
                                     xs={
-                                        value.columns.xs
-                                            ? value.columns.xs
-                                            : true
+                                        card.columns.xs ? card.columns.xs : true
                                     }
                                 >
                                     <MinorCard
@@ -299,8 +313,8 @@ export default props => {
                                         edit={edit}
                                         elevation={2}
                                         style={{ flexGrow: 1 }}
-                                        title={value.title}
-                                        content={value.content}
+                                        title={card.title}
+                                        content={card.content}
                                     ></MinorCard>
                                 </Grid>
                             );
