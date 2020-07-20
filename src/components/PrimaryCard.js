@@ -198,7 +198,7 @@ export default props => {
         Save: () => {
             console.log("pressed save");
             myMutation();
-        }
+        },
     };
 
     const handleTextFieldChange = event => {

@@ -14,6 +14,12 @@ const useStyle = makeStyles(theme => ({
 export default props => {
     const classes = useStyle();
 
+    const buttonHandlers={
+        Copy: () => {
+            console.log("copy")
+        }
+    }
+
     return (
         <div className={classes.buttonRow}>
             {props.buttons.map((value, index) => {
@@ -27,6 +33,7 @@ export default props => {
                             color: "white",
                             background: value.color
                         }}
+                        onClick={buttonHandlers[value.text]}
                     >
                         {value.text}   
                     </Button>
