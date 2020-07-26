@@ -13,9 +13,8 @@ import {
 import itemDataScreenTemplate from "./static/pre-api-helpers/itemDataScreenTemplate";
 import templates from "./static/pre-api-helpers/cardGenerationTemplates";
 import apiDumps from "./static/pre-api-helpers/apiDumps";
-import ApolloClient from "apollo-boost";
-import { ApolloProvider } from "@apollo/react-hooks";
-import { ToastContainer, toast } from 'react-toastify';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client';
 
 //Static routes for Item Categories
 const staticItemCategoryRoutes = [
@@ -142,7 +141,8 @@ const itemDataScreenRoute = (routeInfo, rows) => {
 };
 
 const client = new ApolloClient({
-    uri: "http://lvh.me:4000"
+    uri: "http://lvh.me:4000",
+    cache: new InMemoryCache()
 });
 
 function App() {
@@ -179,7 +179,6 @@ function App() {
                     </Switch>
                 </Router>
             </CssBaseline>
-            <ToastContainer/ >
         </ApolloProvider>
     );
 }

@@ -3,10 +3,11 @@ import PrimaryCard from "./PrimaryCard";
 import SecondaryCard from "./SecondaryCard";
 import { Box, makeStyles } from "@material-ui/core";
 import { AppBarHeight } from "../App";
-import { useQuery, useMutation } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/client";
 import { individualQueries } from "../static/pre-api-helpers/queries";
 import mutations from "../static/pre-api-helpers/mutations";
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import myMutation from "../static/pre-api-helpers/functions/myMutation";
 
 const useStyle = makeStyles(theme => ({
     body: {
@@ -67,44 +68,6 @@ const initialiseFormValues = (cards, title) => {
     return tempFormValues;
 };
 
-const myMutation = (
-    isNew,
-    id,
-    updatedValues,
-    updateFunction,
-    handleErrorFunction,
-    handleSuccessfulUpdateFunction,
-    site_id = 12345
-) => {
-    var variables = {};
-    if (!isNew) {
-        variables.id = id;
-    }
-    //TO-DO remove hardcode site_id
-    variables.site_id = site_id;
-    variables.isnew = isNew;
-    Object.keys(updatedValues).map(
-        //loop through the formvalues object and copy values into variables
-        //if the string is empty then copy across null instead
-        //the empty string will be accepted and then we can't assess for empty fields
-        key =>
-            (variables[key] =
-                updatedValues[key] === "" ? null : updatedValues[key])
-    );
-    updateFunction({ variables: variables, errorPolicy: "all" }).then(
-        success => {
-            if (success.errors) {
-                handleErrorFunction(success.errors);
-            } else {
-                handleSuccessfulUpdateFunction(success);
-            }
-        },
-        failure => {
-            handleErrorFunction(failure);
-        }
-    );
-};
-
 export default props => {
     const classes = useStyle();
     const history = useHistory();
@@ -112,7 +75,9 @@ export default props => {
 
     const [initialFormValues, setInitialFormValues] = useState(null);
     const [formValues, setFormValues] = useState(null);
-    const [updateItem] = useMutation(mutations[props.path].mutation);
+    const [updateItem] = useMutation(mutations[props.path].mutation, {
+        update: (cache, { data }) => {console.log("update")}
+    });
 
     var query = "";
     var id = null;
@@ -160,18 +125,18 @@ export default props => {
 
     const secondaryButtonFunctions = {
         Copy: () => {
-            console.log("copy")
+            console.log("copy");
             myMutation(
                 true,
                 null,
                 formValues,
                 updateItem,
-                (errors) => console.log("errors are:",errors),
+                errors => console.log("errors are:", errors),
                 handleSuccessfulUpdate,
                 12345
             );
         }
-    }
+    };
 
     return (
         <div className={classes.main}>

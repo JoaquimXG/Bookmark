@@ -39,7 +39,6 @@ class ClassComponent extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         if (this.state.hasError) {
             return (
                 <div className={this.props.classes.main}>

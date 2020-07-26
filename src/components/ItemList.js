@@ -18,7 +18,7 @@ import { SearchSharp } from "@material-ui/icons";
 import { drawerWidth } from "../App";
 import TableHeadExtended from "./TableHeadExtended";
 import TableRowExtended from "./TableRowExtended";
-import { useQuery } from "@apollo/react-hooks"; 
+import { useQuery } from "@apollo/client"; 
 import {itemListQueries }from '../static/pre-api-helpers/queries'
 
 const margin = 25;
