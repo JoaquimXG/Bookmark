@@ -8,7 +8,7 @@ const backup = {
     `,
     mutation: gql`
         mutation updateBackup(
-            $id: ID!
+            $id: ID
             $site_id: ID!
             $name: String!
             $vendor: String
@@ -61,7 +61,7 @@ const backup = {
             }
         }
     `,
-    data: "backups"
+    deleteStringIdentifier: "deleteBackup"
 };
 
 const contact = {
@@ -72,7 +72,7 @@ const contact = {
     `,
     mutation: gql`
         mutation updateContact(
-            $id: ID!
+            $id: ID
             $site_id: ID!
             $name: String!
             $type: String
@@ -131,7 +131,7 @@ const contact = {
             }
         }
     `,
-    data: "contacts"
+    deleteStringIdentifier: "deleteContact"
 };
 
 const asset = {
@@ -142,7 +142,7 @@ const asset = {
     `,
     mutation: gql`
         mutation updateAsset(
-            $id: ID!
+            $id: ID
             $site_id: ID!
             $name: String
             $last_user: String
@@ -236,18 +236,18 @@ const asset = {
             }
         }
     `,
-    data: "assets"
+    deleteStringIdentifier: "deleteAsset"
 };
 
 const credential = {
     delete: gql`
-        mutation deleteCredential($id: ID!, $site_id: ID!) {
+        mutation deletecredential($id: ID!, $site_id: ID!) {
             deleteCredential(id: $id, site_id: $site_id)
         }
     `,
     mutation: gql`
         mutation updateCredential(
-            $id: ID!
+            $id: ID
             $site_id: ID!
             $name: String!
             $password: String!
@@ -294,7 +294,7 @@ const credential = {
             }
         }
     `,
-    data: "credentials"
+    deleteStringIdentifier: "deleteCredential"
 };
 
 const location = {
@@ -361,7 +361,7 @@ const location = {
             }
         }
     `,
-    data: "locations"
+    deleteStringIdentifier: "deleteLocation"
 };
 
 export default {

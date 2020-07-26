@@ -117,7 +117,25 @@ export default props => {
     const [submitted, setSubmitted] = useState(false);
 
     const [deleteItem, { data: deleteData }] = useMutation(
-        mutations[props.path].delete
+        mutations[props.path].delete,
+        {
+            update: (cache, { data }) => {
+                console.log(
+                    "good data",
+                    data[mutations[props.path].deleteStringIdentifier]
+                );
+                const id = data[mutations[props.path].deleteStringIdentifier];
+                cache.modify({
+                    fields: {
+                        credentials(existingCredentialRefs, { readField }) {
+                            console.log({ existingCredentialRefs });
+                            console.log({ readField });
+                            return existingCredentialRefs;
+                        }
+                    }
+                });
+            }
+        }
     );
 
     const resetFormValues = () => {
@@ -156,7 +174,10 @@ export default props => {
             let variables = {};
             variables.id = props.id;
             variables.site_id = 12345;
-            deleteItem({ variables: variables, errorPolicy: "all" }).then(
+            deleteItem({
+                variables: variables,
+                errorPolicy: "all"
+            }).then(
                 success => {
                     console.log("succes", success);
                     history.push(`/${props.path}s`);

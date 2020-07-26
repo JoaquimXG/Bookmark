@@ -18,7 +18,7 @@ const credentialsList = {
 const assetsList = {
     query: gql`
         {
-            assets(site_id: 235549) {
+            assets(site_id: 12345) {
                 id
                 name
                 type

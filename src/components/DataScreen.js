@@ -166,7 +166,7 @@ export default props => {
                 null,
                 formValues,
                 updateItem,
-                (errors) => console.log(errors),
+                (errors) => console.log("errors are:",errors),
                 handleSuccessfulUpdate,
                 12345
             );
