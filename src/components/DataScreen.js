@@ -3,8 +3,11 @@ import PrimaryCard from "./PrimaryCard";
 import SecondaryCard from "./SecondaryCard";
 import { Box, makeStyles } from "@material-ui/core";
 import { AppBarHeight } from "../App";
-import { useQuery, useMutation } from "@apollo/client";
-import { individualQueries } from "../static/pre-api-helpers/queries";
+import { useQuery, useMutation, gql } from "@apollo/client";
+import {
+    individualQueries,
+    itemListQueries
+} from "../static/pre-api-helpers/queries";
 import mutations from "../static/pre-api-helpers/mutations";
 import { useHistory } from "react-router-dom";
 import myMutation from "../static/pre-api-helpers/functions/myMutation";
@@ -76,7 +79,39 @@ export default props => {
     const [initialFormValues, setInitialFormValues] = useState(null);
     const [formValues, setFormValues] = useState(null);
     const [updateItem] = useMutation(mutations[props.path].mutation, {
-        update: (cache, { data }) => {console.log("update")}
+        update: (cache, { data }) => {
+            const itemType = `${props.path}s`;
+            var cachedData;
+            try {
+                //check if there is relevant cached data
+                cachedData = cache.readQuery({
+                    query: itemListQueries[props.path].query
+                });
+                if (
+                    cachedData[itemType].some(
+                        item => item.id === data[props.path].updatedRow.id
+                    )
+                ) {
+                    //item already exists and will be updated automatically
+                    return null;
+                }
+            } catch {
+                //no action required as cache will be correct after query is made for the first time
+                return null;
+            }
+            //update the cache with the data returned from the mutation
+            //using the same query as was initially used to populate the itemList cached data
+            //the correct fields will be pulled from the data automatically thanks to the query
+            cache.writeQuery({
+                query: itemListQueries[props.path].query,
+                data: {
+                    [itemType]: [
+                        ...cachedData[itemType],
+                        data[props.path].updatedRow
+                    ]
+                }
+            });
+        }
     });
 
     var query = "";

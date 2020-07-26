@@ -76,11 +76,11 @@ const backupsList = {
 };
 
 export const itemListQueries = {
-    assetsList,
-    credentialsList,
-    locationsList,
-    contactsList,
-    backupsList
+    asset: assetsList,
+    credential: credentialsList,
+    location: locationsList ,
+    contact: contactsList,
+    backup: backupsList
 };
 
 const credential = {

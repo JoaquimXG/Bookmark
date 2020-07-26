@@ -51,7 +51,7 @@ export default props => {
     const classes = useStyles();
     const theme = useTheme();
 
-    const {loading, error, data } = useQuery(itemListQueries[props.query].query);
+    const {loading, error, data } = useQuery(itemListQueries[props.path].query);
 
     if (error) return <p>Error</p>;
 
@@ -108,7 +108,7 @@ export default props => {
                     <Table stickyHeader>
                         <TableHeadExtended columns={props.columns} />
                         <TableBody>
-                            {data[itemListQueries[props.query].data].map((row) => (
+                            {data[itemListQueries[props.path].data].map((row) => (
                                 <TableRowExtended
                                     columns={props.columns}
                                     path={props.path}

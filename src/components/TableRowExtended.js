@@ -40,7 +40,7 @@ export default props => {
             </TableCell>
             {props.columns.map(column => (
                 <TableCell
-                    to={`${props.path}/${props.row.id}`}
+                    to={`/${props.path}s/${props.row.id}`}
                     component={Link}
                     className={classes.cell}
                     key={`${column.id}-${props.row.id}`}

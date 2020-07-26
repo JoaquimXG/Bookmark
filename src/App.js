@@ -109,7 +109,7 @@ const ItemCategoryRoute = (route, setRows) => {
                 return (
                     <ItemCategory
                         setRows={setRows}
-                        path={`/${route.path}s`}
+                        path={route.path}
                         rows={route.rows}
                         query={route.query}
                         colums={route.columns}

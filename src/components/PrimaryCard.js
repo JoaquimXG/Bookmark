@@ -215,7 +215,7 @@ export default props => {
                         ></TextField>
                     ) : (
                         <Typography style={{ flexGrow: 1 }} variant="h5">
-                            {props.formValues.name}
+                            {props.formValues? props.formValues.name: "Company Info"}
                         </Typography>
                     )}
                     {props.buttons.map((value, index) => {

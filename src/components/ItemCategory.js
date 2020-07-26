@@ -73,7 +73,6 @@ export default props => {
                             path={props.path}
                             rows={props.rows}
                             columns={props.colums}
-                            query={props.query}
                             buttons={primaryButtons}
                         />
                     </Box>
