@@ -117,7 +117,9 @@ export default props => {
                                     className={classes.fieldsTypography}
                                     variant="subtitle2"
                                 >
-                                    {props.formValues[value.title]}
+                                    {props.formValues
+                                        ? props.formValues[value.title]
+                                        : value.content}
                                 </Typography>
                             )}
                         </React.Fragment>

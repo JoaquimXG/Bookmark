@@ -3,7 +3,7 @@ import PrimaryCard from "./PrimaryCard";
 import SecondaryCard from "./SecondaryCard";
 import { Box, makeStyles } from "@material-ui/core";
 import { AppBarHeight } from "../App";
-import { useQuery, useMutation, gql } from "@apollo/client";
+import { useQuery, useMutation, gql, useLazyQuery } from "@apollo/client";
 import {
     individualQueries,
     itemListQueries
@@ -71,6 +71,8 @@ const initialiseFormValues = (cards, title) => {
     return tempFormValues;
 };
 
+
+
 export default props => {
     const classes = useStyle();
     const history = useHistory();
@@ -125,6 +127,7 @@ export default props => {
     }
 
     const { loading, error, data } = useQuery(query, { variables: { id: id } });
+    const [loadPdf, {lazyLoading, lazyError, lazyData, lazyCalled}] = useLazyQuery(query)
 
     if (loading)
         return (
@@ -170,6 +173,14 @@ export default props => {
                 handleSuccessfulUpdate,
                 12345
             );
+        },
+        PDF: () => {
+            console.log("PDF");
+            loadPdf()
+        },
+        Edit: () => {
+            //TO-DO
+            console.log("edit")
         }
     };
 
