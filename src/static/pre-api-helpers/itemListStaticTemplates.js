@@ -1,3 +1,11 @@
+import {
+    CreateSharp,
+    AddSharp,
+    GetAppSharp,
+    PublishSharp
+} from "@material-ui/icons";
+import { themeColors } from "../../App";
+
 const credential = [
     {
         id: "name",
@@ -168,6 +176,38 @@ const printer = [
     }
 ];
 
+export const buttons = [
+    {
+        icon: CreateSharp,
+        get color() {
+            return themeColors.secondary5;
+        },
+        text: "Edit"
+    },
+    {
+        icon: PublishSharp,
+        get color() {
+            return themeColors.primary5;
+        },
+        text: "Export"
+    },
+    {
+        icon: GetAppSharp,
+        get color() {
+            return themeColors.primary5;
+        },
+        text: "Import"
+    },
+
+    {
+        icon: AddSharp,
+        get color() {
+            return themeColors.success;
+        },
+        text: "New"
+    }
+];
+
 export const columns = {
     credential,
     asset,
@@ -178,5 +218,4 @@ export const columns = {
     application,
     checklist,
     printer
-
-}
+};
