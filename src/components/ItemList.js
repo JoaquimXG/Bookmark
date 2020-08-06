@@ -20,7 +20,7 @@ import TableHeadExtended from "./TableHeadExtended";
 import TableRowExtended from "./TableRowExtended";
 import { useQuery } from "@apollo/client";
 import { itemListQueries } from "../static/pre-api-helpers/queries";
-import columns from "../static/pre-api-helpers/itemListColumns";
+import {columns} from "../static/pre-api-helpers/itemListStaticTemplates";
 
 const margin = 25;
 

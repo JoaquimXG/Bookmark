@@ -67,7 +67,6 @@ export default props => {
                     <Box className={classes.body}>
                         <ItemList
                             path={props.path}
-                            columns={props.colums}
                             buttons={primaryButtons}
                         />
                     </Box>

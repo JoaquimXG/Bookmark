@@ -9,8 +9,7 @@ import {
     companyInfoSecondaryCardData,
     companyInfoButtons
 } from "./static/pre-api-helpers/companyInfoApiData";
-import itemDataScreenTemplate from "./static/pre-api-helpers/itemDataScreenTemplate";
-import templates from "./static/pre-api-helpers/cardGenerationTemplates";
+import dataScreenStaticTemplates from "./static/pre-api-helpers/dataScreenStaticTemplates";
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { ApolloProvider } from '@apollo/client';
 
@@ -18,23 +17,18 @@ import { ApolloProvider } from '@apollo/client';
 const staticItemCategoryRoutes = [
     {
         path: "credential",
-        template: templates.credentialTemplate,
     },
     {
         path: "asset",
-        template: templates.assetTemplate,
     },
     {
         path: "location",
-        template: templates.locationTemplate,
     },
     {
         path: "contact",
-        template: templates.contactTemplate,
     },
     {
         path: "backup",
-        template: templates.backupTemplate,
     },
     {
         path: "sitesummary",
@@ -97,9 +91,8 @@ const itemDataScreenRoute = (route) => {
                 <DataScreen
                     {...routerProps}
                     path={route.path}
-                    buttons={itemDataScreenTemplate.buttons}
-                    secondaryCardData={itemDataScreenTemplate.secondaryCardData}
-                    rowTemplate={route.template}
+                    buttons={dataScreenStaticTemplates.buttons}
+                    secondaryCardData={dataScreenStaticTemplates.secondaryCardData}
                 />
             )}
         />

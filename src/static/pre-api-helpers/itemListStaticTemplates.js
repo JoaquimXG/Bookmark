@@ -168,7 +168,7 @@ const printer = [
     }
 ];
 
-export default {
+export const columns = {
     credential,
     asset,
     location,

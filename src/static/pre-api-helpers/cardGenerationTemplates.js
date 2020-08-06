@@ -1,4 +1,4 @@
-const contactTemplate = {
+const contact = {
     header: {title: "name"},
 
     cards: [
@@ -38,7 +38,7 @@ const contactTemplate = {
     ]
 };
 
-const backupTemplate = {
+const backup = {
     header: {title: "name"},
 
     cards: [
@@ -82,7 +82,7 @@ const backupTemplate = {
     ]
 };
 
-const locationTemplate = {
+const location = {
     header: {title: "name"},
 
     cards: [
@@ -117,7 +117,7 @@ const locationTemplate = {
     ]
 };
 
-const credentialTemplate = {
+const credential = {
     header: {title: "name"},
 
     cards: [
@@ -153,7 +153,7 @@ const credentialTemplate = {
         }
     ]
 };
-const assetTemplate = {
+const asset = {
     header: {title: "name", disabled: true},
 
     cards: [
@@ -223,9 +223,9 @@ const assetTemplate = {
 };
 
 export default {
-    assetTemplate,
-    credentialTemplate,
-    locationTemplate,
-    backupTemplate,
-    contactTemplate
+    asset,
+    credential,
+    location,
+    backup,
+    contact
 };
