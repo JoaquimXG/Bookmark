@@ -80,7 +80,6 @@ const ItemCategoryRoute = (route) => {
                 return (
                     <ItemCategory
                         path={route.path}
-                        query={route.query}
                     />
                 );
             }}
