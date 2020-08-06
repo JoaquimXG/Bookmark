@@ -1,21 +1,4 @@
-const templateArr = [
-    "A Primary Column",
-    "A Secondary Column",
-    "Some Extra Information",
-    "An Author"
-];
-
-function createData(firstRow, templateArr, x = 20) {
-    var returnArr = [];
-    returnArr.push(firstRow);
-
-    for (let i = 0; i < x; i++) {
-        returnArr.push({ data: templateArr, id: i });
-    }
-    return returnArr;
-}
-
-const credentialColumns = [
+const credential = [
     {
         id: "name",
         label: "Username"
@@ -34,7 +17,7 @@ const credentialColumns = [
     }
 ];
 
-const assetColumns = [
+const asset = [
     {
         id: "name",
         label: "Asset Name"
@@ -53,7 +36,7 @@ const assetColumns = [
     }
 ];
 
-const locationColumns = [
+const location = [
     {
         id: "name",
         label: "Location Name"
@@ -72,7 +55,7 @@ const locationColumns = [
     }
 ];
 
-const contactColumns = [
+const contact = [
     {
         id: "name",
         label: "Contact Name"
@@ -91,7 +74,7 @@ const contactColumns = [
     }
 ];
 
-const siteSummaryColumns = [
+const sitesummary = [
     {
         id: "name",
         label: "Site Name"
@@ -110,19 +93,7 @@ const siteSummaryColumns = [
     }
 ];
 
-const firstSiteSummaryRow = {
-    data: [
-        "High Street Office",
-        "Head Office",
-        "1 Some Road, Aberdeen",
-        "Joaquim Gomez"
-    ],
-    id: "id"
-};
-
-const siteSummarys = createData(firstSiteSummaryRow, templateArr, 20);
-
-const applicationColumns = [
+const application = [
     {
         id: "name",
         label: "Application Name"
@@ -141,14 +112,7 @@ const applicationColumns = [
     }
 ];
 
-const firstApplicationRow = {
-    data: ["Main Server", "Alto", "Daily", "Joaquim Gomez"],
-    id: "id"
-};
-
-const applications = createData(firstApplicationRow, templateArr, 20);
-
-const backupColumns = [
+const backup = [
     {
         id: "name",
         label: "Backup Subject"
@@ -167,7 +131,7 @@ const backupColumns = [
     }
 ];
 
-const checklistColumns = [
+const checklist = [
     {
         id: "name",
         label: "Checklist Name"
@@ -185,15 +149,7 @@ const checklistColumns = [
         label: "Created By"
     }
 ];
-
-const firstChecklistRow = {
-    data: ["Finish UX Design", "Joaquim Gomez", "Today", "Joaquim Gomez"],
-    id: "id"
-};
-
-const checklists = createData(firstChecklistRow, templateArr, 20);
-
-const printerColumns = [
+const printer = [
     {
         id: "name",
         label: "Printer Name"
@@ -212,29 +168,15 @@ const printerColumns = [
     }
 ];
 
-const firstPrinterRow = {
-    data: ["Generic-0f24r", "Olivetti", "Reception", "Joaquim Gomez"],
-    id: "id"
-};
-
-const printers = createData(firstPrinterRow, templateArr, 20);
-
-export const rows = {
-    siteSummarys,
-    applications,
-    checklists,
-    printers
-};
-
-export const columns = {
-    credentialColumns,
-    assetColumns,
-    locationColumns,
-    contactColumns,
-    backupColumns,
-    siteSummaryColumns,
-    applicationColumns,
-    checklistColumns,
-    printerColumns
+export default {
+    credential,
+    asset,
+    location,
+    contact,
+    backup,
+    sitesummary,
+    application,
+    checklist,
+    printer
 
 }

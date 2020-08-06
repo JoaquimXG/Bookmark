@@ -12,14 +12,15 @@ import {
     Table,
     TableContainer,
     TableBody,
-    Typography,
+    Typography
 } from "@material-ui/core";
 import { SearchSharp } from "@material-ui/icons";
 import { drawerWidth } from "../App";
 import TableHeadExtended from "./TableHeadExtended";
 import TableRowExtended from "./TableRowExtended";
-import { useQuery } from "@apollo/client"; 
-import {itemListQueries }from '../static/pre-api-helpers/queries'
+import { useQuery } from "@apollo/client";
+import { itemListQueries } from "../static/pre-api-helpers/queries";
+import columns from "./static/pre-api-helpers/itemListColumns";
 
 const margin = 25;
 
@@ -46,12 +47,13 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-
 export default props => {
     const classes = useStyles();
     const theme = useTheme();
 
-    const {loading, error, data } = useQuery(itemListQueries[props.path].query);
+    const { loading, error, data } = useQuery(
+        itemListQueries[props.path].query
+    );
 
     if (error) return <p>Error</p>;
 
@@ -104,21 +106,25 @@ export default props => {
                 </header>
                 <Divider />
                 <TableContainer className={classes.tableContainer}>
-                    { loading ? <Typography variant="h1">Loading...</Typography>: 
-                    <Table stickyHeader>
-                        <TableHeadExtended columns={props.columns} />
-                        <TableBody>
-                            {data[itemListQueries[props.path].data].map((row) => (
-                                <TableRowExtended
-                                    columns={props.columns}
-                                    path={props.path}
-                                    key={row.id}
-                                    row={row}
-                                />
-                            ))}
-                        </TableBody>
-                    </Table>
-                }
+                    {loading ? (
+                        <Typography variant="h1">Loading...</Typography>
+                    ) : (
+                        <Table stickyHeader>
+                            <TableHeadExtended columns={columns[props.path]} />
+                            <TableBody>
+                                {data[itemListQueries[props.path].data].map(
+                                    row => (
+                                        <TableRowExtended
+                                            columns={columns[props.path]}
+                                            path={props.path}
+                                            key={row.id}
+                                            row={row}
+                                        />
+                                    )
+                                )}
+                            </TableBody>
+                        </Table>
+                    )}
                 </TableContainer>
             </Paper>
         </Box>

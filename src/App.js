@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { CssBaseline } from "@material-ui/core";
 import NavBar from "./components/NavBar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ItemCategory from "./components/ItemCategory";
-import { rows, columns } from "./static/pre-api-helpers/itemlists";
 import DataScreen from "./components/DataScreen";
 import {
     companyInfoPrimaryCardData,
@@ -12,7 +11,6 @@ import {
 } from "./static/pre-api-helpers/companyInfoApiData";
 import itemDataScreenTemplate from "./static/pre-api-helpers/itemDataScreenTemplate";
 import templates from "./static/pre-api-helpers/cardGenerationTemplates";
-import apiDumps from "./static/pre-api-helpers/apiDumps";
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { ApolloProvider } from '@apollo/client';
 
@@ -20,62 +18,35 @@ import { ApolloProvider } from '@apollo/client';
 const staticItemCategoryRoutes = [
     {
         path: "credential",
-        rows: apiDumps.credentials,
-        columns: columns.credentialColumns,
         template: templates.credentialTemplate,
-        query: "credentialsList"
     },
     {
         path: "asset",
-        rows: apiDumps.assets,
-        columns: columns.assetColumns,
         template: templates.assetTemplate,
-        query: "assetsList"
     },
     {
         path: "location",
-        rows: apiDumps.locations,
-        columns: columns.locationColumns,
         template: templates.locationTemplate,
-        query: "locationsList"
     },
     {
         path: "contact",
-        rows: apiDumps.contacts,
-        columns: columns.contactColumns,
         template: templates.contactTemplate,
-        query: "contactsList"
     },
     {
         path: "backup",
-        rows: apiDumps.backups,
-        columns: columns.backupColumns,
         template: templates.backupTemplate,
-        query: "backupsList"
     },
     {
-        path: "site summarie",
-        rows: rows.siteSummarys,
-        columns: columns.siteSummaryColumns,
-        query: "siteSummariesList"
+        path: "sitesummary",
     },
     {
         path: "application",
-        rows: rows.applications,
-        columns: columns.applicationColumns,
-        query: "applicationsList"
     },
     {
         path: "checklist",
-        rows: rows.checklists,
-        columns: columns.checklistColumns,
-        query: "checklistsList"
     },
     {
         path: "printer",
-        rows: rows.printers,
-        columns: columns.printerColumns,
-        query: "printersList"
     }
 ];
 
@@ -99,7 +70,7 @@ export const AppBarHeight = {
     sm: 80
 };
 
-const ItemCategoryRoute = (route, setRows) => {
+const ItemCategoryRoute = (route) => {
     return (
         <Route
             exact
@@ -108,11 +79,8 @@ const ItemCategoryRoute = (route, setRows) => {
             render={() => {
                 return (
                     <ItemCategory
-                        setRows={setRows}
                         path={route.path}
-                        rows={route.rows}
                         query={route.query}
-                        colums={route.columns}
                     />
                 );
             }}
@@ -120,20 +88,19 @@ const ItemCategoryRoute = (route, setRows) => {
     );
 };
 
-const itemDataScreenRoute = (routeInfo, rows) => {
+const itemDataScreenRoute = (route) => {
     return (
         <Route
             exact
-            key={routeInfo.path}
-            path={`/${routeInfo.path}s/:id`}
+            key={route.path}
+            path={`/${route.path}s/:id`}
             render={routerProps => (
                 <DataScreen
                     {...routerProps}
-                    path={routeInfo.path}
-                    rows={rows}
+                    path={route.path}
                     buttons={itemDataScreenTemplate.buttons}
                     secondaryCardData={itemDataScreenTemplate.secondaryCardData}
-                    rowTemplate={routeInfo.template}
+                    rowTemplate={route.template}
                 />
             )}
         />
@@ -141,13 +108,11 @@ const itemDataScreenRoute = (routeInfo, rows) => {
 };
 
 const client = new ApolloClient({
-    uri: "http://lvh.me:4000",
+    uri: "http://lvh.me:4000/graphql",
     cache: new InMemoryCache()
 });
 
 function App() {
-    const [rows, setRows] = useState(null);
-
     return (
         <ApolloProvider client={client}>
             <CssBaseline>
@@ -171,10 +136,10 @@ function App() {
                             )}
                         />
                         {staticItemCategoryRoutes.map(route => {
-                            return ItemCategoryRoute(route, setRows);
+                            return ItemCategoryRoute(route);
                         })}
                         {staticItemCategoryRoutes.map(route => {
-                            return itemDataScreenRoute(route, rows);
+                            return itemDataScreenRoute(route);
                         })}
                     </Switch>
                 </Router>

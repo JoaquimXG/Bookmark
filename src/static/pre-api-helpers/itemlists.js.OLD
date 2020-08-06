@@ -1,0 +1,182 @@
+const credentialColumns = [
+    {
+        id: "name",
+        label: "Username"
+    },
+    {
+        id: "type",
+        label: "Credential Type"
+    },
+    {
+        id: "description",
+        label: "Description"
+    },
+    {
+        id: "folder",
+        label: "Folder"
+    }
+];
+
+const assetColumns = [
+    {
+        id: "name",
+        label: "Asset Name"
+    },
+    {
+        id: "type",
+        label: "Asset Type"
+    },
+    {
+        id: "external_ip",
+        label: "External IP"
+    },
+    {
+        id: "model",
+        label: "Model"
+    }
+];
+
+const locationColumns = [
+    {
+        id: "name",
+        label: "Location Name"
+    },
+    {
+        id: "type",
+        label: "Location Type"
+    },
+    {
+        id: "postcode",
+        label: "Postcode"
+    },
+    {
+        id: "city",
+        label: "City"
+    }
+];
+
+const contactColumns = [
+    {
+        id: "name",
+        label: "Contact Name"
+    },
+    {
+        id: "type",
+        label: "Contact Type"
+    },
+    {
+        id: "mobile",
+        label: "Contact Mobile"
+    },
+    {
+        id: "email",
+        label: "Email"
+    }
+];
+
+const siteSummaryColumns = [
+    {
+        id: "name",
+        label: "Site Name"
+    },
+    {
+        id: "type",
+        label: "Site Function"
+    },
+    {
+        id: "location",
+        label: "Site Address"
+    },
+    {
+        id: "author",
+        label: "Created By"
+    }
+];
+
+const applicationColumns = [
+    {
+        id: "name",
+        label: "Application Name"
+    },
+    {
+        id: "function",
+        label: "Application Function"
+    },
+    {
+        id: "vendor",
+        label: "Application Vendor"
+    },
+    {
+        id: "author",
+        label: "Created By"
+    }
+];
+
+const backupColumns = [
+    {
+        id: "name",
+        label: "Backup Subject"
+    },
+    {
+        id: "type",
+        label: "Backup Type"
+    },
+    {
+        id: "start_time",
+        label: "Start Time"
+    },
+    {
+        id: "vendor",
+        label: "Vendor"
+    }
+];
+
+const checklistColumns = [
+    {
+        id: "name",
+        label: "Checklist Name"
+    },
+    {
+        id: "subject",
+        label: "Assigned To"
+    },
+    {
+        id: "due",
+        label: "Due By"
+    },
+    {
+        id: "author",
+        label: "Created By"
+    }
+];
+const printerColumns = [
+    {
+        id: "name",
+        label: "Printer Name"
+    },
+    {
+        id: "vendor",
+        label: "Printer Vendor"
+    },
+    {
+        id: "location",
+        label: "Printer Location"
+    },
+    {
+        id: "author",
+        label: "Created By"
+    }
+];
+
+export const columns = {
+    credentialColumns,
+    assetColumns,
+    locationColumns,
+    contactColumns,
+    backupColumns,
+    siteSummaryColumns,
+    applicationColumns,
+    checklistColumns,
+    printerColumns
+
+}

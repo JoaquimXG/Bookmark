@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Box, makeStyles } from "@material-ui/core";
 import {
     CreateSharp,
@@ -61,17 +61,12 @@ const primaryButtons = [
 export default props => {
     const classes = useStyle();
 
-    useEffect(() => {
-        props.setRows(props.rows);
-    }, [props]);
-
     return (
             <ItemCategoryErrorBoundary myclasses={classes}>
                 <div className={classes.main}>
                     <Box className={classes.body}>
                         <ItemList
                             path={props.path}
-                            rows={props.rows}
                             columns={props.colums}
                             buttons={primaryButtons}
                         />
