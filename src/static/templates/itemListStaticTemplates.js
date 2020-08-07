@@ -1,9 +1,12 @@
+//External Imports
 import {
     CreateSharp,
     AddSharp,
     GetAppSharp,
     PublishSharp
 } from "@material-ui/icons";
+
+//Data and templates
 import { themeColors } from "../../App";
 
 const credential = [

@@ -1,11 +1,10 @@
-import activityFeedData from "./activityFeed";
+//External Imports
 import React from "react";
 import {
     NotificationImportantSharp,
     AttachFileSharp,
     VpnKeySharp
 } from "@material-ui/icons";
-import { themeColors } from "../../App";
 import { createMuiTheme } from "@material-ui/core";
 import {
     CreateSharp,
@@ -13,6 +12,10 @@ import {
     AddSharp,
     FileCopySharp
 } from "@material-ui/icons";
+
+//Data and templates
+import { themeColors } from "../../App";
+import activityFeedData from "./activityFeedTemporaryData";
 
 const theme = createMuiTheme();
 

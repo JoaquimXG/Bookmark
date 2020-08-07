@@ -13,6 +13,7 @@ import DataScreen from "./components/DataScreen";
 //Incoming Data or templates
 import companyInfo from "./static/templates/companyInfoTemplates";
 import dataScreenStaticTemplates from "./static/templates/dataScreenStaticTemplates";
+import CompanyInfo from "./components/CompanyInfo";
 
 //Static routes for Item Categories
 const staticItemCategoryRoutes = [
@@ -96,8 +97,7 @@ function App() {
                             exact
                             path="/"
                             render={() => (
-                                <DataScreen
-                                    home
+                                <CompanyInfo
                                     path="credential"
                                     cards={companyInfo.primaryCard.cards}
                                     secondaryCardData={
