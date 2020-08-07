@@ -7,7 +7,7 @@ import {
     useTheme,
     Button
 } from "@material-ui/core";
-import { themeColors } from "../App";
+import { themeColors } from "../static/css/style";
 import { AddSharp } from "@material-ui/icons";
 import MyDropzoneArea from "./MyDropZoneArea";
 
@@ -58,7 +58,8 @@ export default props => {
                         <MyDropzoneArea />
                 </Box>
             ) : null}
-            {props.data ? (
+            {//MinorDataList
+                props.data ? (
                 props.data.map((value, index) => {
                     return (
                         <div key={index}>

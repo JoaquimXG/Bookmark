@@ -10,14 +10,12 @@ import SecondaryCard from "./SecondaryCard";
 
 //Functions
 import myMutation from "../static/functions/myMutation";
-import generatePrimaryCards from '../static/functions/generatePrimaryCards'
+import generatePrimaryCards from "../static/functions/generatePrimaryCards";
 
 //Data, queries, mutations and templates
-import { AppBarHeight } from "../App";
-import {
-    individualQueries,
-    itemListQueries
-} from "../static/apollo/queries";
+import dataScreenStaticTemplates from "../static/templates/dataScreenStaticTemplates";
+import { AppBarHeight } from "../static/css/style";
+import { individualQueries, itemListQueries } from "../static/apollo/queries";
 import mutations from "../static/apollo/mutations";
 import cardGenerationTemplates from "../static/templates/cardGenerationTemplates";
 
@@ -187,10 +185,10 @@ export default props => {
             <Box className={classes.body}>
                 <PrimaryCard
                     path={props.path}
-                    id={props.home ? id : props.match.params.id}
-                    cards={item ? item.cards : props.cards}
-                    buttons={props.buttons.primary}
-                    header={item ? item.header : props.header}
+                    id={props.match.params.id}
+                    cards={item ? item.cards : null}
+                    header={item ? item.header : null}
+                    buttons={dataScreenStaticTemplates.buttons.primary}
                     rowTemplate={cardGenerationTemplates[props.path]}
                     formValues={formValues}
                     initialFormValues={initialFormValues}
@@ -198,8 +196,8 @@ export default props => {
                     updateItem={updateItem}
                 />
                 <SecondaryCard
-                    data={props.secondaryCardData}
-                    buttons={props.buttons.secondary}
+                    data={dataScreenStaticTemplates.secondaryCardData}
+                    buttons={dataScreenStaticTemplates.buttons.secondary}
                     handleClick={secondaryButtonFunctions}
                 />
             </Box>

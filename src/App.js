@@ -9,44 +9,10 @@ import { ApolloProvider } from "@apollo/client";
 import NavBar from "./components/NavBar";
 import ItemList from "./components/ItemList";
 import DataScreen from "./components/DataScreen";
-
-//Incoming Data or templates
-import companyInfo from "./static/templates/companyInfoTemplates";
-import dataScreenStaticTemplates from "./static/templates/dataScreenStaticTemplates";
 import CompanyInfo from "./components/CompanyInfo";
 
-//Static routes for Item Categories
-const staticItemCategoryRoutes = [
-    "credential",
-    "asset",
-    "location",
-    "contact",
-    "backup",
-    "sitesummary",
-    "application",
-    "checklist",
-    "printer"
-];
-
-//Colors
-export const themeColors = {
-    primary6: "#546e7a",
-    primary5: "#263238",
-    primary3: "#90A4AE",
-
-    secondary5: "#0D24A8",
-
-    success: "#27AE60",
-
-    error: "#FF0C3E"
-};
-
-//Navigation drawer width
-export const drawerWidth = 250;
-export const AppBarHeight = {
-    xs: 72,
-    sm: 80
-};
+//Incoming Data or templates
+import staticRoutes from "./static/templates/staticRoutes";
 
 const ItemListRoute = route => {
     return (
@@ -61,22 +27,13 @@ const ItemListRoute = route => {
     );
 };
 
-const itemDataScreenRoute = route => {
+const ItemDataScreenRoute = route => {
     return (
         <Route
             exact
             key={route}
             path={`/${route}s/:id`}
-            render={routerProps => (
-                <DataScreen
-                    {...routerProps}
-                    path={route}
-                    buttons={dataScreenStaticTemplates.buttons}
-                    secondaryCardData={
-                        dataScreenStaticTemplates.secondaryCardData
-                    }
-                />
-            )}
+            render={routerProps => <DataScreen {...routerProps} path={route} />}
         />
     );
 };
@@ -93,29 +50,12 @@ function App() {
                 <Router>
                     <NavBar />
                     <Switch>
-                        <Route
-                            exact
-                            path="/"
-                            render={() => (
-                                <CompanyInfo
-                                    path="credential"
-                                    cards={companyInfo.primaryCard.cards}
-                                    secondaryCardData={
-                                        companyInfo.secondaryCardData
-                                    }
-                                    buttons={companyInfo.buttons}
-                                    header={{
-                                        title: "Company Info",
-                                        disabled: false
-                                    }}
-                                />
-                            )}
-                        />
-                        {staticItemCategoryRoutes.map(route => {
+                        <Route exact path="/" render={() => <CompanyInfo />} />
+                        {staticRoutes.map(route => {
                             return ItemListRoute(route);
                         })}
-                        {staticItemCategoryRoutes.map(route => {
-                            return itemDataScreenRoute(route);
+                        {staticRoutes.map(route => {
+                            return ItemDataScreenRoute(route);
                         })}
                     </Switch>
                 </Router>

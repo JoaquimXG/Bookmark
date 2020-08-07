@@ -1,3 +1,4 @@
+//External Imports
 import React from "react";
 import {
     Paper,
@@ -9,7 +10,9 @@ import {
     ThemeProvider,
     createMuiTheme
 } from "@material-ui/core";
-import { themeColors } from "../App";
+
+//Themeing
+import { themeColors } from "../static/css/style";
 
 const useStyles = makeStyles(theme => ({
     dataCard: {

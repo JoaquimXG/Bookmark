@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 
 //Custom components
-import { drawerWidth } from "../App";
+import { drawerWidth } from "../static/css/style";
 import MinorCard from "./MinorCard";
 
 const margin = 25;

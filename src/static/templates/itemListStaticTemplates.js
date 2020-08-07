@@ -7,7 +7,7 @@ import {
 } from "@material-ui/icons";
 
 //Data and templates
-import { themeColors } from "../../App";
+import { themeColors } from "../../static/css/style";
 
 const credential = [
     {

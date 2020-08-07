@@ -16,7 +16,7 @@ import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
 //Custom components
-import { drawerWidth } from "../App";
+import { drawerWidth } from "../static/css/style";
 import MinorCard from "./MinorCard";
 import MyMessage from "./MyMessage";
 
@@ -222,7 +222,7 @@ export default props => {
                         ></TextField>
                     ) : (
                         <Typography style={{ flexGrow: 1 }} variant="h5">
-                            {props.formValues? props.formValues.name: "Company Info"}
+                            {props.formValues.name}
                         </Typography>
                     )}
                     {props.buttons.map((value, index) => {

@@ -7,7 +7,7 @@ import {
     Typography,
     makeStyles
 } from "@material-ui/core";
-import { themeColors } from "../App";
+import { themeColors } from "../static/css/style";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({

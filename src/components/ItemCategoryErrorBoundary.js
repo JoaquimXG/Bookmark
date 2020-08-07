@@ -1,7 +1,7 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { Box, Paper, Typography } from "@material-ui/core";
-import { AppBarHeight } from "../App";
+import { AppBarHeight } from "../static/css/style";
 
 const styles = theme => ({
     body: {

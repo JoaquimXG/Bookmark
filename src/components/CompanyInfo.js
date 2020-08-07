@@ -7,7 +7,8 @@ import SecondaryCard from "./SecondaryCard";
 import CompanyInfoPrimaryCard from "./CompanyInfoPrimaryCard";
 
 //Data, queries, mutations and templates
-import { AppBarHeight } from "../App";
+import { AppBarHeight } from "../static/css/style";
+import companyInfo from "../static/templates/companyInfoTemplates";
 
 const useStyle = makeStyles(theme => ({
     body: {
@@ -30,7 +31,7 @@ export default props => {
     const classes = useStyle();
 
     //var query = individualQueries.companyInfo.query;
-    var id = 235537;
+    //var id = 235537;
 
     const secondaryButtonFunctions = {
     };
@@ -39,15 +40,12 @@ export default props => {
         <div className={classes.main}>
             <Box className={classes.body}>
                 <CompanyInfoPrimaryCard
-                    path={props.path}
-                    id={id}
-                    cards={props.cards}
-                    buttons={props.buttons.primary}
-                    header={props.header}
+                    cards={companyInfo.primaryCard.cards}
+                    buttons={companyInfo.buttons.primary}
                 />
                 <SecondaryCard
-                    data={props.secondaryCardData}
-                    buttons={props.buttons.secondary}
+                    data={companyInfo.secondaryCardData}
+                    buttons={companyInfo.buttons.secondary}
                     handleClick={secondaryButtonFunctions}
                 />
             </Box>

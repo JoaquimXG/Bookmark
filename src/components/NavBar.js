@@ -22,7 +22,7 @@ import {
 //Local data and templates
 import  navBarItems  from "../static/templates/navBarTemplates";
 import logo from "../static/images/Logo.svg";
-import { drawerWidth, themeColors } from "../App";
+import { drawerWidth, themeColors } from "../static/css/style";
 
 // CSS Styles
 const useStyles = makeStyles(theme => ({

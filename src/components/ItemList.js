@@ -24,7 +24,7 @@ import TableRowExtended from "./TableRowExtended";
 import ItemCategoryErrorBoundary from "./ItemCategoryErrorBoundary";
 
 //Incoming data or templates
-import { drawerWidth, AppBarHeight } from "../App";
+import { drawerWidth, AppBarHeight } from "../static/css/style";
 import { itemListQueries } from "../static/apollo/queries";
 import {
     columnHeaders,
