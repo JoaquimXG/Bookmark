@@ -1,16 +1,23 @@
+//External Imports
 import React, { useState } from "react";
+import { Box, makeStyles } from "@material-ui/core";
+import { useQuery, useMutation, useLazyQuery } from "@apollo/client";
+import { useHistory } from "react-router-dom";
+
+//Custom Components
 import PrimaryCard from "./PrimaryCard";
 import SecondaryCard from "./SecondaryCard";
-import { Box, makeStyles } from "@material-ui/core";
+
+//Functions
+import myMutation from "../static/pre-api-helpers/functions/myMutation";
+
+//Data, queries, mutations and templates
 import { AppBarHeight } from "../App";
-import { useQuery, useMutation, useLazyQuery } from "@apollo/client";
 import {
     individualQueries,
     itemListQueries
 } from "../static/pre-api-helpers/queries";
 import mutations from "../static/pre-api-helpers/mutations";
-import { useHistory } from "react-router-dom";
-import myMutation from "../static/pre-api-helpers/functions/myMutation";
 import cardGenerationTemplates from "../static/pre-api-helpers/cardGenerationTemplates";
 
 const useStyle = makeStyles(theme => ({

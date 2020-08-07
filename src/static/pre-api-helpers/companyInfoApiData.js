@@ -16,7 +16,7 @@ import {
 
 const theme = createMuiTheme();
 
-export const companyInfoButtons = {
+const buttons = {
     primary: [
         {
             icon: PictureAsPdfSharp,
@@ -59,7 +59,7 @@ export const companyInfoButtons = {
     ]
 };
 
-export const companyInfoPrimaryCardData = {
+const primaryCard = {
     title: "Important Items",
 
     cards: [
@@ -131,7 +131,7 @@ export const companyInfoPrimaryCardData = {
     ]
 };
 
-export const companyInfoSecondaryCardData = [
+const secondaryCardData = [
     {
         title: "Activity Feed",
         caption: (type, time) => `${type} - ${time}`,
@@ -163,3 +163,9 @@ export const companyInfoSecondaryCardData = [
         data: null
     }
 ];
+
+export default {
+    primaryCard,
+    secondaryCardData,
+    buttons
+}

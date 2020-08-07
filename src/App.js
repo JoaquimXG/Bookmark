@@ -1,47 +1,30 @@
+//External Imports
 import React from "react";
 import { CssBaseline } from "@material-ui/core";
-import NavBar from "./components/NavBar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloProvider } from "@apollo/client";
+
+//Custom components
+import NavBar from "./components/NavBar";
 import ItemList from "./components/ItemList";
 import DataScreen from "./components/DataScreen";
-import {
-    companyInfoPrimaryCardData,
-    companyInfoSecondaryCardData,
-    companyInfoButtons
-} from "./static/pre-api-helpers/companyInfoApiData";
+
+//Incoming Data or templates
+import companyInfo from "./static/pre-api-helpers/companyInfoApiData";
 import dataScreenStaticTemplates from "./static/pre-api-helpers/dataScreenStaticTemplates";
-import { ApolloClient, InMemoryCache } from '@apollo/client';
-import { ApolloProvider } from '@apollo/client';
 
 //Static routes for Item Categories
 const staticItemCategoryRoutes = [
-    {
-        path: "credential",
-    },
-    {
-        path: "asset",
-    },
-    {
-        path: "location",
-    },
-    {
-        path: "contact",
-    },
-    {
-        path: "backup",
-    },
-    {
-        path: "sitesummary",
-    },
-    {
-        path: "application",
-    },
-    {
-        path: "checklist",
-    },
-    {
-        path: "printer",
-    }
+    "credential",
+    "asset",
+    "location",
+    "contact",
+    "backup",
+    "sitesummary",
+    "application",
+    "checklist",
+    "printer"
 ];
 
 //Colors
@@ -64,35 +47,33 @@ export const AppBarHeight = {
     sm: 80
 };
 
-const ItemListRoute = (route) => {
+const ItemListRoute = route => {
     return (
         <Route
             exact
-            key={route.path}
-            path={`/${route.path}s`}
+            key={route}
+            path={`/${route}s`}
             render={() => {
-                return (
-                    <ItemList
-                        path={route.path}
-                    />
-                );
+                return <ItemList path={route} />;
             }}
         />
     );
 };
 
-const itemDataScreenRoute = (route) => {
+const itemDataScreenRoute = route => {
     return (
         <Route
             exact
-            key={route.path}
-            path={`/${route.path}s/:id`}
+            key={route}
+            path={`/${route}s/:id`}
             render={routerProps => (
                 <DataScreen
                     {...routerProps}
-                    path={route.path}
+                    path={route}
                     buttons={dataScreenStaticTemplates.buttons}
-                    secondaryCardData={dataScreenStaticTemplates.secondaryCardData}
+                    secondaryCardData={
+                        dataScreenStaticTemplates.secondaryCardData
+                    }
                 />
             )}
         />
@@ -118,12 +99,15 @@ function App() {
                                 <DataScreen
                                     home
                                     path="credential"
-                                    cards={companyInfoPrimaryCardData.cards}
+                                    cards={companyInfo.primaryCard.cards}
                                     secondaryCardData={
-                                        companyInfoSecondaryCardData
+                                        companyInfo.secondaryCardData
                                     }
-                                    buttons={companyInfoButtons}
-                                    header={{title:"Company Info", disabled: false}}
+                                    buttons={companyInfo.buttons}
+                                    header={{
+                                        title: "Company Info",
+                                        disabled: false
+                                    }}
                                 />
                             )}
                         />
