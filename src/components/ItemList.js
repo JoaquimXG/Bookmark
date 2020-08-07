@@ -25,11 +25,11 @@ import ItemCategoryErrorBoundary from "./ItemCategoryErrorBoundary";
 
 //Incoming data or templates
 import { drawerWidth, AppBarHeight } from "../App";
-import { itemListQueries } from "../static/pre-api-helpers/queries";
+import { itemListQueries } from "../static/apollo/queries";
 import {
     columnHeaders,
     buttons
-} from "../static/pre-api-helpers/itemListStaticTemplates";
+} from "../static/templates/itemListStaticTemplates";
 
 const margin = 25;
 

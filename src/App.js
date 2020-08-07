@@ -11,8 +11,8 @@ import ItemList from "./components/ItemList";
 import DataScreen from "./components/DataScreen";
 
 //Incoming Data or templates
-import companyInfo from "./static/pre-api-helpers/companyInfoApiData";
-import dataScreenStaticTemplates from "./static/pre-api-helpers/dataScreenStaticTemplates";
+import companyInfo from "./static/templates/companyInfoTemplates";
+import dataScreenStaticTemplates from "./static/templates/dataScreenStaticTemplates";
 
 //Static routes for Item Categories
 const staticItemCategoryRoutes = [

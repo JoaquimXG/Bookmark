@@ -1,3 +1,4 @@
+//External Imports
 import React from "react";
 import {
     Paper,
@@ -10,14 +11,20 @@ import {
     TextField,
     useTheme
 } from "@material-ui/core";
-import { drawerWidth } from "../App";
-import MinorCard from "./MinorCard";
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import mutations from "../static/pre-api-helpers/mutations";
 import { useHistory } from "react-router-dom";
+
+//Custom components
+import { drawerWidth } from "../App";
+import MinorCard from "./MinorCard";
 import MyMessage from "./MyMessage";
-import myMutation from '../static/pre-api-helpers/functions/myMutation'
+
+//Functions
+import myMutation from '../static/functions/myMutation'
+
+//Mutations
+import mutations from "../static/apollo/mutations";
 
 const margin = 25;
 

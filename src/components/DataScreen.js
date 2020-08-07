@@ -9,16 +9,16 @@ import PrimaryCard from "./PrimaryCard";
 import SecondaryCard from "./SecondaryCard";
 
 //Functions
-import myMutation from "../static/pre-api-helpers/functions/myMutation";
+import myMutation from "../static/functions/myMutation";
 
 //Data, queries, mutations and templates
 import { AppBarHeight } from "../App";
 import {
     individualQueries,
     itemListQueries
-} from "../static/pre-api-helpers/queries";
-import mutations from "../static/pre-api-helpers/mutations";
-import cardGenerationTemplates from "../static/pre-api-helpers/cardGenerationTemplates";
+} from "../static/apollo/queries";
+import mutations from "../static/apollo/mutations";
+import cardGenerationTemplates from "../static/templates/cardGenerationTemplates";
 
 const useStyle = makeStyles(theme => ({
     body: {

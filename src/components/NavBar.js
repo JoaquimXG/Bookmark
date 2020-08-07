@@ -1,9 +1,9 @@
+//External Imports
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import  navBarItems  from "../static/pre-api-helpers/navBarItems";
 import Drawer from "@material-ui/core/Drawer";
-import logo from "../static/images/Logo.svg";
-import { drawerWidth, themeColors } from "../App";
+import { Home, Menu } from "@material-ui/icons";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import {
     AppBar,
     Toolbar,
@@ -18,8 +18,11 @@ import {
     ListItemIcon,
     Hidden,
 } from "@material-ui/core";
-import { Home, Menu } from "@material-ui/icons";
-import { Link, NavLink, useLocation } from "react-router-dom";
+
+//Local data and templates
+import  navBarItems  from "../static/templates/navBarTemplates";
+import logo from "../static/images/Logo.svg";
+import { drawerWidth, themeColors } from "../App";
 
 // CSS Styles
 const useStyles = makeStyles(theme => ({
