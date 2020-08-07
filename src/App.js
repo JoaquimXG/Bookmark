@@ -2,7 +2,7 @@ import React from "react";
 import { CssBaseline } from "@material-ui/core";
 import NavBar from "./components/NavBar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import ItemCategory from "./components/ItemCategory";
+import ItemList from "./components/ItemList";
 import DataScreen from "./components/DataScreen";
 import {
     companyInfoPrimaryCardData,
@@ -64,7 +64,7 @@ export const AppBarHeight = {
     sm: 80
 };
 
-const ItemCategoryRoute = (route) => {
+const ItemListRoute = (route) => {
     return (
         <Route
             exact
@@ -72,7 +72,7 @@ const ItemCategoryRoute = (route) => {
             path={`/${route.path}s`}
             render={() => {
                 return (
-                    <ItemCategory
+                    <ItemList
                         path={route.path}
                     />
                 );
@@ -128,7 +128,7 @@ function App() {
                             )}
                         />
                         {staticItemCategoryRoutes.map(route => {
-                            return ItemCategoryRoute(route);
+                            return ItemListRoute(route);
                         })}
                         {staticItemCategoryRoutes.map(route => {
                             return itemDataScreenRoute(route);

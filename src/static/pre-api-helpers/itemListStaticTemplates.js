@@ -208,7 +208,7 @@ export const buttons = [
     }
 ];
 
-export const columns = {
+export const columnHeaders = {
     credential,
     asset,
     location,

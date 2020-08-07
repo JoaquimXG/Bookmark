@@ -1,3 +1,4 @@
+//External Imports
 import React from "react";
 import {
     Paper,
@@ -15,22 +16,39 @@ import {
     Typography
 } from "@material-ui/core";
 import { SearchSharp } from "@material-ui/icons";
-import { drawerWidth } from "../App";
+import { useQuery } from "@apollo/client";
+
+// Custom static components
 import TableHeadExtended from "./TableHeadExtended";
 import TableRowExtended from "./TableRowExtended";
-import { useQuery } from "@apollo/client";
+import ItemCategoryErrorBoundary from "./ItemCategoryErrorBoundary";
+
+//Incoming data or templates
+import { drawerWidth, AppBarHeight } from "../App";
 import { itemListQueries } from "../static/pre-api-helpers/queries";
-import {columns, buttons} from "../static/pre-api-helpers/itemListStaticTemplates";
+import {
+    columnHeaders,
+    buttons
+} from "../static/pre-api-helpers/itemListStaticTemplates";
 
 const margin = 25;
 
 const useStyles = makeStyles(theme => ({
     main: {
+        //When the drawer is being show, the main container needs
+        //to move in by the width of the drawer
         [theme.breakpoints.up("sm")]: {
-            marginLeft: drawerWidth + margin
+            paddingLeft: drawerWidth + margin,
+            height: `calc(100vh - ${AppBarHeight.sm}px)`
         },
-        margin: margin,
+        height: `calc(100vh - ${AppBarHeight.xs}px)`,
+        padding: margin,
         display: "flex",
+        background: "#BBC7CD"
+    },
+    paper: {
+        display: "flex",
+        flexDirection: "column",
         flexGrow: 1
     },
 
@@ -58,75 +76,72 @@ export default props => {
     if (error) return <p>Error</p>;
 
     return (
-        <Box className={classes.main}>
-            <Paper
-                style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    flexGrow: 1
-                }}
-                elevation={8}
-            >
-                <header className={classes.header}>
-                    <TextField
-                        label="Search"
-                        size="small"
-                        style={{
-                            flexGrow: 1,
-                            marginRight: "10px"
-                        }}
-                        variant="outlined"
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment>
-                                    <IconButton>
-                                        <SearchSharp />
-                                    </IconButton>
-                                </InputAdornment>
-                            )
-                        }}
-                    />
-                    {buttons.map((Value, index) => {
-                        return (
-                            <Button
-                                key={index}
-                                variant="contained"
-                                startIcon={<Value.icon />}
-                                size="small"
-                                style={{
-                                    margin: theme.spacing(1),
-                                    color: "white",
-                                    background: Value.color
-                                }}
-                            >
-                                {Value.text}
-                            </Button>
-                        );
-                    })}
-                </header>
-                <Divider />
-                <TableContainer className={classes.tableContainer}>
-                    {loading ? (
-                        <Typography variant="h1">Loading...</Typography>
-                    ) : (
-                        <Table stickyHeader>
-                            <TableHeadExtended columns={columns[props.path]} />
-                            <TableBody>
-                                {data[itemListQueries[props.path].data].map(
-                                    row => (
-                                        <TableRowExtended
-                                            columns={columns[props.path]}
-                                            path={props.path}
-                                            key={row.id}
-                                            row={row}
-                                        />
-                                    )
-                                )}
-                            </TableBody>
-                        </Table>
-                    )}
-                </TableContainer>
-            </Paper>
-        </Box>
+        <ItemCategoryErrorBoundary myclasses={classes}>
+            <Box className={classes.main}>
+                <Paper className={classes.paper} elevation={8}>
+                    <header className={classes.header}>
+                        <TextField
+                            label="Search"
+                            size="small"
+                            style={{
+                                flexGrow: 1,
+                                marginRight: "10px"
+                            }}
+                            variant="outlined"
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment>
+                                        <IconButton>
+                                            <SearchSharp />
+                                        </IconButton>
+                                    </InputAdornment>
+                                )
+                            }}
+                        />
+                        {buttons.map((Value, index) => {
+                            return (
+                                <Button
+                                    key={index}
+                                    variant="contained"
+                                    startIcon={<Value.icon />}
+                                    size="small"
+                                    style={{
+                                        margin: theme.spacing(1),
+                                        color: "white",
+                                        background: Value.color
+                                    }}
+                                >
+                                    {Value.text}
+                                </Button>
+                            );
+                        })}
+                    </header>
+                    <Divider />
+                    <TableContainer className={classes.tableContainer}>
+                        {loading ? (
+                            <Typography variant="h1">Loading...</Typography>
+                        ) : (
+                            <Table stickyHeader>
+                                <TableHeadExtended
+                                    columns={columnHeaders[props.path]}
+                                />
+                                <TableBody>
+                                    {data[itemListQueries[props.path].data].map(
+                                        row => (
+                                            <TableRowExtended
+                                                columns={columnHeaders[props.path]}
+                                                path={props.path}
+                                                key={row.id}
+                                                row={row}
+                                            />
+                                        )
+                                    )}
+                                </TableBody>
+                            </Table>
+                        )}
+                    </TableContainer>
+                </Paper>
+            </Box>
+        </ItemCategoryErrorBoundary>
     );
 };
