@@ -280,7 +280,7 @@ export default props => {
                     >
                         {cards.map((card, index) => {
                             return card.content.every(subtitle => {
-                                //if all formvalues for a card are empty 
+                                //if all formvalues for a card are empty
                                 //Don't render the card
                                 return !props.formValues[subtitle.title];
                             }) && !edit ? null : (
@@ -297,10 +297,7 @@ export default props => {
                                             handleTextFieldChange
                                         }
                                         submitted={submitted}
-                                        newItem={newItem}
                                         edit={edit}
-                                        elevation={2}
-                                        style={{ flexGrow: 1 }}
                                         title={card.title}
                                         content={card.content}
                                     ></MinorCard>
