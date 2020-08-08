@@ -30,6 +30,7 @@ import {
     columnHeaders,
     buttons
 } from "../static/templates/itemListStaticTemplates";
+import {useHistory} from "react-router-dom";
 
 const margin = 25;
 
@@ -68,6 +69,9 @@ const useStyles = makeStyles(theme => ({
 export default props => {
     const classes = useStyles();
     const theme = useTheme();
+    const history = useHistory()
+
+    console.log(history)
 
     const { loading, error, data } = useQuery(
         itemListQueries[props.path].query

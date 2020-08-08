@@ -1,5 +1,5 @@
 //External Imports
-import {makeStyles, createMuiTheme} from '@material-ui/core'
+import { makeStyles, createMuiTheme } from "@material-ui/core";
 
 //Colors
 export const themeColors = {
@@ -56,15 +56,54 @@ export const myStyles = makeStyles(theme => ({
         wordWrap: "break-word"
     },
 
-
-
-
-
-
-    data: {
+    primaryCardHeader: {
         display: "flex",
-        flexDirection: "column",
+        alignItems: "center",
+        justifyItems: "space-between",
+        height: 65,
+        padding: theme.spacing(3) + 2
+    },
+
+    primaryCardTitleTextField: {
+        fontSize: "1.5rem",
+        lineHeight: "1.5rem",
+        letterSpacing: "0rem",
+        marginRight: "6px"
+    },
+    primaryCardTitleTextFieldInput: {
+        padding: "8px 0px"
+    },
+
+    primaryCard: {
+        [theme.breakpoints.up("sm")]: {
+            marginLeft: drawerWidth + 25
+        },
+        margin: 25,
+        display: "flex",
+        flexGrow: 1
+    },
+
+
+    //Utility classes
+    flexColumn: {
+        display: "flex",
+        flexDirection: "column"
+    },
+    flexGrow: {
+        flexGrow: 1,
+    },
+
+    padding2: {
         padding: theme.spacing(2)
+    },
+
+    padding3: {
+        padding: theme.spacing(3)
+    },
+
+    primaryOverflow: {
+        overflowY: "auto",
+        overflowX: "hidden",
     },
 
 }));

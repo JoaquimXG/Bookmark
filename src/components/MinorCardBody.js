@@ -11,9 +11,8 @@ import FormField from "./FormField";
 export default props => {
     const classes = myStyles();
 
-    
     return (
-        <Box className={classes.data}>
+        <Box className={`${classes.flexColumn} ${classes.padding2}`}>
             {props.content.map((field, index) => {
                 return props.formValues[field.title] || props.edit ? (
                     <FormField

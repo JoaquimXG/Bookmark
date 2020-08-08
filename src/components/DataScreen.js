@@ -14,16 +14,26 @@ import generatePrimaryCards from "../static/functions/generatePrimaryCards";
 
 //Data, queries, mutations and templates
 import dataScreenStaticTemplates from "../static/templates/dataScreenStaticTemplates";
-import { AppBarHeight } from "../static/css/style";
+import { AppBarHeight, drawerWidth } from "../static/css/style";
 import { individualQueries, itemListQueries } from "../static/apollo/queries";
 import mutations from "../static/apollo/mutations";
 import cardGenerationTemplates from "../static/templates/cardGenerationTemplates";
+
+const margin = 25;
 
 const useStyle = makeStyles(theme => ({
     body: {
         display: "flex",
         flexDirection: "row",
         height: "100%",
+        flexGrow: 1
+    },
+    mainBody: {
+        [theme.breakpoints.up("sm")]: {
+            marginLeft: drawerWidth + margin
+        },
+        margin: margin,
+        display: "flex",
         flexGrow: 1
     },
 
@@ -66,7 +76,6 @@ export default props => {
     // Checks current cache values and updates the cache as required
     const [updateItem] = useMutation(mutations[props.path].mutation, {
         update: (cache, { data }) => {
-            console.log("inside update function")
             const itemType = `${props.path}s`;
             var cachedData;
             try {
@@ -180,7 +189,6 @@ export default props => {
                     id={props.match.params.id}
                     cards={item ? item.cards : null}
                     header={item ? item.header : null}
-                    buttons={dataScreenStaticTemplates.buttons.primary}
                     rowTemplate={cardGenerationTemplates[props.path]}
                     formValues={formValues}
                     initialFormValues={initialFormValues}
