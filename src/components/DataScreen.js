@@ -53,7 +53,9 @@ const initialiseFormValues = (cards, title) => {
 export default props => {
     const classes = useStyle();
     const history = useHistory();
-    // Used
+    //Contains the structure for all minorcards that will be displayed
+    //including, the width, the title and subtitles for each card
+    //doesn't contain the content
     const [item, setItem] = useState(null);
 
     // Used to reset formvalues to initial values
@@ -64,6 +66,7 @@ export default props => {
     // Checks current cache values and updates the cache as required
     const [updateItem] = useMutation(mutations[props.path].mutation, {
         update: (cache, { data }) => {
+            console.log("inside update function")
             const itemType = `${props.path}s`;
             var cachedData;
             try {
@@ -99,17 +102,8 @@ export default props => {
     });
 
     // Setting the query used to fill data for this page
-    // Either, the temporary companyinfo query is used
-    // or a suitable query for the current item type and id is pulled
-    var query = "";
-    var id = null;
-    if (props.home) {
-        query = individualQueries.companyInfo.query;
-        id = 235537;
-    } else {
-        id = parseInt(props.match.params.id);
-        query = individualQueries[props.path].query;
-    }
+    var id = parseInt(props.match.params.id);
+    var query = individualQueries[props.path].query;
 
     // Inital queries, starting to load the page
     const { loading, error, data } = useQuery(query, { variables: { id: id } });
@@ -118,6 +112,7 @@ export default props => {
         { lazyLoading, lazyError, lazyData, lazyCalled }
     ] = useLazyQuery(query);
 
+    //TO-DO, Create loading icon and error page
     if (loading)
         return (
             <p>
@@ -131,10 +126,7 @@ export default props => {
             </p>
         );
 
-    // Once data has loaded
-    // Only runs if initialFormValues has not been set
-    // e.g. when data is first loaded
-    if (data && !props.home && !initialFormValues) {
+    if (!initialFormValues) {
         // genereate the cards and title from the returned data
         // using the template required for this item type
         var tempItem = generatePrimaryCards(

@@ -71,7 +71,7 @@ export default props => {
             <Divider />
             <Box className={classes.data}>
                 {props.content.map((value, index) => {
-                    return value.content || props.edit ? (
+                    return props.formValues[value.title] || props.edit ? (
                         <React.Fragment key={index}>
                             <Typography
                                 variant="caption"

@@ -21,7 +21,7 @@ import MinorCard from "./MinorCard";
 import MyMessage from "./MyMessage";
 
 //Functions
-import myMutation from '../static/functions/myMutation'
+import myMutation from "../static/functions/myMutation";
 
 //Mutations
 import mutations from "../static/apollo/mutations";
@@ -83,7 +83,8 @@ export default props => {
 
     //when set, an error box will be displayed with the given message
     const [message, setMessage] = useState({});
-    //when true the form is being submitted
+    //when true the form has been submitted
+    //Used to conditionally show errored formValues
     const [submitted, setSubmitted] = useState(false);
 
     const [deleteItem] = useMutation(mutations[props.path].delete, {
@@ -94,14 +95,13 @@ export default props => {
             var id = data[mutations[props.path].deleteStringIdentifier];
             cache.modify({
                 fields: {
-                    //similar to the above, the function that needs to be called matches the name 
+                    //similar to the above, the function that needs to be called matches the name
                     //of the query that we are updating, in this case that will be the plural item name/path
                     [`${props.path}s`](existingRefs, { readField }) {
                         //return the whole array of refs unless the referred object's id
                         //matches the id returned from the "delete" mutation
                         return existingRefs.filter(
-                            ref =>
-                                id !== readField("id", ref)
+                            ref => id !== readField("id", ref)
                         );
                     }
                 }
@@ -137,7 +137,7 @@ export default props => {
 
     const buttonFunctions = {
         Edit: () => {
-            console.log("pressed save");
+            console.log("pressed edit");
             setEdit(!edit);
         },
         Delete: () => {
@@ -279,9 +279,11 @@ export default props => {
                         spacing={3}
                     >
                         {cards.map((card, index) => {
-                            return card.content.every(
-                                subtitle => subtitle.content === null
-                            ) && !edit ? null : (
+                            return card.content.every(subtitle => {
+                                //if all formvalues for a card are empty 
+                                //Don't render the card
+                                return !props.formValues[subtitle.title];
+                            }) && !edit ? null : (
                                 <Grid
                                     key={index}
                                     item
