@@ -1,3 +1,4 @@
+//External Imports
 import React from "react";
 import {
     TableRow,
@@ -5,49 +6,39 @@ import {
     Checkbox,
     Divider,
     Typography,
-    makeStyles
 } from "@material-ui/core";
-import { themeColors } from "../static/css/style";
 import { Link } from "react-router-dom";
 
-const useStyles = makeStyles(theme => ({
-    divider: {
-        position: "absolute",
-        right: 0,
-        top: 0
-    },
+//Style
+import { myStyles } from "../static/css/style";
 
-    checkbox: {
-        padding: theme.spacing(0, 2),
-        position: "relative"
-    },
-
-    cell: {
-        position: "relative",
-        color: themeColors.secondary5,
-        textDecoration: "none"
-    }
-}));
+//Templates
+import { columnHeaders } from "../static/templates/itemListStaticTemplates";
 
 export default props => {
-    const classes = useStyles();
+    const classes = myStyles();
 
     return (
         <TableRow hover>
-            <TableCell className={classes.checkbox} padding="checkbox">
+            <TableCell className={classes.tableCellCheckbox} padding="checkbox">
                 <Checkbox></Checkbox>
-                <Divider className={classes.divider} orientation="vertical" />
+                <Divider
+                    className={classes.tableCellDivider}
+                    orientation="vertical"
+                />
             </TableCell>
-            {props.columns.map(column => (
+            {columnHeaders[props.path].map(column => (
                 <TableCell
                     to={`/${props.path}s/${props.row.id}`}
                     component={Link}
-                    className={classes.cell}
+                    className={classes.tableCell}
                     key={`${column.id}-${props.row.id}`}
                 >
-                    <Typography variant="subtitle2">{props.row[column.id]}</Typography>
+                    <Typography variant="subtitle2">
+                        {props.row[column.id]}
+                    </Typography>
                     <Divider
-                        className={classes.divider}
+                        className={classes.tableCellDivider}
                         orientation="vertical"
                     />
                 </TableCell>

@@ -64,6 +64,7 @@ export const myStyles = makeStyles(theme => ({
         padding: theme.spacing(3) + 2
     },
 
+
     primaryCardTitleTextField: {
         fontSize: "1.5rem",
         lineHeight: "1.5rem",
@@ -82,6 +83,45 @@ export const myStyles = makeStyles(theme => ({
         display: "flex",
         flexGrow: 1
     },
+
+    itemList: {
+        //When the drawer is being shown, the main container needs
+        //to move in by the width of the drawer
+        [theme.breakpoints.up("sm")]: {
+            paddingLeft: drawerWidth + 25,
+            height: `calc(100vh - ${AppBarHeight.sm}px)`
+        },
+        height: `calc(100vh - ${AppBarHeight.xs}px)`,
+        padding: 25,
+        display: "flex",
+        background: "#BBC7CD"
+    },
+
+    itemListHeader: {
+        display: "flex",
+        alignItems: "center",
+        justifyItems: "space-between",
+        height: 75,
+        padding: theme.spacing(3)
+    },
+
+    tableCellDivider: {
+        position: "absolute",
+        right: 0,
+        top: 0
+    },
+
+    tableCell: {
+        position: "relative",
+        color: themeColors.secondary5,
+        textDecoration: "none"
+    },
+
+    tableCellCheckbox: {
+        padding: theme.spacing(0, 2),
+        position: "relative"
+    },
+
 
 
     //Utility classes

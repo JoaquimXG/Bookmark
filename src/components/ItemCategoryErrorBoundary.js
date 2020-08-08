@@ -41,7 +41,7 @@ class ClassComponent extends React.Component {
     render() {
         if (this.state.hasError) {
             return (
-                <div className={this.props.classes.main}>
+                <div className={this.props.classes.itemListMain}>
                     <Box className={this.props.classes.body}>
                         <Paper className={this.props.classes.paper} elevation={8}>
                             <Typography variant="h1">
