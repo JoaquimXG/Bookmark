@@ -6,7 +6,7 @@ import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { ApolloProvider } from "@apollo/client";
 
 //Custom components
-import NavBar from "./components/NavBar";
+import AppBar from "./components/AppBar";
 import ItemList from "./components/ItemList";
 import DataScreen from "./components/DataScreen";
 import CompanyInfo from "./components/CompanyInfo";
@@ -48,7 +48,7 @@ function App() {
         <ApolloProvider client={client}>
             <CssBaseline>
                 <Router>
-                    <NavBar />
+                    <AppBar />
                     <Switch>
                         <Route exact path="/" render={() => <CompanyInfo />} />
                         {staticRoutes.map(route => {

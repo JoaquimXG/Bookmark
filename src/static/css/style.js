@@ -122,7 +122,53 @@ export const myStyles = makeStyles(theme => ({
         position: "relative"
     },
 
+    //AppBar and NavBar
+    appBar: {
+        [theme.breakpoints.up("sm")]: {
+            width: `calc(100% - ${drawerWidth}px)`,
+            marginLeft: drawerWidth
+        }
+    },
+    appBarAvatar: {
+        margin: "auto",
+        width: "144px",
+        height: "64px"
+    },
+    navMenuSliderContainer: {
+        width: drawerWidth,
+        background: "#ffffff"
+    },
 
+    navDrawer: {
+        [theme.breakpoints.up("sm")]: {
+            flexShrink: 0
+        }
+    },
+
+    navItemOnSelect: {
+        "& div::before": {
+            position: "absolute",
+            content: '""',
+            right: 0,
+            top: 0,
+            height: "100%",
+            background: themeColors.secondary5,
+            width: theme.spacing(1)
+        }
+    },
+
+    navBarListItem: {
+        color: "Black"
+    },
+    
+    appBarTitle: {
+        paddingLeft: theme.spacing(1),
+        flexGrow: 1
+    },
+
+    appBarToolbar: {
+        height: "56px"
+    },
 
     //Utility classes
     flexColumn: {
