@@ -1,55 +1,25 @@
+//External Imports
 import React from "react";
-import { Box, makeStyles, Paper, Divider } from "@material-ui/core";
+import { Paper, Divider } from "@material-ui/core";
+
+//Custom Components
 import SecondaryCardButtonRow from "./SecondaryCardButtonRow";
-import SecondaryCardList from "./SecondaryCardList";
+import SecondaryMinorCardContatiner from "./SecondaryMinorCardContatiner";
 
-const useStyle = makeStyles(theme => ({
-    main: {
-        marginLeft: "0px",
-        margin: 25,
-        display: "flex"
-    },
-
-    secondaryCard: {
-        minWidth: 350,
-        display: "flex",
-        flexDirection: "column"
-    },
-
-    secondaryCardList: {
-        padding: theme.spacing(3),
-        overflowY: "auto",
-        overflowX: "hidden"
-    }
-}));
+//Style
+import { myStyles } from "../static/css/style";
 
 export default props => {
-    const classes = useStyle();
+    const classes = myStyles();
 
     return (
-        <Box className={classes.main}>
-            <Paper elevation={8} className={classes.secondaryCard}>
-                <SecondaryCardButtonRow
-                    buttons={props.buttons}
-                    handleClick={props.handleClick}
-                />
-                <Divider />
-                <Box className={classes.secondaryCardList}>
-                    {props.data.map((value, index) => {
-                        return (
-                            <SecondaryCardList
-                                addFile={value.addFile}
-                                key={index}
-                                title={value.title}
-                                caption={value.caption}
-                                body={value.body}
-                                icon={value.icon}
-                                data={value.data}
-                            />
-                        );
-                    })}
-                </Box>
-            </Paper>
-        </Box>
+        <Paper elevation={8} className={classes.secondaryCard}>
+            <SecondaryCardButtonRow
+                buttons={props.buttons}
+                handleClick={props.handleClick}
+            />
+            <Divider />
+            <SecondaryMinorCardContatiner templates={props.templates} />
+        </Paper>
     );
 };

@@ -1,5 +1,5 @@
 //External Imports
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { AppBar, Toolbar, Box } from "@material-ui/core";
 
@@ -18,21 +18,19 @@ export default props => {
     const classes = myStyles();
 
     const [mobileOpen, setMobileOpen] = useState(false);
+    //Used to highlight the correct NavBarListItem
     const [id, setId] = useState(undefined);
 
     const currentPage = useLocation().pathname;
-    console.log("current page", currentPage);
-    console.log("navBarItems", navBarItems)
-    var currentId;
+    //Checks to see if current page includes any of the paths 
+    //Defined in imported navBarItems
     if (id === undefined) {
-        currentId = navBarItems.find(item =>
-            currentPage.toLowerCase().includes(item.listText.toLowerCase())
-        ).id;
+        setId(
+            navBarItems.find(item =>
+                currentPage.toLowerCase().includes(item.listText.toLowerCase())
+            ).id
+        );
     }
-
-    useEffect(() => {
-        setId(currentId);
-    }, [currentId]);
 
     const toggleSlider = () => {
         setMobileOpen(!mobileOpen);

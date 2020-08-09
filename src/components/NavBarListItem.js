@@ -12,18 +12,14 @@ export default props => {
     const classes = myStyles();
 
     const listItem = props.listItem;
-    console.log("props.id inside list item", props.id);
     const selected = props.id === listItem.id;
-    console.log("selected", selected);
     return (
         <NavLink
             style={{ textDecoration: "none" }}
-            exact
             //TO-DO, Navigate to the ID rather than to the path string
             to={`/${listItem.listText}`}
             onClick={() => props.setId(listItem.id)}
             activeClassName={classes.navItemOnSelect}
-            //TO-DO, conditionally set classname depending on selected
         >
             <ListItem
                 selected={selected}

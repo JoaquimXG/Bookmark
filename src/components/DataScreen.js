@@ -196,7 +196,7 @@ export default props => {
                     updateItem={updateItem}
                 />
                 <SecondaryCard
-                    data={dataScreenStaticTemplates.secondaryCardData}
+                    templates={dataScreenStaticTemplates.secondaryCardData}
                     buttons={dataScreenStaticTemplates.buttons.secondary}
                     handleClick={secondaryButtonFunctions}
                 />
