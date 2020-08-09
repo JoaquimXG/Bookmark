@@ -5,45 +5,27 @@ import {
     TableCell,
     Checkbox,
     Divider,
-    Typography,
-    makeStyles
+    Typography
 } from "@material-ui/core";
 import { ArrowDownwardSharp } from "@material-ui/icons";
 
-const useStyles = makeStyles(theme => ({
-    divider: {
-        position: "absolute",
-        right: 0,
-        top: 0
-    },
-
-    checkbox: {
-        padding: theme.spacing(0, 2),
-    },
-
-    cell: { position: "relative" },
-
-    arrowIcon: {
-        position: "absolute",
-        top: "35%",
-        right: "16px"
-    }
-}));
+//Styles
+import { myStyles } from "../static/css/style";
 
 export default props => {
-    const classes = useStyles();
+    const classes = myStyles();
 
     return (
         <TableHead>
             <TableRow>
                 <TableCell
-                    className={classes.checkbox}
+                    className={classes.tableCellCheckbox}
                     padding="checkbox"
                     variant="head"
                 >
                     <Checkbox></Checkbox>
                     <Divider
-                        className={classes.divider}
+                        className={classes.tableCellDivider}
                         orientation="vertical"
                     />
                 </TableCell>
@@ -56,11 +38,11 @@ export default props => {
                             {column.label}
                         </Typography>
                         <ArrowDownwardSharp
-                            className={classes.arrowIcon}
+                            className={classes.tableHeaderArrowIcon}
                             fontSize="small"
                         />
                         <Divider
-                            className={classes.divider}
+                            className={classes.tableCellDivider}
                             orientation="vertical"
                         />
                     </TableCell>

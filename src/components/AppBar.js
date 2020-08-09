@@ -1,6 +1,6 @@
 //External Imports
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { AppBar, Toolbar, Box } from "@material-ui/core";
 
 //Custom Components
@@ -16,6 +16,7 @@ import navBarItems from "../static/templates/navBarTemplates";
 
 export default props => {
     const classes = myStyles();
+    const history = useHistory()
 
     const [mobileOpen, setMobileOpen] = useState(false);
     //Used to highlight the correct NavBarListItem
@@ -25,11 +26,17 @@ export default props => {
     //Checks to see if current page includes any of the paths 
     //Defined in imported navBarItems
     if (id === undefined) {
-        setId(
-            navBarItems.find(item =>
-                currentPage.toLowerCase().includes(item.listText.toLowerCase())
-            ).id
-        );
+        try{
+            setId(
+                navBarItems.find(item =>
+                    currentPage.toLowerCase().includes(item.listText.toLowerCase())
+                ).id
+            );
+
+        }catch{
+            setId(0)
+            history.replace("/")
+        }
     }
 
     const toggleSlider = () => {

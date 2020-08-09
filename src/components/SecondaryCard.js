@@ -3,7 +3,7 @@ import React from "react";
 import { Paper, Divider } from "@material-ui/core";
 
 //Custom Components
-import SecondaryCardButtonRow from "./SecondaryCardButtonRow";
+import ButtonRow from "./ButtonRow";
 import SecondaryMinorCardContatiner from "./SecondaryMinorCardContatiner";
 
 //Style
@@ -14,7 +14,7 @@ export default props => {
 
     return (
         <Paper elevation={8} className={classes.secondaryCard}>
-            <SecondaryCardButtonRow
+            <ButtonRow
                 className={classes.secondaryCardButtonRow}
                 buttons={props.buttons}
                 buttonFunctions={props.buttonFunctions}

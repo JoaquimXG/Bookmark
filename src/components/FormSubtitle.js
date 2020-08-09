@@ -3,9 +3,10 @@ import React from "react";
 import { Typography } from "@material-ui/core";
 
 //Style
-import { themeColors } from "../static/css/style";
+import { myStyles } from "../static/css/style";
 
 export default props => {
+    const classes = myStyles();
     return (
         <Typography
             variant="caption"
@@ -14,14 +15,7 @@ export default props => {
             {props.edit && props.required ? (
                 <span>
                     <span>{props.title}</span>
-                    <span
-                        style={{
-                            color: themeColors.secondary5,
-                            fontWeight: "bold"
-                        }}
-                    >
-                        *
-                    </span>
+                    <span className={classes.asterisk}>*</span>
                 </span>
             ) : (
                 props.title

@@ -42,11 +42,22 @@ export const myMuiTheme = createMuiTheme({
 
 const margin = 25;
 export const myStyles = makeStyles(theme => ({
+    //Layout Window
+    mainWindow: {
+        height: `calc(100vh - ${AppBarHeight.xs}px)`,
+        background: "#BBC7CD",
+        [theme.breakpoints.up("sm")]: {
+            height: `calc(100vh - ${AppBarHeight.sm}px)`,
+            marginLeft: drawerWidth
+        },
+        flexDirection: "row",
+        display: "flex",
+        justifyContent: "center",
+    },
+
+
     //Primary Card and Children
     primaryCard: {
-        [theme.breakpoints.up("sm")]: {
-            marginLeft: drawerWidth + 25
-        },
         margin: margin,
         display: "flex",
         flexGrow: 1
@@ -105,16 +116,10 @@ export const myStyles = makeStyles(theme => ({
 
     //ItemList and Children
     itemList: {
-        //When the drawer is being shown, the main container needs
-        //to move in by the width of the drawer
-        [theme.breakpoints.up("sm")]: {
-            paddingLeft: drawerWidth + margin,
-            height: `calc(100vh - ${AppBarHeight.sm}px)`
-        },
-        height: `calc(100vh - ${AppBarHeight.xs}px)`,
-        padding: 25,
+        margin: margin,
         display: "flex",
-        background: "#BBC7CD"
+        flexDirection: "column",
+        flexGrow: 1
     },
 
     itemListHeader: {
@@ -140,6 +145,11 @@ export const myStyles = makeStyles(theme => ({
     tableCellCheckbox: {
         padding: theme.spacing(0, 2),
         position: "relative"
+    },
+    tableHeaderArrowIcon: {
+        position: "absolute",
+        top: "35%",
+        right: "16px"
     },
 
     //AppBar/NavBar and Children
@@ -191,11 +201,39 @@ export const myStyles = makeStyles(theme => ({
         }
     },
 
+    //Error Message
+    errorMessageContainer: {
+        position: "absolute",
+        color: theme.palette.error.main,
+        zIndex: 50,
+        padding: "10px",
+        bottom: "20px",
+        right: "20px"
+    },
+    relative: {
+        position: "relative"
+    },
+
+    errorMessageShow: {
+        opacity: 1,
+        transition: "all 250ms linear"
+    },
+
+    errorMessageHide: {
+        opacity: 0,
+        transition: "all 250ms linear"
+    },
+
+    //Misc
+    asterisk: {
+        color: themeColors.secondary5,
+        fontWeight: "bold"
+    },
+
     //Buttons
     button: {
         color: "white",
-        minWidth: "80px",
-        margin: theme.spacing(1)
+        minWidth: "80px"
     },
 
     //Utility classes
@@ -222,6 +260,10 @@ export const myStyles = makeStyles(theme => ({
 
     flexGrow: {
         flexGrow: 1
+    },
+
+    margin1: {
+        margin: theme.spacing(1)
     },
 
     marginBottom1_5: {

@@ -1,56 +1,40 @@
 //External Imports
 import React from "react";
-import { Button, useTheme } from "@material-ui/core";
 
-//Templates
-import dataScreenStaticTemplates from "../static/templates/dataScreenStaticTemplates";
+//Custom components
+import MyButton from "./MyButton";
 
 //Style
-import {myStyles} from "../static/css/style";
+import { myStyles } from "../static/css/style";
 
 export default props => {
-    const classes = myStyles()
-    const theme = useTheme();
-
-    const buttons = dataScreenStaticTemplates.buttons.primary;
+    const classes = myStyles();
 
     return (
-        <div className={classes.buttonRow}>
-            {buttons.map((button, index) => {
+        <div
+            className={`${classes.flexRowCenter} ${classes.spaceBetween} ${props.className}`}
+        >
+            {props.buttons.map((button, index) => {
                 return props.edit && button.text === "Edit" ? (
-                    <Button
-                        onClick={props.buttonFunctions[button.save.text]}
+                    <MyButton
                         key={index}
-                        variant="contained"
-                        startIcon={<button.save.icon />}
-                        size="small"
-                        style={{
-                            margin: theme.spacing(1),
-                            color: "white",
-                            background: button.save.color,
-                            minWidth: "80px"
-                        }}
+                        text={button.save.text}
+                        color={button.color}
+                        icon={<button.save.icon />}
+                        onClick={props.buttonFunctions[button.save.text]}
+                        className={classes.margin1}
                     >
                         {button.save.text}
-                    </Button>
+                    </MyButton>
                 ) : (
-                    <Button
-                        onClick={props.buttonFunctions[button.text]}
+                    <MyButton
                         key={index}
-                        variant="contained"
-                        startIcon={<button.icon />}
-                        size="small"
-                        style={{
-                            margin: theme.spacing(1),
-                            color: button.textColor
-                                ? button.textColor
-                                : "white",
-                            background: button.color,
-                            minWidth: button.minWidth ? button.minWidth : "auto"
-                        }}
-                    >
-                        {button.text}
-                    </Button>
+                        text={button.text}
+                        color={button.color}
+                        icon={<button.icon />}
+                        onClick={props.buttonFunctions[button.text]}
+                        className={classes.margin1}
+                    />
                 );
             })}
         </div>

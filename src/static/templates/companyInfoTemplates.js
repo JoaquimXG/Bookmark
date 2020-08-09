@@ -19,20 +19,16 @@ import activityFeedData from "./activityFeedTemporaryData";
 
 const theme = createMuiTheme();
 
-const buttons = {
+export const buttons = {
     primary: [
         {
             icon: PictureAsPdfSharp,
-            get color() {
-                return themeColors.primary5;
-            },
+            color: "grey",
             text: "Runbook"
         },
         {
             icon: CreateSharp,
-            get color() {
-                return themeColors.secondary5;
-            },
+            color: "blue",
             text: "Edit"
         }
     ],
@@ -40,101 +36,66 @@ const buttons = {
     secondary: [
         {
             icon: CreateSharp,
-            get color() {
-                return themeColors.secondary5;
-            },
+            color: "blue",
             text: "Edit"
         },
         {
             icon: FileCopySharp,
-            get color() {
-                return themeColors.primary5;
-            },
+            color: "grey",
             text: "Merge"
         },
         {
             icon: AddSharp,
-            get color() {
-                return themeColors.success;
-            },
+            color: "green",
             text: "New"
         }
     ]
 };
 
-const primaryCard = {
-    title: "Important Items",
+export const proxyGqlQueryResponseData = {
+    notes:
+        "This is where some notes can be kept about the item. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
+
+    asset: "An Asset",
+    contact1: "Another Another Contact",
+    contact2: "Another Another Contact",
+    contact3: "Another Another Contact",
+    credential: "A Credential",
+    name: "Company Info"
+};
+
+export const primaryCardTemplate = {
+    header: { title: "name" },
 
     cards: [
         {
             title: "Company Notes",
-            content: [
-                {
-                    title: "",
-                    content:
-                        "This is where some notes can be kept about the item. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
-                }
-            ],
-            columns: {
-                xs: 12
-            }
+            content: [{ title: "notes" }],
+            columns: { xs: 12 }
         },
         {
             title: "Recently Viewed",
-            content: [
-                {
-                    title: "Credential",
-                    content: "A Credential"
-                },
-                {
-                    title: "Asset",
-                    content: "An Asset"
-                }
-            ],
-            columns: {
-                xs: 4
-            }
+            content: [{ title: "credential" }, { title: "asset" }],
+            columns: { xs: 4 }
         },
         {
             title: "Recently Edited",
-            content: [
-                {
-                    title: "Credential",
-                    content: "A Credential"
-                },
-                {
-                    title: "Asset",
-                    content: "An Asset"
-                }
-            ],
-            columns: {
-                xs: 4
-            }
+            content: [{ title: "credential" }, { title: "asset" }],
+            columns: { xs: 4 }
         },
         {
             title: "Important Contacts",
             content: [
-                {
-                    title: "Contact",
-                    content: "A Contact"
-                },
-                {
-                    title: "Contact",
-                    content: "A Contact"
-                },
-                {
-                    title: "Contact",
-                    content: "Another Contact"
-                }
+                { title: "contact1" },
+                { title: "contact2" },
+                { title: "contact3" },
             ],
-            columns: {
-                xs: 4
-            }
+            columns: { xs: 4 }
         }
     ]
 };
 
-const secondaryCardData = [
+export const secondaryCardData = [
     {
         title: "Activity Feed",
         caption: (type, time) => `${type} - ${time}`,
@@ -167,8 +128,3 @@ const secondaryCardData = [
     }
 ];
 
-export default {
-    primaryCard,
-    secondaryCardData,
-    buttons
-}

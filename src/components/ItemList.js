@@ -1,10 +1,11 @@
 //External Imports
 import React from "react";
-import { Paper, Box, Divider } from "@material-ui/core";
+import { Paper, Divider } from "@material-ui/core";
 import { useQuery } from "@apollo/client";
 
 // Custom static components
 import ItemCategoryErrorBoundary from "./ItemCategoryErrorBoundary";
+import DisplayMessageCard from "./DisplayMessageCard";
 
 //Style
 import { myStyles } from "../static/css/style";
@@ -21,24 +22,25 @@ export default props => {
         itemListQueries[props.path].query
     );
 
-    if (error) return <p>Error</p>;
+    if (loading)
+        return (
+            <DisplayMessageCard variant="loading"/>
+        );
+    if (error)
+        return (
+            <DisplayMessageCard variant="error"/>
+        );
 
     return (
         <ItemCategoryErrorBoundary myclasses={classes}>
-            <Box className={classes.itemList}>
-                <Paper
-                    className={`${classes.flexGrow} ${classes.flexColumn}`}
-                    elevation={8}
-                >
-                    <ItemListHeader />
-                    <Divider />
-                    <ItemListTableContainer
-                        loading={loading}
-                        data={data}
-                        path={props.path}
-                    />
-                </Paper>
-            </Box>
+            <Paper className={classes.itemList} elevation={8}>
+                <ItemListHeader />
+                <Divider />
+                <ItemListTableContainer
+                    data={data}
+                    path={props.path}
+                />
+            </Paper>
         </ItemCategoryErrorBoundary>
     );
 };

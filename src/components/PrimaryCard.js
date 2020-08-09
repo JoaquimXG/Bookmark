@@ -135,30 +135,25 @@ export default props => {
     const cards = newItem ? props.rowTemplate.cards : props.cards;
 
     return (
-        <Box className={classes.primaryCard}>
-            <Paper
-                className={`${classes.flexColumn} ${classes.flexGrow}`}
-                elevation={8}
-            >
-                <MyMessage message={message} />
-                <PrimaryCardHeader
-                    handleTextFieldChange={handleTextFieldChange}
-                    buttonFunctions={buttonFunctions}
-                    edit={edit}
-                    submitted={submitted}
-                    formValues={props.formValues}
-                    header={props.header}
-                    buttons={props.buttons}
-                />
-                <Divider />
-                <MinorCardGridContainer
-                    cards={cards}
-                    edit={edit}
-                    submitted={submitted}
-                    handleTextFieldChange={handleTextFieldChange}
-                    formValues={props.formValues}
-                />
-            </Paper>
-        </Box>
+        <Paper className={classes.itemList} elevation={8}>
+            <MyMessage message={message} />
+            <PrimaryCardHeader
+                handleTextFieldChange={handleTextFieldChange}
+                buttonFunctions={buttonFunctions}
+                edit={edit}
+                submitted={submitted}
+                formValues={props.formValues}
+                header={props.header}
+                buttons={props.buttons}
+            />
+            <Divider />
+            <MinorCardGridContainer
+                cards={cards}
+                edit={edit}
+                submitted={submitted}
+                handleTextFieldChange={handleTextFieldChange}
+                formValues={props.formValues}
+            />
+        </Paper>
     );
 };

@@ -14,6 +14,9 @@ import CompanyInfo from "./components/CompanyInfo";
 //Incoming Data or templates
 import staticRoutes from "./static/templates/staticRoutes";
 
+//Style
+import {myStyles} from "./static/css/style";
+
 const ItemListRoute = route => {
     return (
         <Route
@@ -44,11 +47,13 @@ const client = new ApolloClient({
 });
 
 function App() {
+    const classes = myStyles()
     return (
         <ApolloProvider client={client}>
             <CssBaseline>
                 <Router>
                     <AppBar />
+        <div className={classes.mainWindow}>
                     <Switch>
                         <Route exact path="/" render={() => <CompanyInfo />} />
                         {staticRoutes.map(route => {
@@ -58,6 +63,7 @@ function App() {
                             return ItemDataScreenRoute(route);
                         })}
                     </Switch>
+        </div>
                 </Router>
             </CssBaseline>
         </ApolloProvider>

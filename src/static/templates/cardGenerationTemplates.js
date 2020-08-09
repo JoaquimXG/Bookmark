@@ -1,5 +1,5 @@
 const contact = {
-    header: {title: "name"},
+    header: { title: "name" },
 
     cards: [
         {
@@ -11,9 +11,7 @@ const contact = {
                 { title: "mobile" },
                 { title: "fax" }
             ],
-            columns: {
-                xs: 4
-            }
+            columns: { xs: 4 }
         },
         {
             title: "Additional Information",
@@ -24,23 +22,13 @@ const contact = {
                 { title: "type" },
                 { title: "job_title" }
             ],
-            columns: {
-                xs: 4
-            }
+            columns: { xs: 4 }
         },
-        {
-            title: "Notes",
-            content: [{ title: "notes" }],
-            columns: {
-                xs: 12
-            }
-        }
+        { title: "Notes", content: [{ title: "notes" }], columns: { xs: 12 } }
     ]
 };
-
 const backup = {
-    header: {title: "name"},
-
+    header: { title: "name" },
     cards: [
         {
             title: "Schedule",
@@ -50,9 +38,7 @@ const backup = {
                 { title: "differential" },
                 { title: "incremental" }
             ],
-            columns: {
-                xs: 4
-            }
+            columns: { xs: 4 }
         },
         {
             title: "Additional Information",
@@ -61,30 +47,18 @@ const backup = {
                 { title: "type" },
                 { title: "location" }
             ],
-            columns: {
-                xs: 4
-            }
+            columns: { xs: 4 }
         },
         {
             title: "Retention Details",
             content: [{ title: "retention_details" }],
-            columns: {
-                xs: 4
-            }
+            columns: { xs: 4 }
         },
-        {
-            title: "Notes",
-            content: [{ title: "notes" }],
-            columns: {
-                xs: 12
-            }
-        }
+        { title: "Notes", content: [{ title: "notes" }], columns: { xs: 12 } }
     ]
 };
-
 const location = {
-    header: {title: "name"},
-
+    header: { title: "name" },
     cards: [
         {
             title: "Address",
@@ -96,29 +70,18 @@ const location = {
                 { title: "state" },
                 { title: "country" }
             ],
-            columns: {
-                xs: 4
-            }
+            columns: { xs: 4 }
         },
         {
             title: "Additional Information",
             content: [{ title: "phone" }, { title: "fax" }, { title: "type" }],
-            columns: {
-                xs: 4
-            }
+            columns: { xs: 4 }
         },
-        {
-            title: "notes",
-            content: [{ title: "notes" }],
-            columns: {
-                xs: 12
-            }
-        }
+        { title: "notes", content: [{ title: "notes" }], columns: { xs: 12 } }
     ]
 };
-
 const credential = {
-    header: {title: "name"},
+    header: { title: "name" },
 
     cards: [
         {
@@ -154,7 +117,7 @@ const credential = {
     ]
 };
 const asset = {
-    header: {title: "name", disabled: true},
+    header: { title: "name", disabled: true },
 
     cards: [
         {

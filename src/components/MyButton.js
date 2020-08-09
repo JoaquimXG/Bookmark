@@ -32,7 +32,7 @@ export default props => {
             variant="contained"
             startIcon={props.icon}
             size="small"
-            className={classes.button}
+            className={`${classes.button} ${props.className}`}
             onClick={props.onClick}
             style={style[props.color]}
         >

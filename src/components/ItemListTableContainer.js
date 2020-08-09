@@ -10,9 +10,7 @@ import ItemListTableBody from "./ItemListTableBody";
 import { columnHeaders } from "../static/templates/itemListStaticTemplates";
 
 export default props => {
-    return props.loading ? (
-        <Typography variant="h1">Loading...</Typography>
-    ) : (
+    return (
         <Table stickyHeader>
             <TableHeadExtended columns={columnHeaders[props.path]} />
             <ItemListTableBody data={props.data} path={props.path} />
