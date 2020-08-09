@@ -58,23 +58,22 @@ const buttons = {
     secondary: [
         {
             icon: CreateSharp,
-            get color() {
-                return themeColors.secondary5;
-            },
-            text: "Edit"
+            class: "buttonBlue",
+            text: "Edit",
+            save: {
+                icon: SaveSharp,
+                class: "buttonBlue",
+                text: "Save",
+            }
         },
         {
             icon: PictureAsPdfSharp,
-            get color() {
-                return themeColors.primary5;
-            },
+            class: "buttonGrey",
             text: "PDF"
         },
         {
             icon: FileCopySharp,
-            get color() {
-                return themeColors.primary5;
-            },
+            class: "buttonGrey",
             text: "Copy"
         },
     ]

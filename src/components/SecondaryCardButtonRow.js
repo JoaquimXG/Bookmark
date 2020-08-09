@@ -1,37 +1,37 @@
+//External Imports
 import React from "react";
-import { makeStyles, Button } from "@material-ui/core";
 
-const useStyle = makeStyles(theme => ({
-    buttonRow: {
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        height: 65,
-        padding: theme.spacing(3)
-    }
-}));
+//Custom components
+import MyButton from "./MyButton";
+
+//Style
+import { myStyles } from "../static/css/style";
 
 export default props => {
-    const classes = useStyle();
+    const classes = myStyles();
 
-
+    const edit = true;
     return (
-        <div className={classes.buttonRow}>
-            {props.buttons.map((value, index) => {
-                return (
-                    <Button
+        <div className={`${classes.flexRowCenter} ${classes.spaceBetween}`}>
+            {props.buttons.map((button, index) => {
+                return edit && button.text === "Edit" ? (
+                    <MyButton
                         key={index}
-                        variant="contained"
-                        startIcon={<value.icon />}
-                        size="small"
-                        style={{
-                            color: "white",
-                            background: value.color
-                        }}
-                        onClick={props.handleClick[value.text]}
+                        text={button.save.text}
+                        icon={<button.save.icon />}
+                        className={classes.buttonBlue}
+                        onClick={props.handleClick[button.save.text]}
                     >
-                        {value.text}   
-                    </Button>
+                        {button.save.text}
+                    </MyButton>
+                ) : (
+                    <MyButton
+                        key={index}
+                        text={button.text}
+                        icon={<button.icon />}
+                        className={classes[button.class]}
+                        onClick={props.handleClick[button.text]}
+                    />
                 );
             })}
         </div>

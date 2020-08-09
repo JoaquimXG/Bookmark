@@ -191,7 +191,31 @@ export const myStyles = makeStyles(theme => ({
     //Buttons
     buttonBlue: {
         color: "white",
-        background: themeColors.secondary5
+        background: themeColors.secondary5,
+        minWidth: "80px"
+    },
+    buttonRed: {
+        color: "black",
+        background: themeColors.error,
+        minWidth: "80px"
+
+    },
+    buttonGreen: {
+        color: "white",
+        background: themeColors.success,
+        minWidth: "80px"
+    },
+    buttonGrey: {
+        color: "white",
+        background: themeColors.primary5,
+        minWidth: "80px"
+    },
+
+
+    buttonRow: {
+        display: "flex",
+        alignItems: "center",
+        //padding: theme.spacing(3)
     },
 
     //Utility classes
@@ -211,6 +235,9 @@ export const myStyles = makeStyles(theme => ({
     },
     spaceAround: {
         justifyContent: "space-around"
+    },
+    spaceBetween: {
+        justifyContent: "space-between"
     },
 
     flexGrow: {
