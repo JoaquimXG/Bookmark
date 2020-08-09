@@ -198,7 +198,7 @@ export default props => {
                 <SecondaryCard
                     templates={dataScreenStaticTemplates.secondaryCardData}
                     buttons={dataScreenStaticTemplates.buttons.secondary}
-                    handleClick={secondaryButtonFunctions}
+                    buttonFunctions={secondaryButtonFunctions}
                 />
             </Box>
         </div>

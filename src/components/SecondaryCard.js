@@ -15,8 +15,9 @@ export default props => {
     return (
         <Paper elevation={8} className={classes.secondaryCard}>
             <SecondaryCardButtonRow
+                className={classes.secondaryCardButtonRow}
                 buttons={props.buttons}
-                handleClick={props.handleClick}
+                buttonFunctions={props.buttonFunctions}
             />
             <Divider />
             <SecondaryMinorCardContatiner templates={props.templates} />

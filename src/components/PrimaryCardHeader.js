@@ -6,9 +6,10 @@ import { myStyles } from "../static/css/style";
 
 //Custom Components
 import EditableTitle from "./EditableTitle";
+import SecondaryCardButtonRow from "./SecondaryCardButtonRow";
 
 //Templates
-import ButtonRow from "./ButtonRow";
+import dataScreenStaticTemplates from "../static/templates/dataScreenStaticTemplates";
 
 export default props => {
     const classes = myStyles();
@@ -22,8 +23,9 @@ export default props => {
                 edit={props.edit}
                 submitted={props.submitted}
             />
-            <ButtonRow
+            <SecondaryCardButtonRow
                 edit={props.edit}
+                buttons={dataScreenStaticTemplates.buttons.primary}
                 buttonFunctions={props.buttonFunctions}
             />
         </header>

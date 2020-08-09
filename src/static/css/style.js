@@ -55,7 +55,7 @@ export const myStyles = makeStyles(theme => ({
         display: "flex",
         alignItems: "center",
         justifyItems: "space-between",
-        height: 65,
+        height: 66,
         padding: theme.spacing(3) + 2
     },
 
@@ -92,6 +92,9 @@ export const myStyles = makeStyles(theme => ({
         minWidth: 350,
         display: "flex",
         flexDirection: "column"
+    },
+    secondaryCardButtonRow: {
+        margin: theme.spacing(1.25, 2)
     },
 
     addFile: {
@@ -189,33 +192,10 @@ export const myStyles = makeStyles(theme => ({
     },
 
     //Buttons
-    buttonBlue: {
+    button: {
         color: "white",
-        background: themeColors.secondary5,
-        minWidth: "80px"
-    },
-    buttonRed: {
-        color: "black",
-        background: themeColors.error,
-        minWidth: "80px"
-
-    },
-    buttonGreen: {
-        color: "white",
-        background: themeColors.success,
-        minWidth: "80px"
-    },
-    buttonGrey: {
-        color: "white",
-        background: themeColors.primary5,
-        minWidth: "80px"
-    },
-
-
-    buttonRow: {
-        display: "flex",
-        alignItems: "center",
-        //padding: theme.spacing(3)
+        minWidth: "80px",
+        margin: theme.spacing(1)
     },
 
     //Utility classes

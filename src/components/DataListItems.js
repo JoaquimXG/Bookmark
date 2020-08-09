@@ -6,7 +6,6 @@ import { Typography } from "@material-ui/core";
 import MyListItem from "./MyListItem";
 
 export default props => {
-    console.log(props);
     return props.listData ? (
         props.listData.map((listItem, index) => {
             return (

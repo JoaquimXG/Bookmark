@@ -10,17 +10,18 @@ import { myStyles } from "../static/css/style";
 export default props => {
     const classes = myStyles();
 
-    const edit = true;
     return (
-        <div className={`${classes.flexRowCenter} ${classes.spaceBetween}`}>
+        <div
+            className={`${classes.flexRowCenter} ${classes.spaceBetween} ${props.className}`}
+        >
             {props.buttons.map((button, index) => {
-                return edit && button.text === "Edit" ? (
+                return props.edit && button.text === "Edit" ? (
                     <MyButton
                         key={index}
                         text={button.save.text}
+                        color={button.color}
                         icon={<button.save.icon />}
-                        className={classes.buttonBlue}
-                        onClick={props.handleClick[button.save.text]}
+                        onClick={props.buttonFunctions[button.save.text]}
                     >
                         {button.save.text}
                     </MyButton>
@@ -28,9 +29,9 @@ export default props => {
                     <MyButton
                         key={index}
                         text={button.text}
+                        color={button.color}
                         icon={<button.icon />}
-                        className={classes[button.class]}
-                        onClick={props.handleClick[button.text]}
+                        onClick={props.buttonFunctions[button.text]}
                     />
                 );
             })}

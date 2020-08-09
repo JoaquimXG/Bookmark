@@ -25,32 +25,23 @@ const buttons = {
     primary: [
         {
             icon: DeleteOutlineSharp,
-            get color() {
-                return themeColors.error;
-            },
+            color: "red",
             text: "Delete",
             textColor: "black",
         },
         {
             icon: CreateSharp,
-            get color() {
-                return themeColors.secondary5;
-            },
+            color: "blue",
             text: "Edit",
-            minWidth: "80px",
             save: {
                 icon: SaveSharp,
-                get color() {
-                    return themeColors.secondary5;
-                },
+                color: "blue",
                 text: "Save",
             }
         },
         {
             icon: AddSharp,
-            get color() {
-                return themeColors.success;
-            },
+            color: "green",
             text: "New"
         }
     ],
@@ -58,22 +49,22 @@ const buttons = {
     secondary: [
         {
             icon: CreateSharp,
-            class: "buttonBlue",
+            color: "blue",
             text: "Edit",
             save: {
                 icon: SaveSharp,
-                class: "buttonBlue",
+                color: "blue",
                 text: "Save",
             }
         },
         {
             icon: PictureAsPdfSharp,
-            class: "buttonGrey",
+            color: "grey",
             text: "PDF"
         },
         {
             icon: FileCopySharp,
-            class: "buttonGrey",
+            color: "grey",
             text: "Copy"
         },
     ]
