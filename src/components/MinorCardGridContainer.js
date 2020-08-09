@@ -11,7 +11,7 @@ import MinorCard from "./MinorCard";
 export default props => {
     const classes = myStyles();
 
-    //Filters the formValues being passed down so that each 
+    //Filters the formValues being passed down so that each
     //MinorCard component only recieves the formValues relevant to it
     //This will hopefully allow for efficient rendering
     const filterFormValues = (content, formValues) => {
@@ -23,6 +23,10 @@ export default props => {
         }
         return newFormValues;
     };
+
+    console.log(props.cards)
+    console.log(props.formValues)
+
     return (
         <Grid
             container
@@ -38,6 +42,8 @@ export default props => {
                     subtitle => !props.formValues[subtitle.title]
                 ) && !props.edit ? null : (
                     <MinorCard
+                        //TO-DO, remove index
+                        index={index}
                         key={index}
                         xs={card.columns.xs}
                         formValues={formValues}

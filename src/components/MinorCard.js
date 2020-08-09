@@ -7,6 +7,10 @@ import MinorCardHeader from "./MinorCardHeader";
 import MinorCardBody from "./MinorCardBody";
 
 export default props => {
+    if (props.title === "Schedule") {
+        console.log(props.content)
+        console.log(props.formValues)
+    }
     return (
         <Grid item xs={props.xs? props.xs: true}>
             <Paper elevation={2}>

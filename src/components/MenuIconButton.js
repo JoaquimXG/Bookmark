@@ -1,7 +1,7 @@
 //External Import
 import React from "react";
-import { IconButton, Menu } from "@material-ui/core";
-
+import { IconButton} from "@material-ui/core";
+import MenuSharpIcon from '@material-ui/icons/MenuSharp';
 //Style
 import { myStyles } from "../static/css/style";
 
@@ -14,7 +14,7 @@ export default props => {
             edge="start"
             onClick={props.toggleSlider}
         >
-            <Menu />
+            <MenuSharpIcon />
         </IconButton>
     );
 };

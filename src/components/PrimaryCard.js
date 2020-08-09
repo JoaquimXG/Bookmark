@@ -1,6 +1,6 @@
 //External Imports
 import React from "react";
-import { Paper, Box, Divider } from "@material-ui/core";
+import { Paper, Divider } from "@material-ui/core";
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
@@ -63,7 +63,8 @@ export default props => {
 
     //Sets the message to be displayed in the error box
     //The error box is only displayed when message.display is true
-    const handleBadFormSubmit = () => {
+    const handleBadFormSubmit = error => {
+        console.log(error);
         setMessage({
             text: "Please Fill Required Fields",
             display: true
@@ -78,6 +79,13 @@ export default props => {
         let id = success.data[props.path].updatedRow.id;
         setEdit(false);
         history.replace(`/${props.path}s/${id}`);
+    };
+
+    const handleTextFieldChange = event => {
+        props.setFormValues({
+            ...props.formValues,
+            [event.target.id]: event.target.value
+        });
     };
 
     const buttonFunctions = {
@@ -125,15 +133,6 @@ export default props => {
         }
     };
 
-    const handleTextFieldChange = event => {
-        props.setFormValues({
-            ...props.formValues,
-            [event.target.id]: event.target.value
-        });
-    };
-
-    const cards = newItem ? props.rowTemplate.cards : props.cards;
-
     return (
         <Paper className={classes.itemList} elevation={8}>
             <MyMessage message={message} />
@@ -148,7 +147,7 @@ export default props => {
             />
             <Divider />
             <MinorCardGridContainer
-                cards={cards}
+                cards={props.cards}
                 edit={edit}
                 submitted={submitted}
                 handleTextFieldChange={handleTextFieldChange}

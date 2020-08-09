@@ -174,6 +174,14 @@ export const myStyles = makeStyles(theme => ({
     appBarToolbar: {
         height: "56px"
     },
+    appBarMenuButton:{
+        color: "white",
+        [theme.breakpoints.up("sm")]: {
+            display: "none"
+        }
+
+    },
+
     navMenuSliderContainer: {
         width: drawerWidth,
         background: "#ffffff"

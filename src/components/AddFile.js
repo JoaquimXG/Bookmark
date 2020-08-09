@@ -1,6 +1,6 @@
 //External Imports
 import React from "react";
-import { Box, Button } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { AddSharp } from "@material-ui/icons";
 
 //Custom components

@@ -1,6 +1,6 @@
 //External Imports
 import React from "react";
-import { Box, Link, Avatar, Divider } from "@material-ui/core";
+import { Box, Avatar, Divider } from "@material-ui/core";
 
 //Style
 import { myStyles } from "../static/css/style";

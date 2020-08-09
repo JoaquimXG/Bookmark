@@ -63,7 +63,6 @@ export default props => {
 
     useEffect(() => {
         if (data) {
-            console.log(data[props.path]);
             // genereate the cards and title from the returned data
             // using the template required for this item type
             var tempItem = generatePrimaryCards(

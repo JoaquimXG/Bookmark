@@ -1,6 +1,6 @@
 //External Imports
 import React from "react";
-import { Typography, Table } from "@material-ui/core";
+import { Table } from "@material-ui/core";
 
 //Style
 import TableHeadExtended from "./TableHeadExtended";

@@ -1,6 +1,6 @@
 //External Imports
 import React from "react";
-import { Box, Divider, useTheme } from "@material-ui/core";
+import { Box, Divider } from "@material-ui/core";
 
 //Cusomt Components
 import AddFile from "./AddFile";
