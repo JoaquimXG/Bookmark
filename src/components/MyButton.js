@@ -17,7 +17,8 @@ export default props => {
         },
         red: {
             background: themeColors.error,
-            color: "black"
+            color: "black",
+            minWidth: "100px"
         },
         green: {
             background: themeColors.success
@@ -29,6 +30,7 @@ export default props => {
 
     return (
         <Button
+            type={props.submit ? "submit" : "button"}
             variant="contained"
             startIcon={props.icon}
             size="small"

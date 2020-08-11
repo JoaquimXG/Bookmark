@@ -15,16 +15,16 @@ export default props => {
             className={`${classes.flexRowCenter} ${classes.spaceBetween} ${props.className}`}
         >
             {props.buttons.map((button, index) => {
-                return props.edit && button.text === "Edit" ? (
+                return props.edit && button.onEdit ?(
                     <MyButton
                         key={index}
-                        text={button.save.text}
+                        text={button.onEdit.text}
                         color={button.color}
-                        icon={<button.save.icon />}
-                        onClick={props.buttonFunctions[button.save.text]}
+                        icon={<button.onEdit.icon />}
+                        onClick={props.buttonFunctions[button.onEdit.text]}
                         className={classes.margin1}
                     >
-                        {button.save.text}
+                        {button.onEdit.text}
                     </MyButton>
                 ) : (
                     <MyButton

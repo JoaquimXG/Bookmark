@@ -15,7 +15,8 @@ import CompanyInfo from "./components/CompanyInfo";
 import staticRoutes from "./static/templates/staticRoutes";
 
 //Style
-import {myStyles} from "./static/css/style";
+import { myStyles } from "./static/css/style";
+import TestBed from "./components/TestBed";
 
 const ItemListRoute = route => {
     return (
@@ -47,23 +48,28 @@ const client = new ApolloClient({
 });
 
 function App() {
-    const classes = myStyles()
+    const classes = myStyles();
     return (
         <ApolloProvider client={client}>
             <CssBaseline>
                 <Router>
                     <AppBar />
-        <div className={classes.mainWindow}>
-                    <Switch>
-                        <Route exact path="/" render={() => <CompanyInfo />} />
-                        {staticRoutes.map(route => {
-                            return ItemListRoute(route);
-                        })}
-                        {staticRoutes.map(route => {
-                            return ItemDataScreenRoute(route);
-                        })}
-                    </Switch>
-        </div>
+                    <div className={classes.mainWindow}>
+                        <Switch>
+                            <Route
+                                exact
+                                path="/"
+                                render={() => <CompanyInfo />}
+                            />
+                            {staticRoutes.map(route => {
+                                return ItemListRoute(route);
+                            })}
+                            {staticRoutes.map(route => {
+                                return ItemDataScreenRoute(route);
+                            })}
+                            <Route exact path="/testing/" render={() => <TestBed />} />
+                        </Switch>
+                    </div>
                 </Router>
             </CssBaseline>
         </ApolloProvider>

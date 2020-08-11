@@ -21,6 +21,7 @@ import cardGenerationTemplates from "../static/templates/cardGenerationTemplates
 
 //Style
 import { myStyles } from "../static/css/style";
+import TestDisplay from "./TestDisplay";
 
 const initialiseFormValues = (cards, title) => {
     let tempFormValues = { name: title };
@@ -147,14 +148,8 @@ export default props => {
         }
     };
 
-    if (loading || !formValues)
-        return (
-            <DisplayMessageCard variant="loading"/>
-        );
-    if (error)
-        return (
-            <DisplayMessageCard variant="error"/>
-        );
+    if (loading || !formValues) return <DisplayMessageCard variant="loading" />;
+    if (error) return <DisplayMessageCard variant="error" />;
 
     return (
         <>

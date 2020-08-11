@@ -5,7 +5,8 @@ import {
     AttachFileSharp,
     DeleteOutlineSharp,
     LinkSharp,
-    SaveSharp
+    SaveSharp,
+    CloseSharp
 } from "@material-ui/icons";
 import { createMuiTheme } from "@material-ui/core";
 import {
@@ -28,12 +29,18 @@ const buttons = {
             color: "red",
             text: "Delete",
             textColor: "black",
+            onEdit: {
+                icon: CloseSharp,
+                color: "red",
+                text: "Cancel",
+                textColor: "black"
+            }
         },
         {
             icon: CreateSharp,
             color: "blue",
             text: "Edit",
-            save: {
+            onEdit: {
                 icon: SaveSharp,
                 color: "blue",
                 text: "Save",
@@ -43,7 +50,7 @@ const buttons = {
             icon: AddSharp,
             color: "green",
             text: "New"
-        }
+        },
     ],
 
     secondary: [
@@ -54,7 +61,7 @@ const buttons = {
             save: {
                 icon: SaveSharp,
                 color: "blue",
-                text: "Save",
+                text: "Save"
             }
         },
         {
@@ -66,7 +73,7 @@ const buttons = {
             icon: FileCopySharp,
             color: "grey",
             text: "Copy"
-        },
+        }
     ]
 };
 
@@ -106,5 +113,5 @@ const secondaryCardData = [
 
 export default {
     secondaryCardData,
-    buttons,
-}
+    buttons
+};

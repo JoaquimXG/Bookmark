@@ -9,7 +9,8 @@ import {
     AppsSharp,
     BackupSharp,
     DoneAllSharp,
-    PrintSharp
+    PrintSharp,
+    BlockSharp
 } from "@material-ui/icons";
 
 export default [
@@ -58,5 +59,10 @@ export default [
         id: 9,
         listIcon: <PrintSharp htmlColor="Black" />,
         listText: "Printers"
+    },
+    {
+        id: 10,
+        listIcon: <BlockSharp htmlColor="Black" />,
+        listText: "testing"
     }
 ];
