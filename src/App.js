@@ -17,6 +17,7 @@ import staticRoutes from "./static/templates/staticRoutes";
 //Style
 import { myStyles } from "./static/css/style";
 import TestBed from "./components/TestBed";
+import TestBedExtracted from "./components/TestBedExtracted";
 
 const ItemListRoute = route => {
     return (
@@ -68,6 +69,7 @@ function App() {
                                 return ItemDataScreenRoute(route);
                             })}
                             <Route exact path="/testing/" render={() => <TestBed />} />
+                            <Route exact path="/testing2/" render={() => <TestBedExtracted />} />
                         </Switch>
                     </div>
                 </Router>
