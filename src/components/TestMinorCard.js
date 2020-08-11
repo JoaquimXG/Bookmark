@@ -20,43 +20,16 @@ const test = true;
 
 export default props => {
     const classes = myStyles();
-    const {
-        edit,
-        submitting,
-        newItem,
-        setMutationVariables,
-        setSubmitting
-    } = props.formState;
-    const [localFieldValues, setLocalFieldValues] = useState(null);
+    const { edit, newItem, setMutationVariables } = props.formState;
 
     const handleEdit = event => {
-        setLocalFieldValues({
-            ...localFieldValues,
-            [event.target.id]: event.target.value
-        });
+        let id = event.target.id;
+        let value = event.target.value;
+        setMutationVariables(current => ({
+            ...current,
+            [id]: value
+        }));
     };
-
-    //When parent sets submitting, children submit data up to parent
-    //using setMutationVariables prop
-    useEffect(() => {
-        if (submitting) {
-            console.log("adding to variables");
-            if (localFieldValues) {
-                setMutationVariables(current => ({
-                    ...current,
-                    ...localFieldValues
-                }));
-            }
-            setSubmitting(false);
-        }
-    }, [submitting, setSubmitting, setMutationVariables, localFieldValues]);
-
-    //If editing is cancelled, reset the localFieldValues
-    useEffect(() => {
-        if (!edit) {
-            setLocalFieldValues({});
-        }
-    }, [edit]);
 
     return (
         <Paper className={classes.itemList} elevation={8}>
@@ -70,11 +43,7 @@ export default props => {
                             id={field.ref}
                             key={key}
                             label={field.title}
-                            defaultValue={
-                                newItem
-                                    ? localFieldValues.ref
-                                    : field.fieldValue
-                            }
+                            defaultValue={newItem ? "" : field.fieldValue}
                             style={textFieldStyle}
                         />
                     ) : (

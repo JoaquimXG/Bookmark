@@ -23,7 +23,7 @@ import SecondaryCard from "./SecondaryCard";
 import DisplayMessageCard from "./DisplayMessageCard";
 import TestPrimaryCard from "./TestPrimaryCard";
 import TestDisplay from "./TestDisplay";
-import {useFormState} from "../useFormState";
+import { useFormState } from "../useFormState";
 
 const cardTemplate = [
     {
@@ -82,10 +82,9 @@ export default props => {
 
     const {
         buttonFunctions,
-        formState: { edit, newItem, submitting },
-        formFunctions: { setSubmitting },
+        formState: { edit, newItem },
         setMutationVariables
-    } = useFormState(queryResult)
+    } = useFormState(queryResult);
 
     const cards = fillTemplate(queryResult, cardTemplate);
 
@@ -98,16 +97,13 @@ export default props => {
                 //TO-DO, remove
                 toDisplay={{
                     edit,
-                    submitting,
-                    newItem,
+                    newItem
                 }}
                 cards={cards}
                 buttonFunctions={buttonFunctions}
                 formState={{
                     edit,
                     newItem,
-                    submitting,
-                    setSubmitting,
                     setMutationVariables
                 }}
             />
