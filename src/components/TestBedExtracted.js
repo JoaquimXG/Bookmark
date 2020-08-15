@@ -1,6 +1,6 @@
 //External Imports
-import React, { useState, useEffect } from "react";
-import { useFormState } from "../useFormState";
+import React from "react";
+import { useFormState } from "../hooks/useFormState";
 
 //Custom Components
 import TestPrimaryCard from "./TestPrimaryCard";
@@ -11,8 +11,8 @@ const cardTemplate = [
         fields: [
             { ref: "addr_1", title: "Address Line 1" },
             { ref: "addr_2", title: "Address Line 2" },
-            { ref: "id", title: "ID Number" },
-            { ref: "email", title: "email Address" },
+            { ref: "id", title: "ID Number", helper: "Numbers Only"},
+            { ref: "email", title: "email Address", helper: "Email address invalid" },
             { ref: "postcode", title: "Postcode" },
             { ref: "state", title: "State" },
             { ref: "country", title: "Country" }
@@ -32,8 +32,6 @@ const cardTemplate = [
 const queryResult = {
  
     email: "test@gmail.com",
-
-
     id: "2125",
     name: "This is the title",
     type: "this is type",
@@ -49,8 +47,8 @@ const queryResult = {
 };
 
 const constraints = {
-    id: {regex:"^[0-9]+$", helperText: "Numbers only please"},//must be at least one number
-    email: {regex:"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$", helperText:"Email is invalid"}
+    id: "^[0-9]+$",//must be at least one number
+    email: "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
 };
 
 //const constraintsOLD = [
