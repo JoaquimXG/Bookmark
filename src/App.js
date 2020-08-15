@@ -10,14 +10,13 @@ import AppBar from "./components/AppBar";
 import ItemList from "./components/ItemList";
 import DataScreen from "./components/DataScreen";
 import CompanyInfo from "./components/CompanyInfo";
+import TestBedExtracted from "./components/TestBedExtracted";
 
 //Incoming Data or templates
 import staticRoutes from "./static/templates/staticRoutes";
 
 //Style
 import { myStyles } from "./static/css/style";
-import TestBed from "./components/TestBed";
-import TestBedExtracted from "./components/TestBedExtracted";
 
 const ItemListRoute = route => {
     return (
@@ -68,8 +67,7 @@ function App() {
                             {staticRoutes.map(route => {
                                 return ItemDataScreenRoute(route);
                             })}
-                            <Route exact path="/testing/" render={() => <TestBed />} />
-                            <Route exact path="/testing2/" render={() => <TestBedExtracted />} />
+                            <Route exact path="/testing/" render={() => <TestBedExtracted />} />
                         </Switch>
                     </div>
                 </Router>

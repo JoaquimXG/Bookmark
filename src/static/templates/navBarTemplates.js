@@ -65,9 +65,4 @@ export default [
         listIcon: <BlockSharp htmlColor="Black" />,
         listText: "testing"
     },
-    {
-        id: 11,
-        listIcon: <BlockSharp htmlColor="Black" />,
-        listText: "testing2"
-    }
 ];

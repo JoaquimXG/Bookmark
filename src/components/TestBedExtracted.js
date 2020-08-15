@@ -1,29 +1,9 @@
 //External Imports
 import React, { useState, useEffect } from "react";
-import { Box, Paper } from "@material-ui/core";
-import { useQuery, useMutation, useLazyQuery } from "@apollo/client";
-import { useHistory } from "react-router-dom";
-
-//Style
-import { myStyles } from "../static/css/style";
-
-//Functions
-import myMutation2 from "../static/functions/myMutation2";
-import generatePrimaryCards from "../static/functions/generatePrimaryCards";
-
-//Data, queries, mutations and templates
-import dataScreenStaticTemplates from "../static/templates/dataScreenStaticTemplates";
-import { individualQueries, itemListQueries } from "../static/apollo/queries";
-import mutations from "../static/apollo/mutations";
-import cardGenerationTemplates from "../static/templates/cardGenerationTemplates";
+import { useFormState } from "../useFormState";
 
 //Custom Components
-import PrimaryCard from "./PrimaryCard";
-import SecondaryCard from "./SecondaryCard";
-import DisplayMessageCard from "./DisplayMessageCard";
 import TestPrimaryCard from "./TestPrimaryCard";
-import TestDisplay from "./TestDisplay";
-import { useFormState } from "../useFormState";
 
 const cardTemplate = [
     {
@@ -31,7 +11,8 @@ const cardTemplate = [
         fields: [
             { ref: "addr_1", title: "Address Line 1" },
             { ref: "addr_2", title: "Address Line 2" },
-            { ref: "city", title: "City" },
+            { ref: "id", title: "ID Number" },
+            { ref: "email", title: "email Address" },
             { ref: "postcode", title: "Postcode" },
             { ref: "state", title: "State" },
             { ref: "country", title: "Country" }
@@ -49,6 +30,10 @@ const cardTemplate = [
 ];
 
 const queryResult = {
+ 
+    email: "test@gmail.com",
+
+
     id: "2125",
     name: "This is the title",
     type: "this is type",
@@ -62,6 +47,16 @@ const queryResult = {
     notes: "This is notes",
     fax: "this is fax"
 };
+
+const constraints = {
+    id: {regex:"^[0-9]+$", helperText: "Numbers only please"},//must be at least one number
+    email: {regex:"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$", helperText:"Email is invalid"}
+};
+
+//const constraintsOLD = [
+    //{ ref: "type", regex: ".+" },//must not be empty
+    //{ ref: "fax", regex: "" }
+//]
 
 const fillTemplate = (responseData, template) => {
     var filledTemplate = template.map(card => {
@@ -77,34 +72,26 @@ const fillTemplate = (responseData, template) => {
 };
 
 export default props => {
-    const classes = myStyles();
-    const history = useHistory();
-
     const {
         buttonFunctions,
         formState: { edit, newItem },
-        setMutationVariables
-    } = useFormState(queryResult);
+        setMutationVariables,
+        setError
+    } = useFormState(queryResult.id);
 
     const cards = fillTemplate(queryResult, cardTemplate);
-
-    const test = false;
-    if (test) return <TestDisplay toDisplay={cards} />;
 
     return (
         <>
             <TestPrimaryCard
-                //TO-DO, remove
-                toDisplay={{
-                    edit,
-                    newItem
-                }}
                 cards={cards}
                 buttonFunctions={buttonFunctions}
                 formState={{
                     edit,
                     newItem,
-                    setMutationVariables
+                    setMutationVariables,
+                    constraints,
+                    setError
                 }}
             />
         </>

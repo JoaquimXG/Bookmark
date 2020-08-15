@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import myMutation2 from "./static/functions/myMutation2";
 
-export const useFormState = queryResult => {
+export const useFormState = (id) => {
     const [edit, setEdit] = useState(false);
     const [newItem, setNewItem] = useState(false);
     const [mutationVariables, setMutationVariables] = useState(null);
+    const [error, setError] = useState(false);
 
     const logError = error => {
         console.log(error);
@@ -33,16 +34,16 @@ export const useFormState = queryResult => {
             console.log("delete");
             //TO-Do
         },
-        Save: () => {
+        Save: async () => {
             console.log("save");
-            if (!mutationVariables) {
-                console.log("no values set");
-                return false;
+            if (error || !mutationVariables) {
+                console.log("Form is empty or there are validation errors");
+                return;
             }
             if (newItem) {
                 mutationVariables.isnew = newItem;
             } else {
-                mutationVariables.id = queryResult.id;
+                mutationVariables.id = id;
             }
             mutationVariables.site_id = 12345;
             myMutation2(mutationVariables, true)
@@ -60,6 +61,7 @@ export const useFormState = queryResult => {
     return {
         buttonFunctions,
         formState: { edit, newItem },
-        setMutationVariables
+        setMutationVariables,
+        setError
     };
 };

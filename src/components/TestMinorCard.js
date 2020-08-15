@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Paper, TextField, FormGroup } from "@material-ui/core";
+import { Paper, TextField, FormGroup, Button } from "@material-ui/core";
 import { myStyles } from "../static/css/style";
 import TestDisplay from "./TestDisplay";
 import FormValue from "./FormValue";
-import FormField from "./FormField";
 import FormSubtitle from "./FormSubtitle";
 
 const formGroupStyle = {
@@ -20,15 +19,45 @@ const test = true;
 
 export default props => {
     const classes = myStyles();
-    const { edit, newItem, setMutationVariables } = props.formState;
+    const {
+        edit,
+        newItem,
+        setMutationVariables,
+        constraints,
+        setError
+    } = props.formState;
+    const [invalidFields, setInvalidFields] = useState({});
+
+    const validateField = (value, ref, constraint) => {
+        if (value.match(constraint)) {
+            setInvalidFields(current => ({ ...current, [ref]: false }));
+            if (Object.values(invalidFields).every((field)=> field===false)){
+                setError(false)
+            }
+        } else {
+            setInvalidFields(current => ({ ...current, [ref]: true }));
+            setError(true)
+        }
+    };
 
     const handleEdit = event => {
-        let id = event.target.id;
+        let ref = event.target.id;
         let value = event.target.value;
         setMutationVariables(current => ({
             ...current,
-            [id]: value
+            [ref]: value
         }));
+        if (invalidFields[ref]) {
+            validateField(value, ref, constraints[ref].regex);
+        }
+    };
+
+    const handleBlur = event => {
+        let ref = event.target.id;
+        let value = event.target.value;
+        if (constraints[ref]) {
+            validateField(value, ref, constraints[ref].regex);
+        }
     };
 
     return (
@@ -39,7 +68,14 @@ export default props => {
                 {Object.entries(props.card.fields).map(([key, field]) => {
                     return edit ? (
                         <TextField
+                            helperText={
+                                invalidFields[field.ref]
+                                    ? constraints[field.ref].helperText
+                                    : null
+                            }
+                            error={invalidFields[field.ref]}
                             onChange={handleEdit}
+                            onBlur={handleBlur}
                             id={field.ref}
                             key={key}
                             label={field.title}
@@ -57,6 +93,7 @@ export default props => {
                     );
                 })}
             </FormGroup>
+            <Button onClick={() => console.log(invalidFields)}>Test</Button>
         </Paper>
     );
 };
