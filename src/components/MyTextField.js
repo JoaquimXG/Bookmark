@@ -6,21 +6,18 @@ import { ThemeProvider, TextField } from "@material-ui/core";
 import { myMuiTheme } from "../static/css/style";
 
 export default props => {
-    const error =
-        ((props.submitted && !props.value) || props.value === "") &&
-        props.field.required
-            ? true
-            : false;
+    const { invalidFields, field, handleChange } = props;
 
     return (
         <ThemeProvider theme={myMuiTheme}>
             <TextField
-                onChange={props.handleTextFieldChange}
-                id={props.field.title}
-                value={props.value}
+                onChange={handleChange.edit}
+                onBlur={handleChange.blur}
+                id={field.ref}
+                defaultValue={props.newItem ? "" : field.fieldValue}
                 multiline
-                disabled={props.field.disabled}
-                error={error}
+                disabled={field.disabled}
+                error={invalidFields[field.ref]}
             ></TextField>
         </ThemeProvider>
     );

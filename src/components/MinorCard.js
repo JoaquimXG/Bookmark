@@ -7,21 +7,16 @@ import MinorCardHeader from "./MinorCardHeader";
 import MinorCardBody from "./MinorCardBody";
 
 export default props => {
-    if (props.title === "Schedule") {
-        console.log(props.content)
-        console.log(props.formValues)
-    }
+    const {columns, minorTitle, fields} = props.card
+
     return (
-        <Grid item xs={props.xs? props.xs: true}>
+        <Grid item xs={columns.xs? columns.xs: true}>
             <Paper elevation={2}>
-                <MinorCardHeader title={props.title} />
+                <MinorCardHeader title={minorTitle} />
                 <Divider />
                 <MinorCardBody
-                    content={props.content}
-                    formValues={props.formValues}
-                    edit={props.edit}
-                    handleTextFieldChange={props.handleTextFieldChange}
-                    submitted={props.submitted}
+                    formState={props.formState}
+                    fields={fields}
                 />
             </Paper>
         </Grid>

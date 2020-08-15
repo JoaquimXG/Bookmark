@@ -1,6 +1,6 @@
 //External Imports
 import React from "react";
-import { useFormState } from "../hooks/useFormState";
+import { useFormProvider } from "../hooks/useFormProvider";
 
 //Custom Components
 import TestPrimaryCard from "./TestPrimaryCard";
@@ -48,7 +48,7 @@ const queryResult = {
 
 const constraints = {
     id: "^[0-9]+$",//must be at least one number
-    email: "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
+    email: "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"//eslint-disable-line
 };
 
 //const constraintsOLD = [
@@ -75,7 +75,7 @@ export default props => {
         formState: { edit, newItem },
         setMutationVariables,
         setError
-    } = useFormState(queryResult.id);
+    } = useFormProvider(queryResult.id);
 
     const cards = fillTemplate(queryResult, cardTemplate);
 

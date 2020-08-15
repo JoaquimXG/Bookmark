@@ -1,6 +1,5 @@
 //External Imports
 import React, { useState, useEffect } from "react";
-import { Box, Paper } from "@material-ui/core";
 import { useQuery, useMutation, useLazyQuery } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 
@@ -22,153 +21,133 @@ import cardGenerationTemplates from "../static/templates/cardGenerationTemplates
 //Style
 import { myStyles } from "../static/css/style";
 import TestDisplay from "./TestDisplay";
+import { useFormProvider } from "../hooks/useFormProvider";
+import useMyMutation from "../hooks/useMyMutation";
 
-const initialiseFormValues = (cards, title) => {
-    let tempFormValues = { name: title };
-    cards
-        .map(card => card.content)
-        .flat()
-        .forEach(
-            value =>
-                (tempFormValues[value.title] = value.content
-                    ? value.content
-                    : "")
-        );
-    return tempFormValues;
+//    // Performs the mutation request to update the item
+//    // Checks current cache values and updates the cache as required
+//    const [updateItem] = useMutation(mutations[props.path].mutation, {
+//        update: (cache, { data }) => {
+//            const itemType = `${props.path}s`;
+//            var cachedData;
+//            try {
+//                //check if there is relevant cached data
+//                cachedData = cache.readQuery({
+//                    query: itemListQueries[props.path].query
+//                });
+//                if (
+//                    cachedData[itemType].some(
+//                        item => item.id === data[props.path].updatedRow.id
+//                    )
+//                ) {
+//                    //item already exists and will be updated automatically
+//                    return null;
+//                }
+//            } catch {
+//                //no action required as cache will be correct after query is made for the first time
+//                return null;
+//            }
+//            //update the cache with the data returned from the mutation
+//            //using the same query as was initially used to populate the itemList cached data
+//            //the correct fields will be pulled from the data automatically thanks to the query
+//            cache.writeQuery({
+//                query: itemListQueries[props.path].query,
+//                data: {
+//                    [itemType]: [
+//                        ...cachedData[itemType],
+//                        data[props.path].updatedRow
+//                    ]
+//                }
+//            });
+//        }
+//    });
+
+//    const secondaryButtonFunctions = {
+//        Copy: () => {
+//            console.log("copy");
+//            myMutation(
+//                true,
+//                null,
+//                formValues,
+//                updateItem,
+//                errors => console.log("errors are:", errors),
+//                handleSuccessfulUpdate,
+//                12345
+//            );
+//        },
+//        PDF: () => {
+//            //TO-DO
+//            console.log("PDF");
+//            loadPdf();
+//        },
+//        Edit: () => {
+//            //TO-DO
+//            console.log("edit");
+//        }
+//    };
+
+const fillTemplate = (responseData, template) => {
+    var filledTemplate = template.cards.map(card => {
+        return {
+            ...card,
+            fields: card.fields.map(field => ({
+                ...field,
+                fieldValue: responseData[field.ref]
+            }))
+        };
+    });
+    const title = responseData[template.header.title];
+    const header = { ...template.header, title };
+    return { cards: filledTemplate, header };
 };
 
 export default props => {
-    const classes = myStyles();
-    const history = useHistory();
-
-    // Setting the query used to fill data for this page
     var id = parseInt(props.match.params.id);
     var query = individualQueries[props.path].query;
 
-    // Inital queries, starting to load the page
+    //REMOVE THIS - MOVE TO TEMPLATE FILE
+    const constraints = {
+        password: "^[0-9]+$", //must be at least one number
+        email: "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}$" //eslint-disable-line
+    };
+    const performMutation = useMyMutation(
+        mutations[props.path].mutation,
+        itemListQueries[props.path].query,
+        props.path
+    );
+
+    const {
+        buttonFunctions,
+        formState: { edit, newItem },
+        setMutationVariables,
+        setError
+    } = useFormProvider(id, performMutation, props.path);
+
     const { loading, error, data } = useQuery(query, { variables: { id: id } });
-    const [
-        loadPdf,
-        { lazyLoading, lazyError, lazyData, lazyCalled }
-    ] = useLazyQuery(query);
 
-    //Contains the structure for all minorcards that will be displayed
-    //including, the width, the title and subtitles for each card
-    //doesn't contain the content
-    const [item, setItem] = useState(null);
-
-    // Used to reset formvalues to initial values
-    const [initialFormValues, setInitialFormValues] = useState(null);
-    // Contains the current form values, including edits from the user
-    const [formValues, setFormValues] = useState(null);
-
-    useEffect(() => {
-        if (data) {
-            // genereate the cards and title from the returned data
-            // using the template required for this item type
-            var tempItem = generatePrimaryCards(
-                data[props.path],
-                cardGenerationTemplates[props.path]
-            );
-            // Initialise the values used to fill forms
-            let tempFormValues = initialiseFormValues(
-                tempItem.cards,
-                tempItem.header.title
-            );
-            setItem(tempItem);
-            setInitialFormValues(tempFormValues);
-            setFormValues(tempFormValues);
-        }
-    }, [data, props.path]);
-
-    // Performs the mutation request to update the item
-    // Checks current cache values and updates the cache as required
-    const [updateItem] = useMutation(mutations[props.path].mutation, {
-        update: (cache, { data }) => {
-            const itemType = `${props.path}s`;
-            var cachedData;
-            try {
-                //check if there is relevant cached data
-                cachedData = cache.readQuery({
-                    query: itemListQueries[props.path].query
-                });
-                if (
-                    cachedData[itemType].some(
-                        item => item.id === data[props.path].updatedRow.id
-                    )
-                ) {
-                    //item already exists and will be updated automatically
-                    return null;
-                }
-            } catch {
-                //no action required as cache will be correct after query is made for the first time
-                return null;
-            }
-            //update the cache with the data returned from the mutation
-            //using the same query as was initially used to populate the itemList cached data
-            //the correct fields will be pulled from the data automatically thanks to the query
-            cache.writeQuery({
-                query: itemListQueries[props.path].query,
-                data: {
-                    [itemType]: [
-                        ...cachedData[itemType],
-                        data[props.path].updatedRow
-                    ]
-                }
-            });
-        }
-    });
-
-    const handleSuccessfulUpdate = success => {
-        let id = success.data[props.path].updatedRow.id;
-        history.push(`/${props.path}s/${id}`);
-    };
-
-    const secondaryButtonFunctions = {
-        Copy: () => {
-            console.log("copy");
-            myMutation(
-                true,
-                null,
-                formValues,
-                updateItem,
-                errors => console.log("errors are:", errors),
-                handleSuccessfulUpdate,
-                12345
-            );
-        },
-        PDF: () => {
-            //TO-DO
-            console.log("PDF");
-            loadPdf();
-        },
-        Edit: () => {
-            //TO-DO
-            console.log("edit");
-        }
-    };
-
-    if (loading || !formValues) return <DisplayMessageCard variant="loading" />;
+    if (loading) return <DisplayMessageCard variant="loading" />;
     if (error) return <DisplayMessageCard variant="error" />;
+
+    const { cards, header } = fillTemplate(
+        data[props.path],
+        cardGenerationTemplates[props.path]
+    );
 
     return (
         <>
             <PrimaryCard
                 path={props.path}
                 id={props.match.params.id}
-                cards={item.cards}
-                header={item.header}
-                rowTemplate={cardGenerationTemplates[props.path]}
-                formValues={formValues}
-                initialFormValues={initialFormValues}
-                setFormValues={setFormValues}
-                updateItem={updateItem}
-                buttons={dataScreenStaticTemplates.buttons.primary}
-            />
-            <SecondaryCard
-                templates={dataScreenStaticTemplates.secondaryCardData}
-                buttons={dataScreenStaticTemplates.buttons.secondary}
-                buttonFunctions={secondaryButtonFunctions}
+                header={header}
+                buttonFunctions={buttonFunctions}
+                cards={cards}
+                formState={{
+                    edit,
+                    newItem,
+                    setMutationVariables,
+                    constraints,
+                    setError
+                }}
             />
         </>
     );

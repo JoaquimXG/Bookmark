@@ -8,6 +8,7 @@ import dataScreenStaticTemplates from "../static/templates/dataScreenStaticTempl
 export default props => {
     const classes = myStyles();
     const test = true;
+    console.log(props.cards)
     return (
         <Paper className={classes.itemList} elevation={8}>
             <h1>PrimaryCard</h1>

@@ -7,21 +7,36 @@ import { myStyles } from "../static/css/style";
 
 //Custom Components
 import FormField from "./FormField";
+import { useFormConsumer } from "../hooks/useFormConsumer";
 
 export default props => {
     const classes = myStyles();
 
+    const {
+        edit,
+        newItem,
+        setMutationVariables,
+        setError,
+        constraints
+    } = props.formState;
+
+    const { invalidFields, handleBlur, handleEdit } = useFormConsumer(
+        setMutationVariables,
+        setError,
+        constraints
+    );
+
     return (
         <Box className={`${classes.flexColumn} ${classes.padding2}`}>
-            {props.content.map((field, index) => {
-                return props.formValues[field.title] || props.edit ? (
+            {props.fields.map((field, index) => {
+                return field.fieldValue || props.formState.edit ? (
                     <FormField
                         key={index}
                         field={field}
-                        value={props.formValues[field.title]}
-                        handleTextFieldChange={props.handleTextFieldChange}
-                        edit={props.edit}
-                        submitted={props.submitted}
+                        edit={edit}
+                        newItem={newItem}
+                        invalidFields={invalidFields}
+                        handleChange={{ blur: handleBlur, edit: handleEdit }}
                     />
                 ) : null;
             })}

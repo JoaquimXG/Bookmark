@@ -16,13 +16,13 @@ export default props => {
             />
             {props.edit ? (
                 <MyTextField
-                    handleTextFieldChange={props.handleTextFieldChange}
+                    handleChange={props.handleChange}
                     field={props.field}
-                    value={props.value}
-                    submitted={props.submitted}
+                    invalidFields={props.invalidFields}
+                    newItem={props.newItem}
                 />
             ) : (
-                <FormValue value={props.value} />
+                <FormValue value={props.field.fieldValue} />
             )}
         </>
     );

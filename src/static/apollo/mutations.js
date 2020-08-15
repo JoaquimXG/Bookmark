@@ -11,7 +11,7 @@ const backup = {
         mutation updateBackup(
             $id: ID
             $site_id: ID!
-            $name: String!
+            $name: String
             $vendor: String
             $type: String
             $location: String
@@ -75,7 +75,7 @@ const contact = {
         mutation updateContact(
             $id: ID
             $site_id: ID!
-            $name: String!
+            $name: String
             $type: String
             $primary_contact: String
             $job_title: String
@@ -250,8 +250,8 @@ const credential = {
         mutation updateCredential(
             $id: ID
             $site_id: ID!
-            $name: String!
-            $password: String!
+            $name: String
+            $password: String
             $description: String
             $type: String
             $client: String

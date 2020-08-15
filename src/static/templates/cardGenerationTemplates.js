@@ -85,31 +85,31 @@ const credential = {
 
     cards: [
         {
-            title: "Credentials",
-            content: [
-                { title: "name", required: true },
-                { title: "password", required: true },
-                { title: "url" }
+            minorTitle: "Credentials",
+            fields: [
+                { title: "Username", ref: "name", required: true },
+                { title: "Password", ref: "password", required: true },
+                { title: "URL", ref: "url" }
             ],
             columns: {
                 xs: 4
             }
         },
         {
-            title: "Additional Information",
-            content: [
-                { title: "description" },
-                { title: "type" },
-                { title: "client" },
-                { title: "folder" }
+            minorTitle: "Additional Information",
+            fields: [
+                { title: "Description", ref: "description" },
+                { title: "Credential Type", ref: "type" },
+                { title: "Client", ref: "client" },
+                { title: "Folder", ref: "folder" }
             ],
             columns: {
                 xs: 4
             }
         },
         {
-            title: "Notes",
-            content: [{ title: "notes" }],
+            minorTitle: "Notes",
+            fields: [{ title: "Notes", ref: "notes" }],
             columns: {
                 xs: 12
             }
