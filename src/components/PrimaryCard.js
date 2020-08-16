@@ -39,7 +39,7 @@ export default props => {
                 buttonFunctions={props.buttonFunctions}
                 header={props.header}
                 buttons={dataScreenStaticTemplates.buttons.primary}
-                edit={props.formState.edit}
+                formState={props.formState}
             />
             <Divider />
             <MinorCardGridContainer

@@ -32,8 +32,8 @@ export default props => {
         >
             {props.cards.map((card, index) => {
                 return card.fields.every(
-                    field => field.fieldValue === ""
-                ) && !props.edit ? null : (
+                    field => field.fieldValue === null
+                ) && !props.formState.edit ? null : (
                     <MinorCard
                         key={index}
                         formState={props.formState}

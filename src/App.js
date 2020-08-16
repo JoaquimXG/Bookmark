@@ -10,7 +10,6 @@ import AppBar from "./components/AppBar";
 import ItemList from "./components/ItemList";
 import DataScreen from "./components/DataScreen";
 import CompanyInfo from "./components/CompanyInfo";
-import TestBedExtracted from "./components/TestBedExtracted";
 
 //Incoming Data or templates
 import staticRoutes from "./static/templates/staticRoutes";
@@ -67,7 +66,6 @@ function App() {
                             {staticRoutes.map(route => {
                                 return ItemDataScreenRoute(route);
                             })}
-                            <Route exact path="/testing/" render={() => <TestBedExtracted />} />
                         </Switch>
                     </div>
                 </Router>

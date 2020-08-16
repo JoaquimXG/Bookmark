@@ -17,8 +17,6 @@ import { useFormProvider } from "../hooks/useFormProvider";
 import dataScreenStaticTemplates from "../static/templates/dataScreenStaticTemplates";
 import { individualQueries } from "../static/apollo/queries";
 import cardGenerationTemplates from "../static/templates/cardGenerationTemplates";
-
-//Style
 import formConstraints from "../static/templates/formConstraints";
 
 export default props => {

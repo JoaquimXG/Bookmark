@@ -19,7 +19,7 @@ export default props => {
                 disabled={props.header.disabled}
             />
             <ButtonRow
-                edit={props.edit}
+                edit={props.formState.edit}
                 buttonFunctions={props.buttonFunctions}
                 buttons={props.buttons}
             />

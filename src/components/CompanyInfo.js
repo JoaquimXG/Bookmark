@@ -13,8 +13,6 @@ import {
     proxyGqlQueryResponseData
 } from "../static/templates/companyInfoTemplates";
 
-//Functions
-import generatePrimaryCards from "../static/functions/generatePrimaryCards";
 
 const initialiseFormValues = (cards, title) => {
     let tempFormValues = { name: title };
@@ -57,12 +55,9 @@ export default props => {
 
     useEffect(() => {
         if (tempData) {
-            // genereate the cards and title from the returned data
-            // using the template required for this item type
-            var tempItem = generatePrimaryCards(
-                tempData,
-                primaryCardTemplate
-            );
+            //USED TO BE tempitem = generatePrimaryCards() 
+            //TO-DO, needs to replaced
+            var tempItem = false
             console.log(tempItem)
             // Initialise the values used to fill forms
             let tempFormValues = initialiseFormValues(

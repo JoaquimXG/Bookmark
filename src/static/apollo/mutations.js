@@ -7,7 +7,7 @@ const backup = {
             deleteBackup(id: $id, site_id: $site_id)
         }
     `,
-    mutation: gql`
+    update: gql`
         mutation updateBackup(
             $id: ID
             $site_id: ID!
@@ -71,7 +71,7 @@ const contact = {
             deleteContact(id: $id, site_id: $site_id)
         }
     `,
-    mutation: gql`
+    update: gql`
         mutation updateContact(
             $id: ID
             $site_id: ID!
@@ -141,7 +141,7 @@ const asset = {
             deleteAsset(id: $id, site_id: $site_id)
         }
     `,
-    mutation: gql`
+    update: gql`
         mutation updateAsset(
             $id: ID
             $site_id: ID!
@@ -304,12 +304,12 @@ const location = {
             deleteLocation(id: $id, site_id: $site_id)
         }
     `,
-    mutation: gql`
+    update: gql`
         mutation updateLocation(
             $id: ID
             $site_id: ID!
             $isnew: Boolean!
-            $name: String!
+            $name: String
             $phone: String
             $fax: String
             $addr_1: String

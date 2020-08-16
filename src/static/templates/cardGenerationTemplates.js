@@ -3,81 +3,97 @@ const contact = {
 
     cards: [
         {
-            title: "Contact Information",
-            content: [
-                { title: "email" },
-                { title: "phone" },
-                { title: "extension" },
-                { title: "mobile" },
-                { title: "fax" }
+            minorTitle: "Contact Information",
+            fields: [
+                { title: "Email", ref: "email" },
+                { title: "Landline", ref: "phone" },
+                { title: "Extension", ref: "extension" },
+                { title: "Mobile Number", ref: "mobile" },
+                { title: "Fax", ref: "fax" }
             ],
             columns: { xs: 4 }
         },
         {
-            title: "Additional Information",
-            content: [
-                { title: "name" },
-                { title: "middle_name" },
-                { title: "last_name" },
-                { title: "type" },
-                { title: "job_title" }
+            minorTitle: "Additional Information",
+            fields: [
+                { title: "First Name", ref: "name" },
+                { title: "Middle Name", ref: "middle_name" },
+                { title: "Last Name", ref: "last_name" },
+                { title: "Contact Type", ref: "type" },
+                { title: "Job Title", ref: "job_title" }
             ],
             columns: { xs: 4 }
         },
-        { title: "Notes", content: [{ title: "notes" }], columns: { xs: 12 } }
+        {
+            minorTitle: "Notes",
+            fields: [{ title: "Notes", ref: "notes" }],
+            columns: { xs: 12 }
+        }
     ]
 };
 const backup = {
     header: { title: "name" },
     cards: [
         {
-            title: "Schedule",
-            content: [
-                { title: "start_time" },
-                { title: "full_backup" },
-                { title: "differential" },
-                { title: "incremental" }
+            minorTitle: "Schedule",
+            fields: [
+                { title: "Start Time", ref: "start_time" },
+                { title: "Full Backup", ref: "full_backup" },
+                { title: "Differential Backup", ref: "differential" },
+                { title: "Incremental Backup", ref: "incremental" }
             ],
             columns: { xs: 4 }
         },
         {
-            title: "Additional Information",
-            content: [
-                { title: "vendor" },
-                { title: "type" },
-                { title: "location" }
+            minorTitle: "Additional Information",
+            fields: [
+                { title: "Backup Vendor", ref: "vendor" },
+                { title: "Backup Type", ref: "type" },
+                { title: "Storage Location", ref: "location" }
             ],
             columns: { xs: 4 }
         },
         {
-            title: "Retention Details",
-            content: [{ title: "retention_details" }],
+            minorTitle: "Retention Details",
+            fields: [{ title: "Retention Details", ref: "retention_details" }],
             columns: { xs: 4 }
         },
-        { title: "Notes", content: [{ title: "notes" }], columns: { xs: 12 } }
+        {
+            minorTitle: "Notes",
+            fields: [{ title: "Notes", ref: "notes" }],
+            columns: { xs: 12 }
+        }
     ]
 };
 const location = {
     header: { title: "name" },
     cards: [
         {
-            title: "Address",
-            content: [
-                { title: "addr_1" },
-                { title: "addr_2" },
-                { title: "city" },
-                { title: "postcode" },
-                { title: "state" },
-                { title: "country" }
+            minorTitle: "Address",
+            fields: [
+                { title: "Address Line 1", ref: "addr_1" },
+                { title: "Address Line 2", ref: "addr_2" },
+                { title: "City", ref: "city" },
+                { title: "Postcode", ref: "postcode" },
+                { title: "State", ref: "state" },
+                { title: "Country", ref: "country" }
             ],
             columns: { xs: 4 }
         },
         {
-            title: "Additional Information",
-            content: [{ title: "phone" }, { title: "fax" }, { title: "type" }],
+            minorTitle: "Additional Information",
+            fields: [
+                { title: "Landline", ref: "phone" },
+                { title: "Fax", ref: "fax" },
+                { title: "Location Type", ref: "type" }
+            ],
             columns: { xs: 4 }
         },
-        { title: "notes", content: [{ title: "notes" }], columns: { xs: 12 } }
+        {
+            minorTitle: "notes",
+            fields: [{ title: "Notes", ref: "notes" }],
+            columns: { xs: 12 }
+        }
     ]
 };
 const credential = {
@@ -121,62 +137,62 @@ const asset = {
 
     cards: [
         {
-            title: "Networking",
-            content: [
-                { title: "internal_ip", disabled: true },
-                { title: "external_ip", disabled: true },
-                { title: "hostname", disabled: true },
-                { title: "domain", disabled: true }
+            minorTitle: "Networking",
+            fields: [
+                { title: "Internal IP", ref: "internal_ip", disabled: true },
+                { title: "External IP", ref: "external_ip", disabled: true },
+                { title: "Hostname", ref: "hostname", disabled: true },
+                { title: "Domain", ref: "domain", disabled: true }
             ],
             columns: {
                 xs: 4
             }
         },
         {
-            title: "Usage",
-            content: [
-                { title: "creation_date", disabled: true },
-                { title: "last_user", disabled: true },
-                { title: "last_audit", disabled: true }
+            minorTitle: "Usage",
+            fields: [
+                { title: "Creation Date", ref: "creation_date", disabled: true },
+                { title: "Last Logged in User", ref: "last_user", disabled: true },
+                { title: "Last Audit", ref: "last_audit", disabled: true }
             ],
             columns: {
                 xs: 4
             }
         },
         {
-            title: "Technical",
-            content: [
-                { title: "type", disabled: true },
-                { title: "model", disabled: true },
-                { title: "serial", disabled: true },
-                { title: "os", disabled: true }
+            minorTitle: "Technical",
+            fields: [
+                { title: "Asset Type", ref: "type", disabled: true },
+                { title: "Model Number", ref: "model", disabled: true },
+                { title: "Serial Number", ref: "serial", disabled: true },
+                { title: "Operating System", ref: "os", disabled: true }
             ],
             columns: {
                 xs: 4
             }
         },
         {
-            title: "Notes",
-            content: [{ title: "notes" }],
+            minorTitle: "Notes",
+            fields: [{ title: "Notes", ref: "notes" }],
             columns: {
                 xs: 12
             }
         },
         {
-            title: "UDF",
-            content: [
-                { title: "udf1" },
-                { title: "udf2" },
-                { title: "udf3" },
-                { title: "udf4" },
-                { title: "udf5" },
-                { title: "udf6" },
-                { title: "udf7" },
-                { title: "udf8" },
-                { title: "udf9" },
-                { title: "udf10" },
-                { title: "udf11" },
-                { title: "udf12" }
+            minorTitle: "UDF",
+            fields: [
+                { title: "UDF1", ref: "udf1" },
+                { title: "UDF2", ref: "udf2" },
+                { title: "UDF3", ref: "udf3" },
+                { title: "UDF4", ref: "udf4" },
+                { title: "UDF5", ref: "udf5" },
+                { title: "UDF6", ref: "udf6" },
+                { title: "UDF7", ref: "udf7" },
+                { title: "UDF8", ref: "udf8" },
+                { title: "UDF9", ref: "udf9" },
+                { title: "UDF10", ref: "udf10" },
+                { title: "UDF11", ref: "udf11" },
+                { title: "UDF12", ref: "udf12" }
             ],
             columns: {
                 xs: 4

@@ -214,7 +214,6 @@ const companyInfo = {
     `
 };
 
-
 export const individualQueries = {
     credential,
     asset,
@@ -223,3 +222,4 @@ export const individualQueries = {
     backup,
     companyInfo
 };
+
