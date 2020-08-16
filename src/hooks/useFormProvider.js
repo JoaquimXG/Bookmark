@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import useMyMutation from "./useMyMutation";
 import mutations from "../static/apollo/mutations";
-import { itemListQueries } from "../static/apollo/queries";
+import { itemListQueries, generatePdfQuery } from "../static/apollo/queries";
+import { useLazyQuery } from "@apollo/client";
 
 const validateEmptyFields = (fields, constraints) => {
     var updatedInvalidFields = {};
@@ -23,6 +24,15 @@ export const useFormProvider = (id, path, data, constraints) => {
     const [mutationVariables, setMutationVariables] = useState({ empty: true });
     const [invalidFields, setInvalidFields] = useState({});
     const history = useHistory();
+    const [
+        loadPdf,
+        {
+            loading: lazyLoading,
+            error: lazyError,
+            data: lazyData,
+            called: lazyCalled
+        }
+    ] = useLazyQuery(generatePdfQuery);
 
     const { performMutation, performDelete } = useMyMutation(
         mutations[path],
@@ -117,9 +127,19 @@ export const useFormProvider = (id, path, data, constraints) => {
         PDF: () => {
             //TO-DO Integrate PDF generation
             console.log("PDF");
-            //loadPdf();
+            loadPdf({
+                variables: { id: id, site_id: 12345, template: "credentials" }
+            });
         }
     };
+
+    useEffect(()=> {
+        if (lazyData) {
+            const url = lazyData.generatePdf
+            console.log(lazyData.generatePdf);
+            window.open(url, '_blank')
+        }
+    },[lazyData])
 
     const handleMutationPromise = (mutationFunc, variables) => {
         mutationFunc({
@@ -132,7 +152,7 @@ export const useFormProvider = (id, path, data, constraints) => {
                 handleSuccessfulUpdate(result);
             })
             .catch(error => {
-                console.log("error:",error);
+                console.log("error:", error);
             });
     };
 

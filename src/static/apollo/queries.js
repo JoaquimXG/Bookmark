@@ -1,5 +1,5 @@
 //External Imports
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 const credentialsList = {
     query: gql`
@@ -79,7 +79,7 @@ const backupsList = {
 export const itemListQueries = {
     asset: assetsList,
     credential: credentialsList,
-    location: locationsList ,
+    location: locationsList,
     contact: contactsList,
     backup: backupsList
 };
@@ -223,3 +223,8 @@ export const individualQueries = {
     companyInfo
 };
 
+export const generatePdfQuery = gql`
+    query generatePdf($id: ID!, $site_id: ID!, $template: String!){
+        generatePdf(id:$id, site_id:$site_id, template:$template)
+    }
+`;
