@@ -1,9 +1,6 @@
 //External Imports
 import React from "react";
 import { Paper, Divider } from "@material-ui/core";
-import { useState } from "react";
-import { useMutation } from "@apollo/client";
-import { useHistory } from "react-router-dom";
 
 //Custom components
 import MyMessage from "./MyMessage";
@@ -13,14 +10,9 @@ import MinorCardGridContainer from "./MinorCardGridContainer";
 //Templates
 import dataScreenStaticTemplates from "../static/templates/dataScreenStaticTemplates";
 
-//Functions
-import myMutation from "../static/functions/myMutation";
 
 //Style
 import { myStyles } from "../static/css/style";
-
-//Mutations
-import mutations from "../static/apollo/mutations";
 
 //    const handleBadFormSubmit = error => {
 //        console.log(error);
@@ -40,7 +32,6 @@ import mutations from "../static/apollo/mutations";
 
 export default props => {
     const classes = myStyles();
-    const history = useHistory();
 
     return (
         <Paper className={classes.itemList} elevation={8}>

@@ -6,8 +6,29 @@ export const useFormConsumer = (
     constraints,
     invalidFields
 ) => {
-    const [localInvalidFields, setLocalInvalidFields] = useState(invalidFields);
+    const [localInvalidFields, setLocalInvalidFields] = useState({});
 
+    //Updating errored fields after validation at formProvider onSubmit
+    if (invalidFields.updated) {
+        const updatedFields = {
+            ...invalidFields.fields,
+            ...localInvalidFields
+        };
+        setInvalidFields(() => {
+            setLocalInvalidFields(updatedFields);
+            return updatedFields;
+        });
+    }
+    //Reset, used after cancel or successful update
+    if (invalidFields.reset) {
+        setInvalidFields(() => {
+            setLocalInvalidFields({});
+            return {};
+        });
+    }
+
+    //if value doesn't match constraints, add it to invalidFields + localInvalidFields
+    //if value now matches, remove from invalid fields
     const validateField = (value, ref, constraint) => {
         if (value.match(constraint)) {
             setLocalInvalidFields(current => {
@@ -31,7 +52,8 @@ export const useFormConsumer = (
         let value = event.target.value;
         setMutationVariables(current => ({
             ...current,
-            [ref]: value
+            [ref]: value,
+            empty: false
         }));
         if (localInvalidFields[ref]) {
             validateField(value, ref, constraints[ref]);

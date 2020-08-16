@@ -4,37 +4,23 @@ import useMyMutation from "./useMyMutation";
 import mutations from "../static/apollo/mutations";
 import { itemListQueries } from "../static/apollo/queries";
 
-const validateFields = (initialData, fields, constraints) => {
+const validateEmptyFields = (fields, constraints) => {
     var updatedInvalidFields = {};
+
     Object.keys(constraints).forEach(ref => {
-        try {
-            if (fields[ref].match(constraints[ref])) {
-                return false;
-            } else updatedInvalidFields[ref] = true;
-        } catch {
-            console.log("checking if unedited",{ref}, "is valid")
-            if (initialData[ref].match(constraints[ref])){
-                return false
-            } else updatedInvalidFields[ref] = true
+        if (!fields[ref]) {
+            if (!"".match(constraints[ref])) {
+                updatedInvalidFields[ref] = true;
+            }
         }
     });
     return updatedInvalidFields;
 };
 
-const validateForm = (initialData, fields, constraints) => {
-    var updatedInvalidFields = validateFields(initialData, fields, constraints);
-
-    console.log("updatedInvalidFields", updatedInvalidFields);
-
-    if (Object.keys(updatedInvalidFields) !== 0) {
-        return { result: false, updatedInvalidFields };
-    } else return { result: true };
-};
-
 export const useFormProvider = (id, path, data, constraints) => {
     const [edit, setEdit] = useState(false);
     const [newItem, setNewItem] = useState(false);
-    const [mutationVariables, setMutationVariables] = useState(null);
+    const [mutationVariables, setMutationVariables] = useState({ empty: true });
     const [invalidFields, setInvalidFields] = useState({});
     const history = useHistory();
 
@@ -44,8 +30,11 @@ export const useFormProvider = (id, path, data, constraints) => {
         itemListQueries[path].data
     );
 
-    const logError = error => {
-        console.log(error);
+    const resetState = () => {
+        setEdit(false);
+        setNewItem(false);
+        setMutationVariables({ empty: true });
+        setInvalidFields({ reset: true });
     };
 
     const handleSuccessfulUpdate = success => {
@@ -69,10 +58,7 @@ export const useFormProvider = (id, path, data, constraints) => {
         },
         Cancel: () => {
             console.log("Cancel");
-            setEdit(false);
-            setNewItem(false);
-            setMutationVariables(null);
-            setInvalidFields({});
+            resetState();
         },
         Delete: () => {
             console.log("delete");
@@ -90,23 +76,26 @@ export const useFormProvider = (id, path, data, constraints) => {
                 });
         },
         Save: () => {
-            console.log("local invalidFields", invalidFields);
-            console.log(mutationVariables)
-            if (!mutationVariables || Object.keys(invalidFields).length !== 0)
-                return;
-
-            if (newItem){
-                const updatedInvalidFields = validateForm(
-                    data,
+            if (newItem) {
+                const updatedInvalidFields = validateEmptyFields(
                     mutationVariables,
                     constraints
                 );
                 if (Object.keys(updatedInvalidFields).length !== 0) {
-                    console.log("there are still errors");
-                    setInvalidFields(updatedInvalidFields);
+                    setInvalidFields({
+                        fields: updatedInvalidFields,
+                        updated: true
+                    });
                     return;
                 }
             }
+
+            if (
+                mutationVariables.empty ||
+                Object.keys(invalidFields).length !== 0
+            )
+                return;
+
             const variables = {
                 ...mutationVariables,
                 id: newItem ? null : id,
@@ -139,13 +128,11 @@ export const useFormProvider = (id, path, data, constraints) => {
         })
             .then(result => {
                 console.log(result);
-                setEdit(false);
-                setMutationVariables(null);
+                resetState();
                 handleSuccessfulUpdate(result);
             })
             .catch(error => {
-                console.log("inside error");
-                logError(error);
+                console.log("error:",error);
             });
     };
 

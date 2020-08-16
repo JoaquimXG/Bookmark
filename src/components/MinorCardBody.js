@@ -8,6 +8,7 @@ import { myStyles } from "../static/css/style";
 //Custom Components
 import FormField from "./FormField";
 import { useFormConsumer } from "../hooks/useFormConsumer";
+import TestDisplay from "./TestDisplay";
 
 export default props => {
     const classes = myStyles();
@@ -27,8 +28,6 @@ export default props => {
         constraints,
         invalidFields
     );
-    //console.log({invalidFields})
-    //console.log({localInvalidFields})
 
     return (
         <Box className={`${classes.flexColumn} ${classes.padding2}`}>

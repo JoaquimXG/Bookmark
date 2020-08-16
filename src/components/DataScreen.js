@@ -1,7 +1,6 @@
 //External Imports
-import React, { useState, useEffect } from "react";
-import { useQuery, useMutation, useLazyQuery } from "@apollo/client";
-import { useHistory } from "react-router-dom";
+import React from "react";
+import { useQuery } from "@apollo/client";
 
 //Custom Components
 import PrimaryCard from "./PrimaryCard";
@@ -9,21 +8,17 @@ import SecondaryCard from "./SecondaryCard";
 import DisplayMessageCard from "./DisplayMessageCard";
 
 //Functions
-import myMutation from "../static/functions/myMutation";
-import generatePrimaryCards from "../static/functions/generatePrimaryCards";
 import fillDataScreenTemplate from "../static/functions/fillDataScreenTemplate";
+
+//Custom Hooks
+import { useFormProvider } from "../hooks/useFormProvider";
 
 //Data, queries, mutations and templates
 import dataScreenStaticTemplates from "../static/templates/dataScreenStaticTemplates";
-import { individualQueries, itemListQueries } from "../static/apollo/queries";
-import mutations from "../static/apollo/mutations";
+import { individualQueries } from "../static/apollo/queries";
 import cardGenerationTemplates from "../static/templates/cardGenerationTemplates";
 
 //Style
-import { myStyles } from "../static/css/style";
-import TestDisplay from "./TestDisplay";
-import { useFormProvider } from "../hooks/useFormProvider";
-import useMyMutation from "../hooks/useMyMutation";
 import formConstraints from "../static/templates/formConstraints";
 
 export default props => {
