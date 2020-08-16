@@ -4,16 +4,38 @@ import useMyMutation from "./useMyMutation";
 import mutations from "../static/apollo/mutations";
 import { itemListQueries } from "../static/apollo/queries";
 
-const validateForm = (initialData, fields, constraints, invalidFields) => {
-    console.log("constraints",constraints)
-    if (invalidFields.error || !fields) return false;
+const validateFields = (initialData, fields, constraints) => {
+    var updatedInvalidFields = {};
+    Object.keys(constraints).forEach(ref => {
+        try {
+            if (fields[ref].match(constraints[ref])) {
+                return false;
+            } else updatedInvalidFields[ref] = true;
+        } catch {
+            console.log("checking if unedited",{ref}, "is valid")
+            if (initialData[ref].match(constraints[ref])){
+                return false
+            } else updatedInvalidFields[ref] = true
+        }
+    });
+    return updatedInvalidFields;
+};
+
+const validateForm = (initialData, fields, constraints) => {
+    var updatedInvalidFields = validateFields(initialData, fields, constraints);
+
+    console.log("updatedInvalidFields", updatedInvalidFields);
+
+    if (Object.keys(updatedInvalidFields) !== 0) {
+        return { result: false, updatedInvalidFields };
+    } else return { result: true };
 };
 
 export const useFormProvider = (id, path, data, constraints) => {
     const [edit, setEdit] = useState(false);
     const [newItem, setNewItem] = useState(false);
     const [mutationVariables, setMutationVariables] = useState(null);
-    const [invalidFields, setInvalidFields] = useState(false);
+    const [invalidFields, setInvalidFields] = useState({});
     const history = useHistory();
 
     const { performMutation, performDelete } = useMyMutation(
@@ -50,6 +72,7 @@ export const useFormProvider = (id, path, data, constraints) => {
             setEdit(false);
             setNewItem(false);
             setMutationVariables(null);
+            setInvalidFields({});
         },
         Delete: () => {
             console.log("delete");
@@ -67,14 +90,23 @@ export const useFormProvider = (id, path, data, constraints) => {
                 });
         },
         Save: () => {
-            console.log(invalidFields);
-            const isValid = validateForm(
-                data,
-                mutationVariables,
-                constraints,
-                invalidFields
-            );
-            if (!isValid) return;
+            console.log("local invalidFields", invalidFields);
+            console.log(mutationVariables)
+            if (!mutationVariables || Object.keys(invalidFields).length !== 0)
+                return;
+
+            if (newItem){
+                const updatedInvalidFields = validateForm(
+                    data,
+                    mutationVariables,
+                    constraints
+                );
+                if (Object.keys(updatedInvalidFields).length !== 0) {
+                    console.log("there are still errors");
+                    setInvalidFields(updatedInvalidFields);
+                    return;
+                }
+            }
             const variables = {
                 ...mutationVariables,
                 id: newItem ? null : id,
@@ -128,6 +160,7 @@ export const useFormProvider = (id, path, data, constraints) => {
         buttonFunctions,
         formState: { edit, newItem },
         setMutationVariables,
-        setInvalidFields
+        setInvalidFields,
+        invalidFields
     };
 };

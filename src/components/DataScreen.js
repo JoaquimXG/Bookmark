@@ -37,7 +37,8 @@ export default props => {
         buttonFunctions,
         formState: { edit, newItem },
         setMutationVariables,
-        setInvalidFields
+        setInvalidFields,
+        invalidFields
     } = useFormProvider(
         id,
         props.path,
@@ -73,7 +74,8 @@ export default props => {
                     newItem,
                     setMutationVariables,
                     constraints,
-                    setInvalidFields
+                    setInvalidFields,
+                    invalidFields
                 }}
             />
             <SecondaryCard

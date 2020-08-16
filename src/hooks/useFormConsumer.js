@@ -3,16 +3,17 @@ import { useState } from "react";
 export const useFormConsumer = (
     setMutationVariables,
     setInvalidFields,
-    constraints
+    constraints,
+    invalidFields
 ) => {
-    const [localInvalidFields, setLocalInvalidFields] = useState({});
+    const [localInvalidFields, setLocalInvalidFields] = useState(invalidFields);
 
     const validateField = (value, ref, constraint) => {
         if (value.match(constraint)) {
             setLocalInvalidFields(current => {
                 let { [ref]: refToRemove, ...updatedObject } = current;
                 if (Object.values(updatedObject).length === 0) {
-                    setInvalidFields({error: true});
+                    setInvalidFields({});
                 }
                 return updatedObject;
             });

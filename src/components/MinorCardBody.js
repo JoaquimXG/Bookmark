@@ -16,15 +16,19 @@ export default props => {
         edit,
         newItem,
         setMutationVariables,
+        constraints,
         setInvalidFields,
-        constraints
+        invalidFields
     } = props.formState;
 
     const { localInvalidFields, handleBlur, handleEdit } = useFormConsumer(
         setMutationVariables,
         setInvalidFields,
-        constraints
+        constraints,
+        invalidFields
     );
+    //console.log({invalidFields})
+    //console.log({localInvalidFields})
 
     return (
         <Box className={`${classes.flexColumn} ${classes.padding2}`}>
