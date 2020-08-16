@@ -16,13 +16,13 @@ export default props => {
         edit,
         newItem,
         setMutationVariables,
-        setError,
+        setInvalidFields,
         constraints
     } = props.formState;
 
-    const { invalidFields, handleBlur, handleEdit } = useFormConsumer(
+    const { localInvalidFields, handleBlur, handleEdit } = useFormConsumer(
         setMutationVariables,
-        setError,
+        setInvalidFields,
         constraints
     );
 
@@ -35,7 +35,7 @@ export default props => {
                         field={field}
                         edit={edit}
                         newItem={newItem}
-                        invalidFields={invalidFields}
+                        invalidFields={localInvalidFields}
                         handleChange={{ blur: handleBlur, edit: handleEdit }}
                     />
                 ) : null;

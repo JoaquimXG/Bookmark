@@ -2,25 +2,26 @@ import { useState } from "react";
 
 export const useFormConsumer = (
     setMutationVariables,
-    setError,
+    setInvalidFields,
     constraints
 ) => {
-    const [invalidFields, setInvalidFields] = useState({});
+    const [localInvalidFields, setLocalInvalidFields] = useState({});
 
     const validateField = (value, ref, constraint) => {
         if (value.match(constraint)) {
-            setInvalidFields(current => {
-                //Removes [ref] key from the current object
-                //returning object without [ref]
+            setLocalInvalidFields(current => {
                 let { [ref]: refToRemove, ...updatedObject } = current;
+                if (Object.values(updatedObject).length === 0) {
+                    setInvalidFields({error: true});
+                }
                 return updatedObject;
             });
-            if (Object.values(invalidFields).length === 0) {
-                setError(false);
-            }
         } else {
-            setInvalidFields(current => ({ ...current, [ref]: true }));
-            setError(true);
+            setLocalInvalidFields(current => {
+                var updatedObject = { ...current, [ref]: true };
+                setInvalidFields(updatedObject);
+                return { ...current, [ref]: true };
+            });
         }
     };
 
@@ -31,7 +32,7 @@ export const useFormConsumer = (
             ...current,
             [ref]: value
         }));
-        if (invalidFields[ref]) {
+        if (localInvalidFields[ref]) {
             validateField(value, ref, constraints[ref]);
         }
     };
@@ -44,5 +45,5 @@ export const useFormConsumer = (
         }
     };
 
-    return { invalidFields, handleBlur, handleEdit };
+    return { localInvalidFields, handleBlur, handleEdit };
 };

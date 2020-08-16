@@ -246,7 +246,7 @@ const credential = {
             deleteCredential(id: $id, site_id: $site_id)
         }
     `,
-    mutation: gql`
+    update: gql`
         mutation updateCredential(
             $id: ID
             $site_id: ID!

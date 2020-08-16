@@ -89,13 +89,14 @@ const credential = {
         query credential($id: Int!) {
             credential(id: $id) {
                 id
+                site_id
                 name
                 password
-                url
                 description
                 type
                 client
                 folder
+                url
                 notes
             }
         }
