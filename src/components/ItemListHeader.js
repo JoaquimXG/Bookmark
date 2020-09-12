@@ -26,6 +26,7 @@ export default props => {
                         variant="contained"
                         startIcon={<Value.icon />}
                         size="small"
+                        onClick={props.buttonFunctions[Value.text]}
                         style={{
                             margin: theme.spacing(1),
                             color: Value.textColor ? Value.textColor : "white",

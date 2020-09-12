@@ -2,9 +2,8 @@
 import {
     CreateSharp,
     AddSharp,
-    GetAppSharp,
-    PublishSharp,
-    DeleteOutlineSharp
+    DeleteOutlineSharp,
+    PictureAsPdfSharp
 } from "@material-ui/icons";
 
 //Data and templates
@@ -182,42 +181,27 @@ const printer = [
 
 export const buttons = [
     {
-        icon: CreateSharp,
-        get color() {
-            return themeColors.secondary5;
-        },
-        text: "Edit"
-    },
-    {
-        icon: DeleteOutlineSharp,
-        get color() {
-            return themeColors.error
-        },
-        text: "Delete",
-        textColor: "black"
-    },
-    {
-        icon: PublishSharp,
-        get color() {
-            return themeColors.primary5;
-        },
-        text: "Export"
-    },
-    {
-        icon: GetAppSharp,
-        get color() {
-            return themeColors.primary5;
-        },
-        text: "Import"
-    },
-
-    {
         icon: AddSharp,
         get color() {
             return themeColors.success;
         },
         text: "New"
-    }
+    },
+    {
+        icon: PictureAsPdfSharp,
+        get color() {
+            return themeColors.primary5;
+        },
+        text: "PDF"
+    },
+    {
+        icon: DeleteOutlineSharp,
+        get color() {
+            return themeColors.error;
+        },
+        text: "Delete",
+        textColor: "black"
+    },
 ];
 
 export const columnHeaders = {

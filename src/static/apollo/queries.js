@@ -224,7 +224,7 @@ export const individualQueries = {
 };
 
 export const generatePdfQuery = gql`
-    query generatePdf($id: ID!, $site_id: ID!, $template: String!){
+    query generatePdf($id: ID, $site_id: ID!, $template: String!){
         generatePdf(id:$id, site_id:$site_id, template:$template)
     }
 `;
