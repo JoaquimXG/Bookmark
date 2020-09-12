@@ -5,6 +5,8 @@ import mutations from "../static/apollo/mutations";
 import { itemListQueries, generatePdfQuery } from "../static/apollo/queries";
 import { useLazyQuery } from "@apollo/client";
 
+const SITE_ID = 12345
+
 const validateEmptyFields = (fields, constraints) => {
     var updatedInvalidFields = {};
 
@@ -40,6 +42,8 @@ export const useFormProvider = (id, path, data, constraints) => {
         itemListQueries[path].data
     );
 
+    console.log({path})
+
     const resetState = () => {
         setEdit(false);
         setNewItem(false);
@@ -72,7 +76,7 @@ export const useFormProvider = (id, path, data, constraints) => {
         },
         Delete: () => {
             console.log("delete");
-            let variables = { id: id, site_id: 12345 };
+            let variables = { id: id, site_id: SITE_ID };
             performDelete({
                 variables: variables,
                 errorPolicy: "all"
@@ -110,7 +114,7 @@ export const useFormProvider = (id, path, data, constraints) => {
                 ...mutationVariables,
                 id: newItem ? null : id,
                 isnew: newItem,
-                site_id: 12345
+                site_id: SITE_ID
             };
             handleMutationPromise(performMutation, variables);
         },
@@ -120,7 +124,7 @@ export const useFormProvider = (id, path, data, constraints) => {
             dataWithoutId = {
                 ...dataWithoutId,
                 isnew: true,
-                site_id: 12345
+                site_id: SITE_ID
             };
             handleMutationPromise(performMutation, dataWithoutId);
         },
@@ -128,7 +132,7 @@ export const useFormProvider = (id, path, data, constraints) => {
             //TO-DO Integrate PDF generation
             console.log("PDF");
             loadPdf({
-                variables: { id: id, site_id: 12345, template: "credentials" }
+                variables: { id: id, site_id: SITE_ID, template: `${path}s` }
             });
         }
     };

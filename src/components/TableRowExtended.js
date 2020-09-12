@@ -5,7 +5,7 @@ import {
     TableCell,
     Checkbox,
     Divider,
-    Typography,
+    Typography
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
@@ -17,11 +17,18 @@ import { columnHeaders } from "../static/templates/itemListStaticTemplates";
 
 export default props => {
     const classes = myStyles();
+    const id = props.row.id;
+
+    const isChecked = props.selected[id] ? props.selected[id] : false;
 
     return (
         <TableRow hover>
             <TableCell className={classes.tableCellCheckbox} padding="checkbox">
-                <Checkbox></Checkbox>
+                <Checkbox
+                    id={id}
+                    checked={isChecked}
+                    onChange={e => props.toggleSelected(e)}
+                ></Checkbox>
                 <Divider
                     className={classes.tableCellDivider}
                     orientation="vertical"

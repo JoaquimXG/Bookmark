@@ -28,7 +28,7 @@ export default props => {
                         size="small"
                         style={{
                             margin: theme.spacing(1),
-                            color: "white",
+                            color: Value.textColor ? Value.textColor : "white",
                             background: Value.color
                         }}
                     >

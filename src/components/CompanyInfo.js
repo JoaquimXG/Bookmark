@@ -50,7 +50,6 @@ export default props => {
         primaryCardTemplate
     );
 
-    //This is just to keep the components further down the line happy
     const formState = {
         edit: false,
         newItem: false,

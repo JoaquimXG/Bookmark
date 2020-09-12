@@ -3,7 +3,8 @@ import {
     CreateSharp,
     AddSharp,
     GetAppSharp,
-    PublishSharp
+    PublishSharp,
+    DeleteOutlineSharp
 } from "@material-ui/icons";
 
 //Data and templates
@@ -186,6 +187,14 @@ export const buttons = [
             return themeColors.secondary5;
         },
         text: "Edit"
+    },
+    {
+        icon: DeleteOutlineSharp,
+        get color() {
+            return themeColors.error
+        },
+        text: "Delete",
+        textColor: "black"
     },
     {
         icon: PublishSharp,

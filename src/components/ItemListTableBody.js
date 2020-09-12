@@ -16,6 +16,8 @@ export default props => {
                     path={props.path}
                     key={row.id}
                     row={row}
+                    selected={props.selected}
+                    toggleSelected={props.toggleSelected}
                 />
             ))}
         </TableBody>

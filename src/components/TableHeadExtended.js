@@ -23,7 +23,7 @@ export default props => {
                     padding="checkbox"
                     variant="head"
                 >
-                    <Checkbox></Checkbox>
+                    <Checkbox id="primarybox" onChange={(e) => props.toggleSelectAll(e)}></Checkbox>
                     <Divider
                         className={classes.tableCellDivider}
                         orientation="vertical"
