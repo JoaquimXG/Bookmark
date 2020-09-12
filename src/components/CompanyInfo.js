@@ -1,9 +1,8 @@
 //External Imports
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 //Custom Components
 import SecondaryCard from "./SecondaryCard";
-import CompanyInfoPrimaryCard from "./CompanyInfoPrimaryCard";
 
 //Data, queries, mutations and templates
 import {
@@ -12,79 +11,67 @@ import {
     secondaryCardData,
     proxyGqlQueryResponseData
 } from "../static/templates/companyInfoTemplates";
+import PrimaryCard from "./PrimaryCard";
 
 
-const initialiseFormValues = (cards, title) => {
-    let tempFormValues = { name: title };
-    cards
-        .map(card => card.content)
-        .flat()
-        .forEach(
-            value =>
-                (tempFormValues[value.title] = value.content
-                    ? value.content
-                    : "")
-        );
-    return tempFormValues;
+//Uncategorised
+import fillDataScreenTemplate from "../static/functions/fillDataScreenTemplate";
+
+
+const secondaryButtonFunctions = {
+    Merge: () => {
+        console.log("Merge");
+    },
+    New: () => {
+        console.log("New");
+    },
+    Edit: () => {
+        console.log("Edit");
+    }
 };
 
+const buttonFunctions = {
+    Runbook: () => {
+        console.log("Runbook")
+    },
+
+    Edit: () => {
+        console.log("Edit")
+    }
+}
+
 export default props => {
-    const [item, setItem] = useState(null);
-
-    const [initialFormValues, setInitialFormValues] = useState(null);
-
-    const [formValues, setFormValues] = useState(null);
-    
-
     //var query = individualQueries.companyInfo.query;
-    //var id = 235537;
+    var id = 235537;
+    const data = proxyGqlQueryResponseData
 
-    const secondaryButtonFunctions = {
-        Copy: () => {
-            console.log("copy");
-        },
-        PDF: () => {
-            console.log("PDF");
-        },
-        Edit: () => {
-            console.log("edit");
-        }
-    };
+    const { cards, header } = fillDataScreenTemplate(
+        data,
+        primaryCardTemplate
+    );
 
-    const tempData = proxyGqlQueryResponseData
+    //This is just to keep the components further down the line happy
+    const formState = {
+        edit: false,
+        newItem: false,
+        setMutationVariables: () => console.log("Setting variables"),
+        constraints: {},
+        setInvalidFields: () => console.log("Setting invalid Fields"),
+        invalidFields: {}
 
-    useEffect(() => {
-        if (tempData) {
-            //USED TO BE tempitem = generatePrimaryCards() 
-            //TO-DO, needs to replaced
-            var tempItem = false
-            console.log(tempItem)
-            // Initialise the values used to fill forms
-            let tempFormValues = initialiseFormValues(
-                tempItem.cards,
-                tempItem.header.title
-            );
-            setItem(tempItem);
-            setInitialFormValues(tempFormValues);
-            setFormValues(tempFormValues);
-        }
-    }, [tempData]);
-
-    if (!formValues) return( null )
+    }
 
     return (
         <>
-            <CompanyInfoPrimaryCard
-                path={"/"}
-                id={0}
-                cards={item.cards}
-                header={item.header}
-                rowTemplate={primaryCardTemplate}
-                formValues={formValues}
-                initialFormValues={initialFormValues}
-                setFormValues={setFormValues}
+            <PrimaryCard
+                id={id}
+                header={header}
+                buttonFunctions={buttonFunctions}
+                cards={cards}
+                formState={formState}
                 buttons={buttons.primary}
-            />
+                companyInfo
+                />
             <SecondaryCard
                 templates={secondaryCardData}
                 buttons={buttons.secondary}

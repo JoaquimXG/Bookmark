@@ -69,26 +69,26 @@ export const primaryCardTemplate = {
 
     cards: [
         {
-            title: "Company Notes",
-            content: [{ title: "notes" }],
+            minorTitle: "Company Notes",
+            fields: [{ title: "Notes", ref: "notes"}],
             columns: { xs: 12 }
         },
         {
-            title: "Recently Viewed",
-            content: [{ title: "credential" }, { title: "asset" }],
+            minorTitle: "Recently Viewed",
+            fields: [{ ref: "credential", title: "Credential" }, { ref: "asset", title: "Asset" }],
             columns: { xs: 4 }
         },
         {
-            title: "Recently Edited",
-            content: [{ title: "credential" }, { title: "asset" }],
+            minorTitle: "Recently Edited",
+            fields: [{ ref: "credential", title: "Credential" }, { ref: "asset", title: "Asset" }],
             columns: { xs: 4 }
         },
         {
-            title: "Important Contacts",
-            content: [
-                { title: "contact1" },
-                { title: "contact2" },
-                { title: "contact3" },
+            minorTitle: "Important Contacts",
+            fields: [
+                { ref: "contact1", title: "Important Contact" },
+                { ref: "contact2", title: "Important Contact" },
+                { ref: "contact3", title: "Important Contact" },
             ],
             columns: { xs: 4 }
         }

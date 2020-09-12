@@ -58,7 +58,7 @@ export default props => {
     return (
         <>
             <PrimaryCard
-                id={props.match.params.id}
+                id={id}
                 header={header}
                 buttonFunctions={buttonFunctions}
                 cards={cards}

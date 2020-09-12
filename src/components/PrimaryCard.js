@@ -10,10 +10,11 @@ import MinorCardGridContainer from "./MinorCardGridContainer";
 //Templates
 import dataScreenStaticTemplates from "../static/templates/dataScreenStaticTemplates";
 
-
 //Style
 import { myStyles } from "../static/css/style";
 
+//  ------ This can be used to display an error message box when form is submitted incorrectly ------
+//
 //    const handleBadFormSubmit = error => {
 //        console.log(error);
 //        setMessage({
@@ -28,17 +29,21 @@ import { myStyles } from "../static/css/style";
 
 //    //when set, an error box will be displayed with the given message
 //    const [message, setMessage] = useState({});
-            //<MyMessage message={message} />
+//<MyMessage message={message} />
 
 export default props => {
     const classes = myStyles();
+
+    const buttons = props.companyInfo
+        ? props.buttons
+        : dataScreenStaticTemplates.buttons.primary;
 
     return (
         <Paper className={classes.itemList} elevation={8}>
             <PrimaryCardHeader
                 buttonFunctions={props.buttonFunctions}
                 header={props.header}
-                buttons={dataScreenStaticTemplates.buttons.primary}
+                buttons={buttons}
                 formState={props.formState}
             />
             <Divider />
