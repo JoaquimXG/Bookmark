@@ -28,20 +28,15 @@ export default props => {
         itemListQueries[props.path].query
     );
 
-    const [
-        loadPdf,
-        {
-            data: lazyData,
-        }
-    ] = useLazyQuery(generatePdfQuery);
+    const [loadPdf, { data: lazyData }] = useLazyQuery(generatePdfQuery);
 
-    useEffect(()=> {
+    useEffect(() => {
         if (lazyData) {
-            const url = lazyData.generatePdf
+            const url = lazyData.generatePdf;
             console.log(lazyData.generatePdf);
-            window.open(url, '_blank')
+            window.open(url, "_blank");
         }
-    },[lazyData])
+    }, [lazyData]);
 
     const [performDelete] = useMutation(mutations[props.path].delete, {
         update: (cache, { data }) => {
@@ -88,7 +83,20 @@ export default props => {
         },
         PDF: () => {
             console.log("PDF");
-            loadPdf({ variables: { site_id: SITE_ID, template: itemType } });
+            //filters out any selected boxes that are false
+            //maps an array of only the ids
+            let currentSelected = Object.entries(selected)
+                .filter(selected => selected[1] === true)
+                .map(selected => selected[0]);
+            currentSelected =
+                currentSelected.length === 0 ? null : currentSelected;
+            loadPdf({
+                variables: {
+                    site_id: SITE_ID,
+                    template: itemType,
+                    id: currentSelected
+                }
+            });
         },
         New: () => {
             console.log("New");

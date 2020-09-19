@@ -278,6 +278,10 @@ export const myStyles = makeStyles(theme => ({
         margin: theme.spacing(0, 0, 1.5)
     },
 
+    padding1_5: {
+        padding: theme.spacing(1.5)
+    },
+
     padding2: {
         padding: theme.spacing(2)
     },

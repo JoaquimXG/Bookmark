@@ -27,8 +27,7 @@ export default props => {
     return (
         <Grid
             container
-            className={`${classes.padding3} ${classes.primaryOverflow}`}
-            spacing={3}
+            className={`${classes.padding1_5} ${classes.primaryOverflow}`}
         >
             {props.cards.map((card, index) => {
                 return card.fields.every(

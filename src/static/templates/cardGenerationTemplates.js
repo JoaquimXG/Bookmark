@@ -1,5 +1,5 @@
 const contact = {
-    header: { title: "name" },
+    header: { ref: "name" },
 
     cards: [
         {
@@ -32,7 +32,7 @@ const contact = {
     ]
 };
 const backup = {
-    header: { title: "name" },
+    header: { ref: "name" },
     cards: [
         {
             minorTitle: "Schedule",
@@ -66,7 +66,7 @@ const backup = {
     ]
 };
 const location = {
-    header: { title: "name" },
+    header: { ref: "name" },
     cards: [
         {
             minorTitle: "Address",
@@ -97,7 +97,7 @@ const location = {
     ]
 };
 const credential = {
-    header: { title: "name" },
+    header: { ref: "name" },
 
     cards: [
         {
@@ -133,7 +133,7 @@ const credential = {
     ]
 };
 const asset = {
-    header: { title: "name", disabled: true },
+    header: { ref: "name", disabled: true },
 
     cards: [
         {

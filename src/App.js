@@ -9,6 +9,7 @@ import { ApolloProvider } from "@apollo/client";
 import AppBar from "./components/AppBar";
 import ItemList from "./components/ItemList";
 import DataScreen from "./components/DataScreen";
+//import NewDataScreen from "./components/NewDataScreen";
 import CompanyInfo from "./components/CompanyInfo";
 
 //Incoming Data or templates
@@ -41,6 +42,19 @@ const ItemDataScreenRoute = route => {
     );
 };
 
+const NewItemRoute = route => {
+    return (
+        <Route
+            exact
+            key={route}
+            path={`/new${route}`}
+//            render={routerProps => (
+ //               <NewDataScreen {...routerProps} path={route} />
+  //          )}
+        />
+    );
+};
+
 const client = new ApolloClient({
     uri: "http://lvh.me:4000/graphql",
     cache: new InMemoryCache()
@@ -60,6 +74,10 @@ function App() {
                                 path="/"
                                 render={() => <CompanyInfo />}
                             />
+                           {//staticRoutes.map(route => {
+//                                return NewItemRoute(route);
+                            //})
+                            }
                             {staticRoutes.map(route => {
                                 return ItemListRoute(route);
                             })}

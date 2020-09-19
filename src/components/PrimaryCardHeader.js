@@ -15,8 +15,10 @@ export default props => {
     return (
         <header className={classes.primaryCardHeader}>
             <EditableTitle
-                value={props.header.title}
+                value={props.header.fieldValue}
+                header={props.header}
                 disabled={props.header.disabled}
+                formState={props.formState}
             />
             <ButtonRow
                 edit={props.formState.edit}

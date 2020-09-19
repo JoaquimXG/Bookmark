@@ -42,8 +42,6 @@ export const useFormProvider = (id, path, data, constraints) => {
         itemListQueries[path].data
     );
 
-    console.log({path})
-
     const resetState = () => {
         setEdit(false);
         setNewItem(false);

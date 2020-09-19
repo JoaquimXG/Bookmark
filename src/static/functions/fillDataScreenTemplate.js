@@ -8,7 +8,7 @@ export default (responseData, template) => {
             }))
         };
     });
-    const title = responseData[template.header.title];
-    const header = { ...template.header, title };
+    const fieldValue = responseData[template.header.ref];
+    const header = { ...template.header, fieldValue };
     return { cards: filledTemplate, header };
 };

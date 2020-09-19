@@ -11,7 +11,7 @@ export default props => {
 
     return (
         <Grid item xs={columns.xs? columns.xs: true}>
-            <Paper elevation={2}>
+            <Paper elevation={2} style={{margin:12}}>
                 <MinorCardHeader title={minorTitle} />
                 <Divider />
                 <MinorCardBody
