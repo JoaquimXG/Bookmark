@@ -22,6 +22,20 @@ import activityFeedData from "./activityFeedTemporaryData";
 
 const theme = createMuiTheme();
 
+const newOnlyButtons = [
+    {
+        icon: CloseSharp,
+        color: "red",
+        text: "Cancel",
+        textColor: "black"
+    },
+    {
+        icon: SaveSharp,
+        color: "blue",
+        text: "Save"
+    }
+];
+
 const buttons = {
     primary: [
         {
@@ -43,14 +57,14 @@ const buttons = {
             onEdit: {
                 icon: SaveSharp,
                 color: "blue",
-                text: "Save",
+                text: "Save"
             }
         },
         {
             icon: AddSharp,
             color: "green",
             text: "New"
-        },
+        }
     ],
 
     secondary: [
@@ -113,5 +127,6 @@ const secondaryCardData = [
 
 export default {
     secondaryCardData,
-    buttons
+    buttons,
+    newOnlyButtons
 };

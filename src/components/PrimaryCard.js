@@ -34,7 +34,7 @@ import { myStyles } from "../static/css/style";
 export default props => {
     const classes = myStyles();
 
-    const buttons = props.companyInfo
+    const buttons = props.controlButtons
         ? props.buttons
         : dataScreenStaticTemplates.buttons.primary;
 

@@ -20,9 +20,9 @@ const validateEmptyFields = (fields, constraints) => {
     return updatedInvalidFields;
 };
 
-export const useFormProvider = (id, path, data, constraints) => {
-    const [edit, setEdit] = useState(false);
-    const [newItem, setNewItem] = useState(false);
+export const useFormProvider = (id, path, data, constraints, onlyNew=false) => {
+    const [edit, setEdit] = useState(onlyNew);
+    const [newItem, setNewItem] = useState(onlyNew);
     const [mutationVariables, setMutationVariables] = useState({ empty: true });
     const [invalidFields, setInvalidFields] = useState({});
     const history = useHistory();

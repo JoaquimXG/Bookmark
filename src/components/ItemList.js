@@ -2,10 +2,13 @@
 import React, { useState, useEffect } from "react";
 import { Paper, Divider } from "@material-ui/core";
 import { useQuery, useMutation, useLazyQuery } from "@apollo/client";
+import { useHistory } from "react-router-dom";
 
 // Custom static components
 import ItemCategoryErrorBoundary from "./ItemCategoryErrorBoundary";
 import DisplayMessageCard from "./DisplayMessageCard";
+import ItemListTableContainer from "./ItemListTableContainer";
+import ItemListHeader from "./ItemListHeader";
 
 //Style
 import { myStyles } from "../static/css/style";
@@ -13,8 +16,6 @@ import { myStyles } from "../static/css/style";
 //Incoming data or templates
 import { itemListQueries, generatePdfQuery } from "../static/apollo/queries";
 import mutations from "../static/apollo/mutations";
-import ItemListTableContainer from "./ItemListTableContainer";
-import ItemListHeader from "./ItemListHeader";
 
 //TO-DO remove Hard Coded SITE_ID
 const SITE_ID = 12345;
@@ -23,6 +24,7 @@ export default props => {
     const classes = myStyles();
     const [selected, setSelected] = useState({});
     const itemType = `${props.path}s`;
+    const history = useHistory();
 
     const { loading, error, data } = useQuery(
         itemListQueries[props.path].query
@@ -76,8 +78,6 @@ export default props => {
                     performDelete({
                         variables: { id: id, site_id: SITE_ID }
                     });
-                } else {
-                    console.log("not deleting", id);
                 }
             });
         },
@@ -100,6 +100,7 @@ export default props => {
         },
         New: () => {
             console.log("New");
+            history.push(`/new${props.path}`);
         }
     };
 

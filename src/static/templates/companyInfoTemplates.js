@@ -26,11 +26,6 @@ export const buttons = {
             color: "grey",
             text: "Runbook"
         },
-        {
-            icon: CreateSharp,
-            color: "blue",
-            text: "Edit"
-        }
     ],
 
     secondary: [
@@ -65,7 +60,7 @@ export const proxyGqlQueryResponseData = {
 };
 
 export const primaryCardTemplate = {
-    header: { title: "name" },
+    header: { ref: "name" },
 
     cards: [
         {
