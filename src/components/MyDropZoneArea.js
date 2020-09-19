@@ -28,6 +28,8 @@ class MyDropzoneArea extends Component {
             files: files
         });
     }
+
+
     render() {
         return (
             <MuiThemeProvider theme={myTheme}>
