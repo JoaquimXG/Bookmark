@@ -20,12 +20,24 @@ export default props => {
                     variant="temporary"
                     ModalProps={{ keepMounted: true }}
                 >
-                    {<NavBar setId={props.setId} id={props.id} />}
+                    {
+                        <NavBar
+                            site_id={props.site_id}
+                            setId={props.setId}
+                            id={props.id}
+                        />
+                    }
                 </Drawer>
             </Hidden>
             <Hidden xsDown implementation="css">
                 <Drawer open onClose={props.toggleSlider} variant="permanent">
-                    {<NavBar setId={props.setId} id={props.id} />}
+                    {
+                        <NavBar
+                            site_id={props.site_id}
+                            setId={props.setId}
+                            id={props.id}
+                        />
+                    }
                 </Drawer>
             </Hidden>
         </nav>

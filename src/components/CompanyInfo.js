@@ -1,5 +1,6 @@
 //External Imports
 import React, { useEffect } from "react";
+import {useLocation} from "react-router-dom";
 
 //Custom Components
 import SecondaryCard from "./SecondaryCard";
@@ -37,6 +38,7 @@ export default props => {
     //var query = individualQueries.companyInfo.query;
     var id = 235537;
     const data = proxyGqlQueryResponseData;
+    const site_id = props.match.params.site_id
 
     const [loadPdf, { data: lazyData }] = useLazyQuery(generatePdfQuery);
 

@@ -26,6 +26,8 @@ export default props => {
     const itemType = `${props.path}s`;
     const history = useHistory();
 
+    const site_id = props.match.params.site_id
+
     const { loading, error, data } = useQuery(
         itemListQueries[props.path].query
     );
@@ -100,7 +102,7 @@ export default props => {
         },
         New: () => {
             console.log("New");
-            history.push(`/new${props.path}`);
+            history.push(`/companies/${site_id}/new${props.path}`);
         }
     };
 
@@ -113,6 +115,7 @@ export default props => {
                 <ItemListHeader buttonFunctions={butttonFunctions} />
                 <Divider />
                 <ItemListTableContainer
+                    site_id={site_id}
                     data={data}
                     path={props.path}
                     selected={selected}

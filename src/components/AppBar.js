@@ -12,36 +12,22 @@ import HomeIconButton from "./HomeIconButton";
 
 //Local data and templates
 import { themeColors, myStyles } from "../static/css/style";
+import {useParams, useRouteMatch} from "react-router-dom";
 //import navBarItems from "../static/templates/navBarTemplates";
 
 export default props => {
     const classes = myStyles();
-//    const history = useHistory()
-
     const [mobileOpen, setMobileOpen] = useState(false);
     //Used to highlight the correct NavBarListItem
     const [id, setId] = useState(undefined);
 
-//    const currentPage = useLocation().pathname;
-    //Checks to see if current page includes any of the paths 
-    //Defined in imported navBarItems
-//    if (id === undefined) {
-//        try{
-//            setId(
-//                navBarItems.find(item =>
-//                    currentPage.toLowerCase().includes(item.listText.toLowerCase())
-//                ).id
-//            );
-//
-//        }catch{
-//            setId(0)
-//            history.replace("/")
-//        }
-//    }
+    const match = useRouteMatch('/companies/:site_id')
+    const site_id = match? match.params.site_id : null
 
     const toggleSlider = () => {
         setMobileOpen(!mobileOpen);
     };
+
     return (
         <Box>
             <AppBarDecoration color={themeColors.primary6} />
@@ -55,6 +41,7 @@ export default props => {
                     <AppBarTitle id={id} />
                     <HomeIconButton />
                     <NavDrawer
+                        site_id={site_id}
                         setId={setId}
                         id={id}
                         toggleSlider={toggleSlider}

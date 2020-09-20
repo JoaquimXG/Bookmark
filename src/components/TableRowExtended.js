@@ -36,7 +36,7 @@ export default props => {
             </TableCell>
             {columnHeaders[props.path].map(column => (
                 <TableCell
-                    to={`/${props.path}s/${props.row.id}`}
+                    to={`/companies/${props.site_id}/${props.path}s/${props.row.id}`}
                     component={Link}
                     className={classes.tableCell}
                     key={`${column.id}-${props.row.id}`}

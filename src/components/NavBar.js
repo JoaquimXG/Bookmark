@@ -17,7 +17,11 @@ export default props => {
         <Box className={classes.navMenuSliderContainer}>
             <AppBarDecoration color="#C4C4C4" />
             <NavBarAvatar setId={props.setId} />
-            <NavBarList setId={props.setId} id={props.id} />
+            <NavBarList
+                site_id={props.site_id}
+                setId={props.setId}
+                id={props.id}
+            />
         </Box>
     );
 };

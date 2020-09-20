@@ -1,7 +1,12 @@
 //External Imports
-import React from "react";
+import React, { useState } from "react";
 import { CssBaseline } from "@material-ui/core";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    useLocation
+} from "react-router-dom";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { ApolloProvider } from "@apollo/client";
 
@@ -23,9 +28,9 @@ const ItemListRoute = route => {
         <Route
             exact
             key={route}
-            path={`/${route}s`}
-            render={() => {
-                return <ItemList path={route} />;
+            path={`/companies/:site_id/${route}s`}
+            render={routerProps => {
+                return <ItemList {...routerProps} path={route} />;
             }}
         />
     );
@@ -36,7 +41,7 @@ const ItemDataScreenRoute = route => {
         <Route
             exact
             key={route}
-            path={`/${route}s/:id`}
+            path={`/companies/:site_id/${route}s/:id`}
             render={routerProps => <DataScreen {...routerProps} path={route} />}
         />
     );
@@ -47,7 +52,7 @@ const NewItemRoute = route => {
         <Route
             exact
             key={route}
-            path={`/new${route}`}
+            path={`/companies/:site_id/new${route}`}
             render={routerProps => (
                 <NewDataScreen {...routerProps} path={route} />
             )}
@@ -62,31 +67,31 @@ const client = new ApolloClient({
 
 function App() {
     const classes = myStyles();
+
     return (
         <ApolloProvider client={client}>
             <CssBaseline>
-                <Router>
-                    <AppBar />
-                    <div className={classes.mainWindow}>
-                        <Switch>
-                            <Route
-                                exact
-                                path="/"
-                                render={() => <CompanyInfo />}
-                            />
-                           {staticRoutes.map(route => {
-                                return NewItemRoute(route);
-                            })
-                            }
-                            {staticRoutes.map(route => {
-                                return ItemListRoute(route);
-                            })}
-                            {staticRoutes.map(route => {
-                                return ItemDataScreenRoute(route);
-                            })}
-                        </Switch>
-                    </div>
-                </Router>
+                <AppBar companyInfo />
+                <div className={classes.mainWindow}>
+                    <Switch>
+                        <Route
+                            exact
+                            path="/companies/:site_id/"
+                            render={routerProps => {
+                                return <CompanyInfo {...routerProps} />;
+                            }}
+                        />
+                        {staticRoutes.map(route => {
+                            return NewItemRoute(route);
+                        })}
+                        {staticRoutes.map(route => {
+                            return ItemListRoute(route);
+                        })}
+                        {staticRoutes.map(route => {
+                            return ItemDataScreenRoute(route);
+                        })}
+                    </Switch>
+                </div>
             </CssBaseline>
         </ApolloProvider>
     );

@@ -13,6 +13,7 @@ export default props => {
         <TableBody>
             {props.data[itemListQueries[props.path].data].map(row => (
                 <TableRowExtended
+                    site_id={props.site_id}
                     path={props.path}
                     key={row.id}
                     row={row}

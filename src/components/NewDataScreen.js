@@ -21,6 +21,8 @@ export default props => {
     var id = parseInt(props.match.params.id);
     const constraints = formConstraints[props.path];
     const history = useHistory();
+    const site_id = props.match.params.site_id
+
 
     var {
         buttonFunctions,
@@ -44,7 +46,7 @@ export default props => {
     } = buttonFunctions;
 
     buttonFunctions.Cancel = () => {
-        history.replace(`/${props.path}s`)
+        history.replace(`/companies/${site_id}/${props.path}s`)
     } 
 
     const { cards, header } = fillDataScreenTemplate(

@@ -17,7 +17,7 @@ export default props => {
         <NavLink
             style={{ textDecoration: "none" }}
             //TO-DO, Navigate to the ID rather than to the path string
-            to={`/${listItem.listText}`}
+            to={`/companies/${props.site_id}/${listItem.listText}`}
             onClick={() => props.setId(listItem.id)}
             activeClassName={classes.navItemOnSelect}
         >

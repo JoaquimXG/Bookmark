@@ -18,6 +18,7 @@ export default props => {
                         listItem={listItem}
                         setId={props.setId}
                         id={props.id}
+                        site_id={props.site_id}
                         page={props.page}
                     />
                 );

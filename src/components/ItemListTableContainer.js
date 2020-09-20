@@ -18,6 +18,7 @@ export default props => {
                 toggleSelectAll={props.toggleSelectAll}
             />
             <ItemListTableBody
+                site_id={props.site_id}
                 data={props.data}
                 path={props.path}
                 selected={props.selected}
