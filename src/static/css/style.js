@@ -55,6 +55,10 @@ export const myStyles = makeStyles(theme => ({
         justifyContent: "center",
     },
 
+    breadcrumbs: {
+        color: "white",
+        fontSize: "1.6rem",
+    },
 
     //Primary Card and Children
     primaryCard: {
