@@ -204,7 +204,7 @@ const backup = {
 
 const companyInfo = {
     query: gql`
-        query site($id: Int!) {
+        query site($id: ID!) {
             site(id: $id) {
                 id
                 name
@@ -228,3 +228,4 @@ export const generatePdfQuery = gql`
         generatePdf(id:$id, site_id:$site_id, template:$template)
     }
 `;
+

@@ -38,7 +38,7 @@ export default props => {
             >
                 <Toolbar className={classes.appBarToolbar}>
                     <MenuIconButton toggleSlider={toggleSlider} />
-                    <AppBarTitle id={id} />
+                    <AppBarTitle  site_id={site_id} id={id} />
                     <HomeIconButton />
                     <NavDrawer
                         site_id={site_id}
