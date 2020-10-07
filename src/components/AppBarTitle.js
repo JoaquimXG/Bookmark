@@ -8,14 +8,6 @@ import { myStyles } from "../static/css/style";
 //Custom Components
 import MyBreadCrumbs from "./MyBreadCrumbs";
 
-const toTitleCase = string => {
-    //Only works on a single word
-
-    string = string.toLowerCase();
-    string = string[0].toUpperCase() + string.slice(1);
-
-    return string;
-};
 
 export default props => {
     const classes = myStyles();
